@@ -15,3 +15,20 @@
     </v-layout>
   </v-layout>
 </template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  components: {
+  },
+  data: () => ({
+  }),
+  computed: {
+    ...mapGetters('clips', ['clips'])
+  },
+  methods: {
+    ...mapActions('clips', ['getClips'])
+  }
+}
+</script>
