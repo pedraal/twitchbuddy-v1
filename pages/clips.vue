@@ -1,0 +1,17 @@
+<template>
+  <v-layout>
+    <v-layout
+      column
+      justify-center
+      align-center
+    >
+      <v-flex
+        xs12
+        sm8
+        md6
+      >
+        <h1>Clips</h1>
+      </v-flex>
+    </v-layout>
+  </v-layout>
+</template>
