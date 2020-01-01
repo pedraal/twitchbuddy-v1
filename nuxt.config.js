@@ -8,6 +8,9 @@ export default {
   /*
   ** Headers of the page
   */
+  env: {
+    TWITCH_TOKEN: process.env.TWITCH_TOKEN || ''
+  },
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
