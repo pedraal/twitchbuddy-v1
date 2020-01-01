@@ -8,8 +8,10 @@
       xs12
       sm8
       md6
+      class="text-center"
     >
-      <h1>VodSync</h1>
+      <h1>Replay Sync</h1>
+      <h2>Coming soon!</h2>
     </v-flex>
   </v-layout>
 </template>
