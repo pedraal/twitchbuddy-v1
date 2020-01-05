@@ -66,8 +66,8 @@ export default {
         },
         {
           icon: 'mdi-movie',
-          title: 'Vod Sync',
-          to: '/vodsync'
+          title: 'Replay Sync',
+          to: '/replaysync'
         }
       ],
       title: 'TwitchBuddy'
