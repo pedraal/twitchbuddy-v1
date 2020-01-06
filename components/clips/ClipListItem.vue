@@ -23,12 +23,12 @@
       </v-row>
     </v-expansion-panel-header>
     <v-expansion-panel-content class="text-center">
-      <v-btn @click.stop="download" small>
+      <v-btn :href="clip.downloadLink" small>
         Download<v-icon class="ml-2">
           mdi-cloud-download
         </v-icon>
       </v-btn>
-      <v-btn @click.stop="gotoVod" small>
+      <v-btn :href="'https://www.twitch.tv/videos/' + clip.video_id" target="_blank" small>
         Go to replay<v-icon class="ml-2">
           mdi-movie-outline
         </v-icon>
@@ -56,12 +56,6 @@ export default {
   methods: {
     format (value) {
       return moment(value).format('DD/MM/YYYY hh:mm')
-    },
-    download () {
-      window.open(this.clip.downloadLink, '_blank')
-    },
-    gotoVod () {
-      window.open('https://www.twitch.tv/videos/' + this.clip.video_id, '_blank')
     }
   }
 }
