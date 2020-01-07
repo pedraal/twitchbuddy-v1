@@ -1,8 +1,11 @@
+import axios from 'axios'
+
 export const state = () => ({
   clips: [],
   error: false,
   cursor: '',
-  loading: false
+  loading: false,
+  previousQuery: ''
 })
 
 export const mutations = {
@@ -23,76 +26,37 @@ export const mutations = {
   },
   setLoading (state, payload) {
     state.loading = payload
+  },
+  setQuery (state, payload) {
+    state.previousQuery = payload
   }
 }
 
 export const actions = {
-  async loadClips ({ commit }, payload) {
-    commit('emptyError')
-    commit('emptyList')
+  async loadClips ({ commit, state }, payload) {
     commit('setLoading', true)
-
+    let query = ''
+    if (state.cursor !== '') {
+      query = state.previousQuery + '&cursor=' + state.cursor
+    } else {
+      if (payload.channel) {
+        query = query + 'channel=' + payload.channel
+      }
+      if (payload.start) {
+        query = query + '&start=' + payload.start
+      }
+      if (payload.end) {
+        query = query + '&end=' + payload.end
+      }
+      commit('setQuery', query)
+    }
     try {
-      const channelRes = await this.$twitch.$get('/users?login=' + payload.channel)
-      if (channelRes.data.length === 0) {
-        throw new TwitchError('Channel not found', 'channel')
-      }
-      const clipsRes = await this.$twitch.$get(`/clips?first=100&broadcaster_id=${channelRes.data[0].id}&started_at=${payload.timeRange[0]}&ended_at=${payload.timeRange[1]}`)
-      if (clipsRes.data.length === 0) {
-        throw new TwitchError('No clips for this period', 'period')
-      }
-      let idsString = ''
-      for (const clip of clipsRes.data) {
-        idsString = idsString + 'id=' + clip.game_id + '&'
-      }
-      const gamesRes = await this.$twitch.$get(`/games?${idsString}`)
-      if (gamesRes.data.length === 0) {
-        throw new Error('No games for these ids')
-      }
-      for (const clip of clipsRes.data) {
-        clip.category = gamesRes.data.filter((game) => {
-          return game.id === clip.game_id
-        })
-
-        const thumbUrl = clip.thumbnail_url
-        const toRemoveIndex = thumbUrl.indexOf('-preview-')
-
-        clip.downloadLink = thumbUrl.substr(0, toRemoveIndex) + '.mp4'
+      const res = await axios.get('/.netlify/functions/clips?' + query, { responseType: 'json' })
+      for (const clip of res.data.clips) {
         commit('addClip', clip)
       }
       commit('setLoading', false)
-
-      commit('setCursor', clipsRes.pagination.cursor)
-    } catch (error) {
-      commit('setLoading', false)
-
-      commit('addError', error)
-    }
-  },
-
-  async loadMoreClips ({ commit, state }, payload) {
-    try {
-      commit('setLoading', true)
-
-      const clipsRes = await this.$twitch.$get(`/clips?first=100&broadcaster_id=${state.clips[0].broadcaster_id}&started_at=${payload.timeRange[0]}&ended_at=${payload.timeRange[1]}&after=${state.cursor}`)
-      let idsString = ''
-      for (const clip of clipsRes.data) {
-        idsString = idsString + 'id=' + clip.game_id + '&'
-      }
-      const gamesRes = await this.$twitch.$get(`/games?${idsString}`)
-      const clips = clipsRes.data.map((clip) => {
-        clip.category = gamesRes.data.filter((game) => {
-          return game.id === clip.game_id
-        })
-        return clip
-      })
-      for (const clip of clips) {
-        if (state.clips.filter(c => c.id === clip.id).length < 1) {
-          commit('addClip', clip)
-        }
-      }
-      commit('setLoading', false)
-      commit('setCursor', clipsRes.pagination.cursor)
+      commit('setCursor', res.data.cursor)
     } catch (error) {
       commit('setLoading', false)
       commit('addError', error)
@@ -100,6 +64,12 @@ export const actions = {
   },
   emptyList ({ commit }) {
     commit('emptyList')
+  },
+  emptyError ({ commit }) {
+    commit('emptyError')
+  },
+  setCursor ({ commit }, payload) {
+    commit('setCursor', payload)
   }
 }
 
@@ -116,9 +86,4 @@ export const getters = {
   loading: (state) => {
     return state.loading
   }
-}
-
-function TwitchError (message, target) {
-  this.message = message
-  this.target = target
 }

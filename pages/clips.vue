@@ -7,7 +7,7 @@
     <h1>Clips</h1>
     <section class="clip-form">
       <keep-alive>
-        <v-form v-model="valid" @submit.prevent="getClips">
+        <v-form v-model="valid" @submit.prevent="submit">
           <v-container>
             <v-row>
               <v-col
@@ -49,14 +49,14 @@
                   ref="menu"
                   v-model="menu"
                   :close-on-content-click="false"
-                  :return-value.sync="timeRange"
+                  :return-value.sync="timerange"
                   transition="scale-transition"
                   offset-y
                   min-width="290px"
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
-                      v-model="readableTimeRange"
+                      v-model="readabletimerange"
                       v-on="on"
                       :error="error && error.target === 'period'"
                       :error-messages="error && error.target === 'period' ? error.message : ''"
@@ -65,12 +65,12 @@
                       readonly
                     />
                   </template>
-                  <v-date-picker v-model="timeRange" range no-title scrollable>
+                  <v-date-picker v-model="timerange" range no-title scrollable>
                     <v-spacer />
                     <v-btn @click="menu = false" text color="primary">
                       Cancel
                     </v-btn>
-                    <v-btn @click="$refs.menu.save(timeRange)" text color="primary">
+                    <v-btn @click="$refs.menu.save(timerange)" text color="primary">
                       OK
                     </v-btn>
                   </v-date-picker>
@@ -78,7 +78,7 @@
               </v-col>
             </v-row>
           </v-container>
-          <v-btn @click="getClips" class="mb-4">
+          <v-btn @click="submit" class="mb-4">
             submit
           </v-btn>
         </v-form>
@@ -133,7 +133,7 @@ export default {
         all: [moment(now).subtract(15, 'y').toISOString(), moment(now).toISOString()]
 
       },
-      timeRange: [moment(now).subtract(1, 'w').format('YYYY-MM-DD'), moment(now).format('YYYY-MM-DD')],
+      timerange: [moment(now).subtract(1, 'w').format('YYYY-MM-DD'), moment(now).format('YYYY-MM-DD')],
       timeSelect: [{
         value: 'daily',
         text: 'Daily'
@@ -161,22 +161,22 @@ export default {
   },
   computed: {
     ...mapGetters('clips', ['clips', 'error', 'cursor', 'loading']),
-    apiTimeRange () {
-      let arr = [...this.timeRange]
+    apitimerange () {
+      let arr = [...this.timerange]
       arr = arr.sort()
       arr[0] = moment(arr[0]).hours(0).minutes(0).toISOString()
       arr[1] = moment(arr[1]).hours(23).minutes(59).toISOString()
       return arr
     },
-    readableTimeRange () {
-      return this.apiTimeRange.map(t => moment(t).format('DD-MM-YYYY')).join(' / ')
+    readabletimerange () {
+      return this.apitimerange.map(t => moment(t).format('DD-MM-YYYY')).join(' / ')
     }
 
   },
   watch: {
     scrollValue (val) {
       if (this.cursor && !this.loading && val > this.loadOffset) {
-        this.getMoreClips()
+        this.getClips()
       }
     }
   },
@@ -187,21 +187,18 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
-    ...mapActions('clips', ['loadClips', 'loadMoreClips', 'emptyList']),
+    ...mapActions('clips', ['loadClips', 'emptyList', 'setCursor', 'emptyError', 'emptyList']),
     format (value) {
       return moment(value).format('DD/MM/YYYY hh:mm')
     },
-    getClips () {
-      if (this.period !== 'custom') {
-        return this.loadClips({ channel: this.channel, timeRange: this.periods[this.period].map(val => moment(val).toISOString()) })
-      }
-      return this.loadClips({ channel: this.channel, timeRange: this.timeRange.map(val => moment(val).toISOString()) })
+    submit () {
+      this.setCursor('')
+      this.emptyError()
+      this.emptyList()
+      this.getClips()
     },
-    getMoreClips () {
-      if (this.period !== 'custom') {
-        return this.loadMoreClips({ channel: this.channel, timeRange: this.periods[this.period].map(val => moment(val).toISOString()) })
-      }
-      return this.loadMoreClips({ channel: this.channel, timeRange: this.timeRange.map(val => moment(val).toISOString()) })
+    getClips () {
+      return this.loadClips({ channel: this.channel, cursor: this.cursor, start: this.periods[this.period].map(val => moment(val).toISOString())[0], end: this.periods[this.period].map(val => moment(val).toISOString())[1] })
     },
     handleScroll () {
       this.scrollValue = window.scrollY
@@ -214,11 +211,9 @@ export default {
   section {
     width: 100%;
   }
-
   td {
     p{
-
-    margin: 10px
+      margin: 10px
     }
   }
 </style>
