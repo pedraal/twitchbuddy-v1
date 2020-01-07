@@ -32,7 +32,7 @@ exports.handler = async (event, context, callback) => {
     const { data: clips } = await twitch.get(url)
     if (clips.data.length === 0) {
       return {
-        statusCode: 402,
+        statusCode: 400,
         body: JSON.stringify('clips not found')
       }
     }
