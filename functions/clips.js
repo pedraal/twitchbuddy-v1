@@ -42,15 +42,14 @@ exports.handler = async (event, context, callback) => {
       idsString = idsString + 'id=' + clip.game_id + '&'
     }
     const { data: games } = await twitch.get(`/games?${idsString}`)
-    if (games.data.length === 0) {
-      throw new Error('No games for these ids')
-    }
-
-    for (const clip of clips.data) {
-      clip.category = games.data.filter((game) => {
-        return game.id === clip.game_id
-      })
-      clip.downloadLink = clip.thumbnail_url.substr(0, clip.thumbnail_url.indexOf('-preview-')) + '.mp4'
+    if (games.data.length > 0) {
+      for (const clip of clips.data) {
+        const categoryObj = games.data.filter((game) => {
+          return game.id === clip.game_id
+        })[0]
+        clip.category = categoryObj ? categoryObj.name : ''
+        clip.downloadLink = clip.thumbnail_url.substr(0, clip.thumbnail_url.indexOf('-preview-')) + '.mp4'
+      }
     }
 
     return {
