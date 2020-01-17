@@ -4,7 +4,7 @@
       <v-row>
         <v-col class="pa-0">
           <p class="caption">
-            {{ clip.category[0] ? clip.category[0].name:'' }}
+            {{ clip.game }}
           </p>
           <p>{{ clip.title }}</p>
         </v-col>
