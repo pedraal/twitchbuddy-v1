@@ -12,8 +12,9 @@ const twitch = axios.create({
 
 exports.handler = async (event, context, callback) => {
   const params = event.queryStringParameters
+  const channels = params.channel.split(',')
   try {
-    const { data: broadcaster } = await twitch.get('/users?login=' + params.channel)
+    const { data: broadcaster } = await twitch.get('/users?login=' + channels.join('&login='))
     if (broadcaster.data.length === 0) {
       return {
         statusCode: 401,
@@ -21,25 +22,16 @@ exports.handler = async (event, context, callback) => {
       }
     }
 
-    let url = '/videos?first=100&user_id=' + broadcaster.data[0].id
-    if (params.cursor) {
-      url = url + '&after=' + params.cursor
-    }
-    if (params.start && params.end) {
-      url = url + '&started_at=' + params.start + '&ended_at=' + params.end
-    }
-
-    const { data: videos } = await twitch.get(url)
-    if (videos.data.length === 0) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify('videos not found')
-      }
-    }
+    const collections = await Promise.all(
+      broadcaster.data.map(async (channel) => {
+        channel.collection = await getVideos(channel.id, params)
+        return channel
+      })
+    )
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ channel: broadcaster.data[0], videos: videos.data, cursor: videos.pagination.cursor })
+      body: JSON.stringify(collections)
     }
   } catch (error) {
     return {
@@ -47,4 +39,20 @@ exports.handler = async (event, context, callback) => {
       body: JSON.stringify(error.msg)
     }
   }
+}
+
+const getVideos = async function (id, params) {
+  const videos = await twitch.get('/videos?first=100&user_id=' + id + parametize(params))
+  return videos.data.data
+}
+
+const parametize = function (params) {
+  let url = ''
+  if (params.cursor) {
+    url = url + '&after=' + params.cursor
+  }
+  if (params.start && params.end) {
+    url = url + '&started_at=' + params.start + '&ended_at=' + params.end
+  }
+  return url
 }
