@@ -39,7 +39,7 @@ exports.handler = async (event, context, callback) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ clips: videos.data, cursor: videos.pagination.cursor })
+      body: JSON.stringify({ channel: broadcaster.data[0], videos: videos.data, cursor: videos.pagination.cursor })
     }
   } catch (error) {
     return {
