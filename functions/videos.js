@@ -1,4 +1,5 @@
 const axios = require('axios')
+const moment = require('moment')
 
 const twitch = axios.create({
   baseURL: 'https://api.twitch.tv/helix/',
@@ -14,21 +15,13 @@ exports.handler = async (event, context, callback) => {
   const params = event.queryStringParameters
   const channels = params.channel.split(',')
   try {
-    const { data: broadcaster } = await twitch.get('/users?login=' + channels.join('&login='))
-    if (broadcaster.data.length === 0) {
-      return {
-        statusCode: 401,
-        body: JSON.stringify('channel not found')
-      }
-    }
-
+    const broadcaster = await twitch.get('/users?login=' + channels.join('&login='))
     const collections = await Promise.all(
-      broadcaster.data.map(async (channel) => {
+      broadcaster.data.data.map(async (channel) => {
         channel.collection = await getVideos(channel.id, params)
         return channel
       })
     )
-
     return {
       statusCode: 200,
       body: JSON.stringify(collections)
@@ -42,8 +35,33 @@ exports.handler = async (event, context, callback) => {
 }
 
 const getVideos = async function (id, params) {
-  const videos = await twitch.get('/videos?first=100&user_id=' + id + parametize(params))
-  return videos.data.data
+  const videos = await twitch.get('/videos?first=100&type=all&user_id=' + id + parametize(params))
+  const buffer = videos.data.data.map((video) => {
+    return {
+      ...video,
+      ended_at: moment(moment(video.created_at).add(moment.duration(durationParser(video.duration)))).toISOString()
+    }
+  })
+  return buffer
+}
+
+const durationParser = (val) => {
+  const obj = {
+    hours: '',
+    minutes: '',
+    seconds: ''
+  }
+  for (let i = 0; i < val.length; i++) {
+    if (i < val.indexOf('h')) {
+      obj.hours = obj.hours + val[i]
+    } else if (i > val.indexOf('h') && i < val.indexOf('m')) {
+      obj.minutes = obj.minutes + val[i]
+    } else if (i > val.indexOf('m') && i < val.indexOf('s')) {
+      obj.seconds = obj.seconds + val[i]
+    } else {
+    }
+  }
+  return obj
 }
 
 const parametize = function (params) {
@@ -51,8 +69,8 @@ const parametize = function (params) {
   if (params.cursor) {
     url = url + '&after=' + params.cursor
   }
-  if (params.start && params.end) {
-    url = url + '&started_at=' + params.start + '&ended_at=' + params.end
-  }
+  // if (params.start && params.end) {
+  //   url = url + '&started_at=' + params.start + '&ended_at=' + params.end
+  // }
   return url
 }
