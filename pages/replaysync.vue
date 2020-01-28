@@ -37,36 +37,54 @@
       </keep-alive>
     </section>
     <section>
-      <div v-for="channel in channels" :key="channel.id">
-        {{ channel.display_name }}
-      </div>
+      <v-container>
+        <v-row>
+          <v-col v-for="collection in collections" :key="collection.id">
+            <h2 class="text-center">
+              {{ collection.display_name }}
+            </h2>
+            <v-card
+              v-for="video in selectedVideo ? timefilter(collection.collection) : collection.collection"
+              :key="video.id"
+              @click="selectedVideo && selectedVideo.id === video.id ? selectedVideo = null : selectedVideo = video"
+              class="my-2"
+              max-width="100%"
+              outlined
+            >
+              <h5>{{ video.title }}</h5>
+              <p>{{ video.created_at }}</p>
+              <p>{{ video.duration }}</p>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
     </section>
   </v-layout>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import moment from 'moment'
 
 export default {
   data () {
     return {
-      select: []
+      select: ['camak', 'hermanel', 'phoenie'],
+      selectedVideo: null
     }
   },
   computed: {
-    ...mapGetters('videos', ['channels', 'error', 'cursor', 'loading'])
+    ...mapGetters('videos', ['collections', 'error', 'cursor', 'loading'])
   },
   methods: {
-    ...mapActions('videos', ['loadVideos', 'emptyCollections', 'emptyChannels', 'setCursor', 'emptyError']),
+    ...mapActions('videos', ['getCollections', 'emptyCollections', 'emptyError']),
     submit () {
-      this.setCursor('')
       this.emptyError()
       this.emptyCollections()
-      this.emptyChannels()
-      this.select.forEach(val => this.getVideos(val))
+      this.getCollections(this.select.join(','))
     },
-    getVideos (channel) {
-      this.loadVideos(channel)
+    timefilter (collection) {
+      return collection.filter(video => moment(video.created_at).isBetween(moment(this.selectedVideo.created_at), moment(this.selectedVideo.ended_at), null, []) || moment(video.ended_at).isBetween(moment(this.selectedVideo.created_at), moment(this.selectedVideo.ended_at), null, []))
     }
   }
 }
