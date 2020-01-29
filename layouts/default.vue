@@ -4,6 +4,7 @@
       v-model="drawer"
       :clipped="clipped"
       fixed
+      temporary
       app
     >
       <v-list>
@@ -29,7 +30,7 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title><span class="grey--text text--lighten-2 font-weight-thin">Twitch</span><span class="purple--text text--accent-1">Buddy</span></v-toolbar-title>
     </v-app-bar>
     <v-content>
       <v-container>
@@ -40,7 +41,8 @@
     <v-footer
       app
     >
-      <span>TwitchBuddy &copy; 2019</span>
+      <span><span>Twitch</span><span class=" purple--text text--accent-1">Buddy</span>  <small>&copy; 2020</small></span><v-spacer />
+      <small>by <a href="https://twitter.com/pedraalfr" class="blue--text text--accent-1">Pedraal</a></small>
     </v-footer>
   </v-app>
 </template>
@@ -48,8 +50,6 @@
 <script>
 
 export default {
-  components: {
-  },
   data () {
     return {
       clipped: true,
@@ -57,7 +57,7 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Home',
           to: '/'
         },
         {
@@ -76,3 +76,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .v-list-item .v-icon {
+    text-shadow: -2px 3px #E040FB;
+  }
+</style>
