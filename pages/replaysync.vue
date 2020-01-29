@@ -39,7 +39,7 @@
     <section>
       <v-container>
         <v-row>
-          <v-col v-for="collection in collections" :key="collection.id">
+          <v-col v-for="collection in collections" :key="collection.id" cols="4">
             <h2 class="text-center">
               {{ collection.display_name }}
             </h2>
@@ -47,13 +47,25 @@
               v-for="video in selectedVideo ? timefilter(collection.collection) : collection.collection"
               :key="video.id"
               @click="selectedVideo && selectedVideo.id === video.id ? selectedVideo = null : selectedVideo = video"
-              class="my-2"
+              :class="{active: selectedVideo && selectedVideo.id === video.id} "
+              class="my-2 pa-2"
               max-width="100%"
               outlined
             >
-              <h5>{{ video.title }}</h5>
-              <p>{{ video.created_at }}</p>
-              <p>{{ video.duration }}</p>
+              <h5 class="caption">
+                {{ video.title }}
+              </h5>
+              <p class="overline my-0">
+                <v-icon small>
+                  mdi-calendar
+                </v-icon>&nbsp;{{ humanDate(video.created_at) }}
+              </p>
+              <p class="overline my-0">
+                <v-icon small>
+                  mdi-clock
+                </v-icon>&nbsp;{{ video.duration }}
+                <v-spacer /><input id="" @click.stop type="checkbox">
+              </p>
             </v-card>
           </v-col>
         </v-row>
@@ -85,6 +97,12 @@ export default {
     },
     timefilter (collection) {
       return collection.filter(video => moment(video.created_at).isBetween(moment(this.selectedVideo.created_at), moment(this.selectedVideo.ended_at), null, []) || moment(video.ended_at).isBetween(moment(this.selectedVideo.created_at), moment(this.selectedVideo.ended_at), null, []))
+    },
+    humanDate (val) {
+      return moment(val).format('DD-MM-YYYY')
+    },
+    humanTime (val) {
+      return moment(val).format('hh:mm:ss')
     }
   }
 }
@@ -93,5 +111,17 @@ export default {
 <style lang="scss" scoped>
   section {
     width: 100%;
+  }
+
+  .v-card {
+    h5 {
+      white-space:nowrap;
+      overflow: hidden;
+      text-overflow:ellipsis;
+    }
+
+    &.active{
+      background: #727272
+    }
   }
 </style>
