@@ -53,7 +53,7 @@ export default {
   data () {
     return {
       clipped: true,
-      drawer: true,
+      drawer: false,
       items: [
         {
           icon: 'mdi-apps',
