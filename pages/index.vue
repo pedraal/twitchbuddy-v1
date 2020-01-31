@@ -12,7 +12,7 @@
       <h1 class="display-3 font-weight-bold">
         TwitchBuddy
       </h1>
-      <p class="body-1 font-weight-thin my-0">
+      <p class="body-1 font-weight-thin my-1">
         Designed to bring your twitch videomaking to the next level.
       </p>
       <p class="headline mt-2 mb-0">
