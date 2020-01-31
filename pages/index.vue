@@ -12,11 +12,11 @@
       <h1 class="display-3 font-weight-bold">
         TwitchBuddy
       </h1>
-      <p class="headline mt-2 mb-0">
-        Enjoy an enhanced clip hunting and multi replay viewing experience using our tools.
+      <p class="body-1 font-weight-thin my-0">
+        Designed to bring your twitch videomaking to the next level.
       </p>
-      <p class="headline font-weight-thin my-0">
-        Designed to bring your twitch content videomaking workflow to the next level.
+      <p class="headline mt-2 mb-0">
+        Enjoy enhanced clip hunting and multi replay in sync experience using our tools.
       </p>
     </v-col>
     <v-col
@@ -43,7 +43,7 @@
                 :to="item.link"
                 nuxt
                 class="mx-auto mb-4"
-                color="purple accent-1"
+                color="indigo accent-1"
                 outlined
               >
                 {{ item.action }}
@@ -85,10 +85,10 @@ export default {
 
 <style lang="scss" scoped>
   h1 {
-    text-shadow: -3px 4px #E040FB;
+    text-shadow: -3px 4px #536DFE;
   }
 
   .v-card .v-card__title .v-icon {
-    text-shadow: -2px 3px #E040FB;
+    text-shadow: -2px 3px #536DFE;
   }
 </style>

@@ -2,26 +2,3 @@
 //
 // The variables you want to modify
 // $font-size-root: 20px;
-
-.page-enter-active {
-  animation: fade-in 0.2s ease-in-out;
-}
-.page-leave-active {
-  animation: fade-out 0.2s ease-in-out;
-}
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
