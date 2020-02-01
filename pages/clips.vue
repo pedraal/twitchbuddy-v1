@@ -203,7 +203,7 @@ export default {
       this.getClips()
     },
     getClips () {
-      return this.loadClips({ channel: this.channel, cursor: this.cursor, start: this.start_at, end: this.end_at })
+      return this.loadClips({ channel: this.channel, cursor: this.cursor, start: this.apitimerange[0], end: this.apitimerange[1] })
     },
     handleScroll () {
       this.scrollValue = window.scrollY

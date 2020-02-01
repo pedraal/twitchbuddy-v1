@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-header hide-actions>
+    <v-expansion-panel-header hide-actions class="py-0">
       <v-container>
         <v-row justify="center" align="center">
           <v-col cols="2" class="d-none d-md-block">
