@@ -6,83 +6,83 @@
   >
     <h1>Clips</h1>
     <section class="clip-form">
-      <keep-alive>
-        <v-form v-model="valid" @submit.prevent="submit">
-          <v-container>
-            <v-row>
-              <v-col
-                cols="12"
-                md="4"
-              >
-                <v-text-field
-                  v-model="channel"
-                  :rules="nameRules"
-                  :counter="255"
-                  :error="error && error.target === 'channel'"
-                  :error-messages="error && error.target === 'channel' ? error.message : ''"
-                  prepend-icon="mdi-account"
-                  label="Channel name"
-                  required
-                />
-              </v-col>
+      <v-form v-model="valid" @submit.prevent="submit">
+        <v-container class="py-0">
+          <v-row>
+            <v-col
+              cols="12"
+              md="4"
+              class="py-0"
+            >
+              <v-text-field
+                v-model="channel"
+                :rules="nameRules"
+                :counter="255"
+                :error="error && error.target === 'channel'"
+                :error-messages="error && error.target === 'channel' ? error.message : ''"
+                prepend-icon="mdi-account"
+                label="Channel name"
+                required
+              />
+            </v-col>
 
-              <v-col
-                cols="12"
-                md="4"
+            <v-col
+              cols="12"
+              md="4"
+              class="py-0"
+            >
+              <v-select
+                v-model="period"
+                :items="timeSelect"
+                :error="error && error.target === 'period'"
+                :error-messages="error && error.target === 'period' ? error.message : ''"
+                label="Period"
+                required
+                prepend-icon="mdi-calendar"
+              />
+            </v-col>
+            <v-col
+              v-if="period==='custom'"
+              cols="12"
+              md="4"
+            >
+              <v-menu
+                ref="menu"
+                v-model="menu"
+                :close-on-content-click="false"
+                :return-value.sync="periods.custom"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
               >
-                <v-select
-                  v-model="period"
-                  :items="timeSelect"
-                  :error="error && error.target === 'period'"
-                  :error-messages="error && error.target === 'period' ? error.message : ''"
-                  label="Period"
-                  required
-                  prepend-icon="mdi-calendar"
-                />
-              </v-col>
-              <v-col
-                v-if="period==='custom'"
-                cols="12"
-                md="4"
-              >
-                <v-menu
-                  ref="menu"
-                  v-model="menu"
-                  :close-on-content-click="false"
-                  :return-value.sync="periods.custom"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="290px"
-                >
-                  <template v-slot:activator="{ on }">
-                    <v-text-field
-                      v-model="readabletimerange"
-                      v-on="on"
-                      :error="error && error.target === 'period'"
-                      :error-messages="error && error.target === 'period' ? error.message : ''"
-                      label="Date range"
-                      prepend-icon="mdi-calendar-clock"
-                      readonly
-                    />
-                  </template>
-                  <v-date-picker v-model="periods.custom" range no-title scrollable>
-                    <v-spacer />
-                    <v-btn @click="menu = false" text color="primary">
-                      Cancel
-                    </v-btn>
-                    <v-btn @click="$refs.menu.save(periods.custom)" text color="primary">
-                      OK
-                    </v-btn>
-                  </v-date-picker>
-                </v-menu>
-              </v-col>
-            </v-row>
-          </v-container>
-          <v-btn @click="submit" class="mb-4">
-            submit
-          </v-btn>
-        </v-form>
-      </keep-alive>
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="readabletimerange"
+                    v-on="on"
+                    :error="error && error.target === 'period'"
+                    :error-messages="error && error.target === 'period' ? error.message : ''"
+                    label="Date range"
+                    prepend-icon="mdi-calendar-clock"
+                    readonly
+                  />
+                </template>
+                <v-date-picker v-model="periods.custom" range no-title scrollable>
+                  <v-spacer />
+                  <v-btn @click="menu = false" text color="primary">
+                    Cancel
+                  </v-btn>
+                  <v-btn @click="$refs.menu.save(periods.custom)" text color="primary">
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-menu>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-btn @click="submit" class="mb-4">
+          submit
+        </v-btn>
+      </v-form>
     </section>
     <section class="clip-list">
       <clip-list

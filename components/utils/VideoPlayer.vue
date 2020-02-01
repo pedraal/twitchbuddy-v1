@@ -44,6 +44,16 @@ export default {
   width: 60%;
   background-color: rgba(black, 0.3)
 }
+@media screen and (max-width: 900px){
+  .video-player {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 600px){
+  .video-player {
+    width: 100%;
+  }
+}
 .video-player::before {
   content: "";
   display: block;
