@@ -46,7 +46,13 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    ['vue-handy-ga/nuxt', {
+      // Add your own gaID
+      gaID: 'UA-119401025-6',
+      // Set on false to let choice to your user
+      mandatory: true
+    }]
   ],
   /*
   ** Nuxt.js modules

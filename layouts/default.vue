@@ -44,6 +44,9 @@
       <span><span>Twitch</span><span class=" indigo--text text--accent-2">Buddy</span>  <small>&copy; 2020</small></span><v-spacer />
       <small>by <a href="https://twitter.com/pedraalfr" target="_blank" class="blue--text text--accent-2">Pedraal</a></small>
     </v-footer>
+    <client-only>
+      <VueHandyGa class="foreground" />
+    </client-only>
   </v-app>
 </template>
 
@@ -79,5 +82,10 @@ export default {
 <style lang="scss" scoped>
   .v-list-item .v-icon {
     text-shadow: -2px 3px #536DFE;
+  }
+
+  .foreground {
+    position: fixed;
+    z-index: 4;
   }
 </style>
