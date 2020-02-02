@@ -5,6 +5,7 @@
       sm="8"
       md="6"
       lg="5"
+      class="text-center text-md-left"
     >
       <h2 class="display-1 font-weight-bold">
         Welcome on

@@ -1,7 +1,7 @@
 {
   "name": "twitchbuddy",
   "version": "1.0.0",
-  "description": "A web app that provides several services for twitch viewers",
+  "description": "A web app that provides several services for twitch content creators",
   "author": "pierre golfier",
   "private": true,
   "scripts": {
@@ -25,7 +25,8 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "moment": "^2.24.0",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "vue-handy-ga": "^1.1.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",
