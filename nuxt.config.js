@@ -17,7 +17,8 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      { name: 'og:image', content: '/icon.png' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -92,7 +93,6 @@ export default {
   },
   pwa: {
     meta: {
-      ogHost: 'https://twitchbuddy.app',
       theme_color: '#424242',
       name: 'TwitchBuddy'
     },
