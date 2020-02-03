@@ -12,8 +12,8 @@ export default {
     TWITCH_TOKEN: process.env.TWITCH_TOKEN || ''
   },
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s',
+    title: 'TwitchBuddy' || process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -48,9 +48,7 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     ['vue-handy-ga/nuxt', {
-      // Add your own gaID
-      gaID: 'UA-119401025-6',
-      // Set on false to let choice to your user
+      gaID: 'UA-119401025-7',
       mandatory: true
     }]
   ],
@@ -90,6 +88,19 @@ export default {
           success: colors.green.accent3
         }
       }
+    }
+  },
+  pwa: {
+    meta: {
+      ogHost: 'https://twitchbuddy.app',
+      theme_color: '#424242',
+      name: 'TwitchBuddy'
+    },
+    manifest: {
+      name: 'TwitchBuddy',
+      short_name: 'TwitchBuddy',
+      theme_color: '#424242',
+      background_color: '#303030'
     }
   },
   /*
