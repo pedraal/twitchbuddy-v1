@@ -2,8 +2,9 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      :clipped="clipped"
+      clipped
       fixed
+      temporary
       app
     >
       <v-list>
@@ -24,12 +25,12 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
-      :clipped-left="clipped"
+      clipped-left
       fixed
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title><span class="grey--text text--lighten-2 font-weight-thin">Twitch</span><span class="indigo--text text--accent-2">Buddy</span></v-toolbar-title>
     </v-app-bar>
     <v-content>
       <v-container>
@@ -40,24 +41,25 @@
     <v-footer
       app
     >
-      <span>TwitchBuddy &copy; 2019</span>
+      <span><span>Twitch</span><span class=" indigo--text text--accent-2">Buddy</span>  <small>&copy; 2020</small></span><v-spacer />
+      <small>by <a href="https://twitter.com/pedraalfr" target="_blank" class="blue--text text--accent-2">Pedraal</a></small>
     </v-footer>
+    <client-only>
+      <VueHandyGa class="foreground" />
+    </client-only>
   </v-app>
 </template>
 
 <script>
 
 export default {
-  components: {
-  },
   data () {
     return {
-      clipped: true,
-      drawer: true,
+      drawer: false,
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Home',
           to: '/'
         },
         {
@@ -76,3 +78,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .v-list-item .v-icon {
+    text-shadow: -2px 3px #536DFE;
+  }
+
+  .foreground {
+    position: fixed;
+    z-index: 4;
+  }
+</style>

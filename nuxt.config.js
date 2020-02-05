@@ -8,13 +8,17 @@ export default {
   /*
   ** Headers of the page
   */
+  env: {
+    TWITCH_TOKEN: process.env.TWITCH_TOKEN || ''
+  },
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s',
+    title: 'TwitchBuddy' || process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      { name: 'og:image', content: '/icon.png' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -28,6 +32,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '~/assets/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -42,7 +47,11 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    ['vue-handy-ga/nuxt', {
+      gaID: 'UA-119401025-7',
+      mandatory: true
+    }]
   ],
   /*
   ** Nuxt.js modules
@@ -80,6 +89,18 @@ export default {
           success: colors.green.accent3
         }
       }
+    }
+  },
+  pwa: {
+    meta: {
+      theme_color: '#424242',
+      name: 'TwitchBuddy'
+    },
+    manifest: {
+      name: 'TwitchBuddy',
+      short_name: 'TwitchBuddy',
+      theme_color: '#424242',
+      background_color: '#303030'
     }
   },
   /*
