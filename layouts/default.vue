@@ -42,7 +42,7 @@
       app
     >
       <span><span>Twitch</span><span class=" indigo--text text--accent-2">Buddy</span>  <small>&copy; 2020</small></span><v-spacer />
-      <small>by <a href="https://twitter.com/pedraalfr" target="_blank" class="blue--text text--accent-2">Pedraal</a></small>
+      <small>by <a href="https://twitter.com/jspierreg" target="_blank" class="blue--text text--accent-2">Pedraal</a></small>
     </v-footer>
     <client-only>
       <VueHandyGa class="foreground" />
