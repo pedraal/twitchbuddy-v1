@@ -49,7 +49,7 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     ['vue-handy-ga/nuxt', {
-      gaID: 'UA-119401025-7',
+      gaID: process.env.GA_ID,
       mandatory: true
     }]
   ],
@@ -102,6 +102,10 @@ export default {
       theme_color: '#424242',
       background_color: '#303030'
     }
+  },
+
+  layoutTransition: {
+    name: 'layout'
   },
   /*
   ** Build configuration

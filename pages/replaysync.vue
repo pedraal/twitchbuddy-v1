@@ -38,15 +38,15 @@
     </section>
     <section>
       <v-container>
-        <v-row>
-          <v-col v-for="collection in collections" :key="collection.id" cols="4">
+        <v-row justify="center">
+          <v-col v-for="collection in collections" :key="collection.id" :cols="12/collections.length">
             <h2 class="text-center">
               {{ collection.display_name }}
             </h2>
             <v-card
-              v-for="video in selectedVideo ? timefilter(collection.collection) : collection.collection"
+              v-for="video in collection.collection"
               :key="video.id"
-              @click="selectedVideo && selectedVideo.id === video.id ? selectedVideo = null : selectedVideo = video"
+              @click="selectedVideo && selectedVideo.id === video.id ? setSelected(null) : setSelected(video)"
               :class="{active: selectedVideo && selectedVideo.id === video.id} "
               class="my-2 pa-2"
               max-width="100%"
@@ -57,19 +57,29 @@
               </h5>
               <p class="overline my-0">
                 <v-icon small>
-                  mdi-calendar
-                </v-icon>&nbsp;{{ humanDate(video.created_at) }}
+                  mdi-ray-start
+                </v-icon>&nbsp;{{ humanDate(video.created_at) }}&nbsp;{{ humanTime(video.created_at) }}
+              </p>
+              <p class="overline my-0">
+                <v-icon small>
+                  mdi-ray-end
+                </v-icon>&nbsp;{{ humanDate(video.ended_at) }}&nbsp;{{ humanTime(video.ended_at) }}
               </p>
               <p class="overline my-0">
                 <v-icon small>
                   mdi-clock
-                </v-icon>&nbsp;{{ video.duration }}
-                <v-spacer /><input id="" @click.stop type="checkbox">
+                </v-icon>&nbsp;
+                {{ video.duration }}
               </p>
             </v-card>
           </v-col>
         </v-row>
       </v-container>
+      <div v-if="selectedVideo" class="text-center">
+        <v-btn @click="play" nuxt to="/player" outlined>
+          Play
+        </v-btn>
+      </div>
     </section>
   </v-layout>
 </template>
@@ -81,28 +91,41 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      select: ['camak', 'hermanel', 'phoenie'],
-      selectedVideo: null
+      select: ['camak', 'woodspices'],
+      fab: false
     }
   },
   computed: {
-    ...mapGetters('videos', ['collections', 'error', 'cursor', 'loading'])
+    ...mapGetters('videos', ['collections', 'error', 'cursor', 'loading', 'selectedVideo']),
+    filteredCollections () {
+      if (this.selectedVideo) {
+        return this.collections.map((collection) => {
+          return {
+            ...collection,
+            collection: collection.collection.filter(video => moment(video.created_at).isBetween(moment(this.selectedVideo.created_at), moment(this.selectedVideo.ended_at), null, []) ||
+            moment(video.ended_at).isBetween(moment(this.selectedVideo.created_at), moment(this.selectedVideo.ended_at), null, []) ||
+            moment(this.selectedVideo.created_at).isBetween(moment(video.created_at), moment(video.ended_at), null, []) ||
+            moment(this.selectedVideo.ended_at).isBetween(moment(video.created_at), moment(video.ended_at), null, []))
+          }
+        })
+      }
+      return []
+    }
   },
   methods: {
-    ...mapActions('videos', ['getCollections', 'emptyCollections', 'emptyError']),
+    ...mapActions('videos', ['getCollections', 'emptyCollections', 'emptyError', 'setSelected']),
     submit () {
       this.emptyError()
       this.emptyCollections()
       this.getCollections(this.select.join(','))
     },
-    timefilter (collection) {
-      return collection.filter(video => moment(video.created_at).isBetween(moment(this.selectedVideo.created_at), moment(this.selectedVideo.ended_at), null, []) || moment(video.ended_at).isBetween(moment(this.selectedVideo.created_at), moment(this.selectedVideo.ended_at), null, []))
-    },
     humanDate (val) {
       return moment(val).format('DD-MM-YYYY')
     },
     humanTime (val) {
-      return moment(val).format('hh:mm:ss')
+      return moment(val).format('HH:mm:ss')
+    },
+    play () {
     }
   }
 }

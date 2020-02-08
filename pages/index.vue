@@ -76,7 +76,7 @@ export default {
           icon: 'mdi-movie',
           content: 'The replay sync lets you watch group streams just like if it was live!  Submit a list of channels, find simultaneous broacasts and bring them to our synchronising player.',
           link: '/replaysync',
-          action: 'Coming soon'
+          action: 'Get started'
         }
       ]
     }
