@@ -76,6 +76,7 @@ export default {
       this.pause()
     })
     this.$replayBus.$on('sync', (event) => {
+      this.pause()
       if (this.video.id !== this.selectedVideo.id) this.sync(event)
     })
     this.$replayBus.$on('ping', () => {
