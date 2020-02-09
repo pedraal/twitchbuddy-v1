@@ -1,6 +1,20 @@
 <template>
   <div class="wrapper">
     <div :ref="video.id" class="wrapper" />
+    <div class="status">
+      <div v-if="video.id === selectedVideo.id" class="blue--text text--lighten-2 font-weight-bold">
+        Reference
+      </div>
+      <div v-else-if="notStarted" class="red--text text--lighten-2 font-weight-bold">
+        Not started yet
+      </div>
+      <div v-else-if="ended" class="red--text text--lighten-2 font-weight-bold">
+        Ended
+      </div>
+      <div v-else class="green--text text--lighten-2 font-weight-bold">
+        Running
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,7 +33,9 @@ export default {
   },
   data () {
     return {
-      player: null
+      player: null,
+      notStarted: false,
+      ended: false
     }
   },
   computed: {
@@ -64,6 +80,11 @@ export default {
     })
     this.$replayBus.$on('ping', () => {
       if (this.video.id === this.selectedVideo.id) this.setSelectedVideoTimestamp(this.getCurrentTime())
+      else {
+        const offset = this.selectedVideoTimestamp - moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
+        this.notStarted = offset <= 0
+        this.ended = moment(this.video.created_at).add(offset, 'seconds').isAfter(moment(this.video.ended_at))
+      }
     })
   },
   methods: {
@@ -74,6 +95,8 @@ export default {
     sync () {
       const offset = moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
       this.seek(this.selectedVideoTimestamp - offset)
+      this.notStarted = offset < 0
+      this.ended = moment(this.video.created_at).add(offset, 'seconds').isAfter(moment(this.video.ended_at))
     },
     pause () {
       this.player.pause()
@@ -128,6 +151,12 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+  }
+  .status {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 100%;
   }
 }
 

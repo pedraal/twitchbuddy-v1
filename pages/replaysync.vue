@@ -91,7 +91,7 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      select: ['camak', 'woodspices'],
+      select: ['camak', 'xerackk'],
       fab: false
     }
   },
