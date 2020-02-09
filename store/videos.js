@@ -4,6 +4,7 @@ import moment from 'moment'
 export const state = () => ({
   collections: [],
   selectedVideo: null,
+  selectedVideoTimestamp: 0,
   error: false,
   cursor: '',
   loading: false
@@ -30,6 +31,9 @@ export const mutations = {
   },
   setSelected (state, payload) {
     state.selectedVideo = payload
+  },
+  setSelectedVideoTimestamp (state, payload) {
+    state.selectedVideoTimestamp = payload
   }
 }
 export const actions = {
@@ -59,6 +63,9 @@ export const actions = {
   },
   setSelected ({ commit }, payload) {
     commit('setSelected', payload)
+  },
+  setSelectedVideoTimestamp ({ commit }, payload) {
+    commit('setSelectedVideoTimestamp', payload)
   }
 }
 
@@ -69,9 +76,9 @@ export const getters = {
         return {
           ...collection,
           collection: collection.collection.filter(video => moment(video.created_at).isBetween(moment(state.selectedVideo.created_at), moment(state.selectedVideo.ended_at), null, []) ||
-        moment(video.ended_at).isBetween(moment(state.selectedVideo.created_at), moment(state.selectedVideo.ended_at), null, []) ||
-        moment(state.selectedVideo.created_at).isBetween(moment(video.created_at), moment(video.ended_at), null, []) ||
-        moment(state.selectedVideo.ended_at).isBetween(moment(video.created_at), moment(video.ended_at), null, []))
+            moment(video.ended_at).isBetween(moment(state.selectedVideo.created_at), moment(state.selectedVideo.ended_at), null, []) ||
+            moment(state.selectedVideo.created_at).isBetween(moment(video.created_at), moment(video.ended_at), null, []) ||
+            moment(state.selectedVideo.ended_at).isBetween(moment(video.created_at), moment(video.ended_at), null, []))
         }
       })
     }
@@ -79,6 +86,9 @@ export const getters = {
   },
   selectedVideo: (state) => {
     return state.selectedVideo
+  },
+  selectedVideoTimestamp: (state) => {
+    return state.selectedVideoTimestamp
   },
   error: (state) => {
     return state.error

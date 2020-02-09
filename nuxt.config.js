@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   generate: {
     fallback: true
   },
@@ -39,6 +39,8 @@ export default {
   */
   plugins: [
     '~/plugins/twitch-api',
+    '~/plugins/twitch-player',
+    '~/plugins/replay-bus',
     '~/plugins/moment'
   ],
   /*

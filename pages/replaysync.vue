@@ -29,7 +29,7 @@
                 />
               </v-col>
             </v-row>
-            <v-btn @click="submit" class="mr-4">
+            <v-btn @click="submit" :disabled="loading" class="mr-4">
               submit
             </v-btn>
           </v-container>
@@ -117,6 +117,7 @@ export default {
     submit () {
       this.emptyError()
       this.emptyCollections()
+      this.setSelected(null)
       this.getCollections(this.select.join(','))
     },
     humanDate (val) {
