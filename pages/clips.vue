@@ -85,9 +85,24 @@
       </v-form>
     </section>
     <section class="clip-list">
+      <v-container v-if="clips.length != 0" class="py-0">
+        <v-row justify="end">
+          <v-col cols="6" md="3" class="py-0">
+            <v-text-field
+              v-model="keyword"
+              label="Keyword"
+              outlined
+              dense
+              rounded
+            />
+          </v-col>
+        </v-row>
+      </v-container>
       <clip-list
-        :clips="clips"
+        ref="cliplist"
+        :clips="filteredClips"
         @loadOffset="loadOffset = $event"
+        class="cliplist"
       />
 
       <div
@@ -155,13 +170,14 @@ export default {
       nameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 255 || 'Name must be less than 255 characters'
-      ]
+      ],
+      keyword: ''
     }
   },
   computed: {
     ...mapGetters('clips', ['clips', 'error', 'cursor', 'loading']),
     apitimerange () {
-      let arr = [...this.periods.custom]
+      let arr = [...this.periods[this.period]]
       arr = arr.sort()
       arr[0] = moment(arr[0]).hours(0).minutes(0).toISOString()
       arr[1] = moment(arr[1]).hours(23).minutes(59).toISOString()
@@ -175,12 +191,23 @@ export default {
     },
     end_at () {
       return this.periods[this.period].map(val => moment(val).toISOString())[1]
+    },
+    filteredClips () {
+      if (this.keyword.length < 2) {
+        return this.clips
+      }
+      return this.clips.filter(item => item.category.toLowerCase().includes(this.keyword.toLowerCase()) || item.title.toLowerCase().includes(this.keyword.toLowerCase()))
     }
 
   },
   watch: {
     scrollValue (val) {
       if (this.cursor && !this.loading && val > this.loadOffset) {
+        this.getClips()
+      }
+    },
+    filteredClips (val) {
+      if (this.cursor && !this.loading && val.length < 10) {
         this.getClips()
       }
     }
@@ -197,6 +224,7 @@ export default {
       return moment(value).format('DD/MM/YYYY hh:mm')
     },
     submit () {
+      this.keyword = ''
       this.setCursor('')
       this.emptyError()
       this.emptyList()

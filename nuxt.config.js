@@ -49,7 +49,7 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     ['vue-handy-ga/nuxt', {
-      gaID: 'UA-119401025-7',
+      gaID: process.env.GA_ID,
       mandatory: true
     }]
   ],

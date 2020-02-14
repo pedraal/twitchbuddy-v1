@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-expansion-panels v-model="panel">
+    <v-expansion-panels ref="wrapper" v-model="panel">
       <clip-list-item
         v-for="(clip,i) in clips"
         :key="i"
@@ -31,8 +31,8 @@ export default {
     clips (val) {
       if (val.length > 0) {
         setTimeout(() => {
-          this.$emit('loadOffset', this.$refs[val.length - 10][0].$el.offsetTop)
-        }, 1000)
+          this.$emit('loadOffset', (this.$refs.wrapper.$el.scrollHeight - 800))
+        }, 10)
       }
     }
   }
