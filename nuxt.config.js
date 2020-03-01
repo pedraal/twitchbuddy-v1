@@ -43,8 +43,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/twitch-api',
-    '~/plugins/moment'
+    '~/plugins/twitch-api'
   ],
   /*
   ** Nuxt.js dev-modules
