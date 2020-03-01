@@ -37,16 +37,15 @@ exports.handler = async (event, context, callback) => {
       }
     }
 
-    let idsString = ''
+    let gamesId = ''
     for (const clip of clips.data) {
-      idsString = idsString + 'id=' + clip.game_id + '&'
+      gamesId = gamesId + 'id=' + clip.game_id + '&'
+      clip.downloadLink = clip.thumbnail_url.substr(0, clip.thumbnail_url.indexOf('-preview-')) + '.mp4'
     }
-    const { data: games } = await twitch.get(`/games?${idsString}`)
+    const { data: games } = await twitch.get(`/games?${gamesId}`)
     if (games.data.length > 0) {
       for (const clip of clips.data) {
-        const categoryObj = games.data.filter((game) => {
-          return game.id === clip.game_id
-        })[0]
+        const categoryObj = games.data.filter(game => game.id === clip.game_id)[0]
         clip.category = categoryObj ? categoryObj.name : ''
         clip.downloadLink = clip.thumbnail_url.substr(0, clip.thumbnail_url.indexOf('-preview-')) + '.mp4'
       }
