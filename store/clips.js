@@ -59,7 +59,7 @@ export const actions = {
       commit('setCursor', res.data.cursor)
     } catch (error) {
       commit('setLoading', false)
-      commit('addError', error)
+      commit('addError', true)
     }
   },
   emptyList ({ commit }) {
