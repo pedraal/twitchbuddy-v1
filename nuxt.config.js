@@ -44,7 +44,7 @@ export default {
   */
   plugins: [
     '~/plugins/twitch-api',
-    '~/plugins/twitch-player',
+    '~/plugins/load-script',
     '~/plugins/replay-bus'
   ],
   /*
