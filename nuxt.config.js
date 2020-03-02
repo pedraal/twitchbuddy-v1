@@ -1,5 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
 
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
+
 export default {
   mode: 'universal',
   generate: {
@@ -9,7 +13,8 @@ export default {
   ** Headers of the page
   */
   env: {
-    TWITCH_TOKEN: process.env.TWITCH_TOKEN || ''
+    TWITCH_TOKEN: process.env.TWITCH_TOKEN || '',
+    GAID: process.env.GAID || ''
   },
   head: {
     titleTemplate: '%s',
@@ -38,8 +43,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/twitch-api',
-    '~/plugins/moment'
+    '~/plugins/twitch-api'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -48,8 +52,9 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
+    '@nuxtjs/dotenv',
     ['vue-handy-ga/nuxt', {
-      gaID: process.env.GA_ID,
+      gaID: process.env.GAID,
       mandatory: true
     }]
   ],
@@ -59,9 +64,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    '@nuxtjs/pwa'
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
   ],
   /*
   ** Axios module configuration

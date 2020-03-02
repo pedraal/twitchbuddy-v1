@@ -10,8 +10,8 @@
       md6
       class="text-center"
     >
-      <h1>Replay Sync</h1>
-      <h2>Coming soon!</h2>
+      <h2>Replay Sync</h2>
+      <h3>Coming soon!</h3>
     </v-flex>
   </v-layout>
 </template>
