@@ -52,6 +52,7 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
+    // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     ['vue-handy-ga/nuxt', {
       gaID: process.env.GAID,
@@ -65,7 +66,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa'
-    // Doc: https://github.com/nuxt-community/dotenv-module
   ],
   /*
   ** Axios module configuration
