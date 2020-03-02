@@ -3,11 +3,9 @@
     <v-navigation-drawer
       v-model="drawer"
       clipped
-      fixed
-      temporary
       app
     >
-      <v-list>
+      <v-list class="pt-4">
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -26,24 +24,18 @@
     </v-navigation-drawer>
     <v-app-bar
       clipped-left
-      fixed
       app
+      elevation="1"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title><span class="grey--text text--lighten-2 font-weight-thin">Twitch</span><span class="indigo--text text--accent-2">Buddy</span></v-toolbar-title>
     </v-app-bar>
-    <v-content>
+    <v-content class="mt-4">
       <v-container>
         <nuxt />
       </v-container>
     </v-content>
-
-    <v-footer
-      app
-    >
-      <span><span>Twitch</span><span class=" indigo--text text--accent-2">Buddy</span>  <small>&copy; 2020</small></span><v-spacer />
-      <small>by <a href="https://twitter.com/pedraalfr" target="_blank" class="blue--text text--accent-2">Pedraal</a></small>
-    </v-footer>
+    <app-footer />
     <client-only>
       <VueHandyGa class="foreground" />
     </client-only>
@@ -51,8 +43,10 @@
 </template>
 
 <script>
+import AppFooter from '@/components/layout/AppFooter'
 
 export default {
+  components: { AppFooter },
   data () {
     return {
       drawer: false,
@@ -81,7 +75,7 @@ export default {
 
 <style lang="scss" scoped>
   .v-list-item .v-icon {
-    text-shadow: -2px 3px #536DFE;
+    text-shadow: -2px 2px #536DFE;
   }
 
   .foreground {

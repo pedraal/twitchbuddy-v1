@@ -14,11 +14,13 @@
               {{ clip.title }}
             </p>
           </v-col>
-          <v-col cols="2" class="text-center pa-0 d-none d-sm-block">
+          <v-col cols="2" class="text-right pa-0 d-none d-sm-block">
             <p class="caption mb-2">
-              Views
+              {{ clip.view_count }} Views
             </p>
-            {{ clip.view_count }}
+            <p class="caption mb-2">
+              By {{ clip.creator_name }}
+            </p>
           </v-col>
           <v-col cols="3" class="text-center text-sm-right pa-0 pr-4 d-none d-sm-block">
             <p class="caption mb-2">
@@ -27,10 +29,15 @@
             {{ format(clip.created_at) }}
           </v-col>
           <v-col cols="4" class="text-right pa-0 d-block d-sm-none caption">
-            <p class="mb-2">
+            <p class="mb-0">
               {{ clip.view_count }} views
             </p>
-            {{ format(clip.created_at) }}
+            <p class="mb-0">
+              by {{ clip.creator_name }}
+            </p>
+            <p class="mb-0">
+              {{ format(clip.created_at) }}
+            </p>
           </v-col>
         </v-row>
       </v-container>
