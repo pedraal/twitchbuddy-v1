@@ -109,6 +109,13 @@ export default {
       return []
     }
   },
+  watch: {
+    select (val) {
+      if (val.length > 4) {
+        this.$nextTick(() => this.select.pop())
+      }
+    }
+  },
   beforeDestroy () {
     this.select = []
     this.emptyError()
