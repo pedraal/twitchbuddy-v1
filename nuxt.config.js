@@ -5,16 +5,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   generate: {
     fallback: true
-  },
-  /*
-  ** Headers of the page
-  */
-  env: {
-    TWITCH_TOKEN: process.env.TWITCH_TOKEN || '',
-    GAID: process.env.GAID || ''
   },
   head: {
     titleTemplate: '%s',
@@ -29,55 +22,23 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  /*
-  ** Customize the progress-bar color
-  */
   loading: { color: '#fff' },
-  /*
-  ** Global CSS
-  */
   css: [
     '~/assets/main.scss'
   ],
-  /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-    '~/plugins/twitch-api'
-  ],
-  /*
-  ** Nuxt.js dev-modules
-  */
+  plugins: [],
   buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
+    '@nuxtjs/dotenv'
+  ],
+  modules: [
+    '@nuxtjs/pwa',
     ['vue-handy-ga/nuxt', {
-      gaID: process.env.GAID,
+      gaID: process.env.GA_ID,
       mandatory: true
     }]
   ],
-  /*
-  ** Nuxt.js modules
-  */
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa'
-  ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  axios: {
-    debug: true
-  },
-  /*
-  ** vuetify module configuration
-  ** https://github.com/nuxt-community/vuetify-module
-  */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -107,13 +68,7 @@ export default {
       background_color: '#303030'
     }
   },
-  /*
-  ** Build configuration
-  */
   build: {
-    /*
-    ** You can extend webpack config here
-    */
     extend (config, ctx) {
 
     }
