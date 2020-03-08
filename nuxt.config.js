@@ -5,7 +5,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   generate: {
     fallback: true
   },
