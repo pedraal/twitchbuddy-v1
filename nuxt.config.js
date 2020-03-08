@@ -39,9 +39,6 @@ export default {
       mandatory: true
     }]
   ],
-  axios: {
-    debug: true
-  },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
