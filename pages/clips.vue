@@ -89,11 +89,11 @@ export default {
   },
   beforeMount () {
     window.addEventListener('scroll', this.handleScroll)
-    this.setCursor('')
-    this.emptyList()
   },
   beforeDestroy () {
     window.removeEventListener('scroll', this.handleScroll)
+    this.setCursor('')
+    this.emptyList()
   },
   methods: {
     ...mapActions('clips', ['loadClips', 'emptyList', 'setCursor']),
