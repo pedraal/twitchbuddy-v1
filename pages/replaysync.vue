@@ -89,8 +89,7 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      select: ['camak', 'woodspices'],
-      fab: false
+      select: ['camak', 'woodspices']
     }
   },
   computed: {
@@ -109,6 +108,10 @@ export default {
       }
       return []
     }
+  },
+  beforeDestroy () {
+    this.select = []
+    this.emptyError()
   },
   methods: {
     ...mapActions('videos', ['getCollections', 'emptyCollections', 'emptyError', 'setSelected']),
