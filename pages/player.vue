@@ -12,13 +12,6 @@
       </div>
     </div>
     <div class="controler">
-      <!-- <v-select
-        :items="collections.map(collection => collection.collection.map(video => video.title))"
-        label="Outlined style"
-        outlined
-        dense
-        style="width:240px;"
-      /> -->
       <v-btn @click="$replayBus.$emit('play')">
         Play
       </v-btn>
