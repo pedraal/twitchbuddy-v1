@@ -93,7 +93,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('videos', ['collections', 'error', 'cursor', 'loading', 'selectedVideo']),
+    ...mapGetters('videos', ['collections', 'error', 'loading', 'selectedVideo']),
     filteredCollections () {
       if (this.selectedVideo) {
         return this.collections.map((collection) => {

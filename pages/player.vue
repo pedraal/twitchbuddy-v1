@@ -36,7 +36,7 @@ export default {
     TwitchPlayer
   },
   computed: {
-    ...mapGetters('videos', ['collections', 'selectedVideo']),
+    ...mapGetters('videos', ['collections', 'hasSelection']),
     gridTemplate () {
       if (this.collections.length >= 4) {
         return {
@@ -70,7 +70,7 @@ export default {
     }
   },
   mounted () {
-    if (this.collections.length === 0) {
+    if (!this.hasSelection) {
       window.location = '/replaysync'
     }
 
