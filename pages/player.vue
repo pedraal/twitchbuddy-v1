@@ -11,30 +11,22 @@
         </client-only>
       </div>
     </div>
-    <div class="controler">
-      <v-btn @click="$replayBus.$emit('play')">
-        Play
-      </v-btn>
-      <v-btn @click="$replayBus.$emit('sync', selectedVideo)">
-        Sync
-      </v-btn>
-      <v-btn @click="$replayBus.$emit('pause')">
-        Pause
-      </v-btn>
-    </div>
+    <sync-controller />
   </div>
 </template>
 
 <script>
-
 import { mapGetters } from 'vuex'
 import TwitchPlayer from '@/components/replaysync/TwitchPlayer'
+import SyncController from '@/components/replaysync/SyncController'
 
 export default {
   layout: 'player',
   components: {
-    TwitchPlayer
+    TwitchPlayer,
+    SyncController
   },
+
   computed: {
     ...mapGetters('videos', ['collections', 'hasSelection']),
     gridTemplate () {
@@ -73,13 +65,6 @@ export default {
     if (!this.hasSelection) {
       window.location = '/replaysync'
     }
-
-    window.appInterval = setInterval(() => {
-      this.$replayBus.$emit('ping')
-    }, 1000)
-  },
-  beforeDestroy () {
-    window.appInterval = null
   }
 
 }
@@ -90,13 +75,6 @@ export default {
   height: 100vh;
   width: 100%;
   display: grid;
-}
-
-.controler {
-  display: inline-block;
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }
 
 #player-1{
@@ -111,5 +89,4 @@ export default {
 #player-4{
   grid-area: player4
 }
-
 </style>
