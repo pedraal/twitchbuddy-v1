@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import LoadScript from 'vue-plugin-load-script'
+import LoadScript from '@pedraal/vue-plugin-load-script'
 
 Vue.use(LoadScript)
