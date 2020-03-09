@@ -42,7 +42,6 @@ export default {
     ...mapGetters('videos', ['selectedVideo', 'selectedVideoTimestamp'])
 
   },
-
   beforeMount () {
     this.$unloadScript('https://player.twitch.tv/js/embed/v1.js')
     this.$loadScript('https://player.twitch.tv/js/embed/v1.js')
@@ -55,49 +54,57 @@ export default {
         }
 
         this.player = new window.Twitch.Player(this.$refs[this.video.id], options)
-        this.player.addEventListener('ended', () => (this.$emit('ended')))
-        this.player.addEventListener('pause', () => (this.$emit('pause')))
-        this.player.addEventListener('play', () => (this.$emit('play')))
-        this.player.addEventListener('offline', () => (this.$emit('offline')))
-        this.player.addEventListener('online', () => (this.$emit('online')))
-        this.player.addEventListener('ready', () => {
-          this.player.setQuality('480p30')
-          this.player.setVolume(1)
-          this.$emit('ready')
-          this.seek(0)
-        })
+        this.player.addEventListener('ended', () => { this.$emit('ended') })
+        this.player.addEventListener('pause', () => { this.$emit('pause') })
+        this.player.addEventListener('play', () => { this.$emit('play') })
+        this.player.addEventListener('offline', () => { this.$emit('offline') })
+        this.player.addEventListener('online', () => { this.$emit('online') })
+        this.player.addEventListener('ready', () => { this.handleReady() })
       }).catch(e => (this.$emit('error', e)))
   },
   mounted () {
-    this.$replayBus.$on('play', () => {
-      this.play()
-    })
-    this.$replayBus.$on('pause', () => {
-      this.pause()
-    })
-    this.$replayBus.$on('sync', (event) => {
-      this.pause()
-      if (this.video.id !== this.selectedVideo.id) this.sync(event)
-    })
-    this.$replayBus.$on('ping', () => {
+    this.$replayBus.$on('play', this.play)
+    this.$replayBus.$on('pause', this.pause)
+    this.$replayBus.$on('sync', this.handleSync)
+    this.$replayBus.$on('ping', this.handlePing)
+  },
+  beforeDestroy () {
+    this.player.removeEventListener('ended', () => { this.$emit('ended') })
+    this.player.removeEventListener('pause', () => { this.$emit('pause') })
+    this.player.removeEventListener('play', () => { this.$emit('play') })
+    this.player.removeEventListener('offline', () => { this.$emit('offline') })
+    this.player.removeEventListener('online', () => { this.$emit('online') })
+    this.player.removeEventListener('ready', () => { this.handleReady() })
+    this.$replayBus.$off('play')
+    this.$replayBus.$off('pause')
+    this.$replayBus.$off('sync')
+    this.$replayBus.$off('ping')
+  },
+  methods: {
+    ...mapActions('videos', ['setSelectedVideoTimestamp']),
+    handleReady () {
+      this.player.setQuality('480p30')
+      this.player.setVolume(1)
+      this.$emit('ready')
+    },
+    handlePing () {
       if (this.video.id === this.selectedVideo.id) this.setSelectedVideoTimestamp(this.getCurrentTime())
       else {
         const offset = this.selectedVideoTimestamp - moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
         this.notStarted = offset <= 0
         this.ended = moment(this.video.created_at).add(offset, 'seconds').isAfter(moment(this.video.ended_at))
       }
-    })
-  },
-  methods: {
-    ...mapActions('videos', ['setSelectedVideoTimestamp']),
-    play () {
-      this.player.play()
     },
-    sync () {
+    handleSync () {
+      this.pause()
+      if (this.video.id === this.selectedVideo.id) return
       const offset = moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
       this.seek(this.selectedVideoTimestamp - offset)
       this.notStarted = offset < 0
       this.ended = moment(this.video.created_at).add(offset, 'seconds').isAfter(moment(this.video.ended_at))
+    },
+    play () {
+      this.player.play()
     },
     pause () {
       this.player.pause()
