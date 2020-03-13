@@ -1,13 +1,15 @@
 <template>
   <div class="controler">
-    <v-btn @click="$replayBus.$emit('play')">
-      Play
+    <v-btn @click="$replayBus.$emit('main-action')" fab small>
+      <v-icon v-if="playerState === 'playing'">
+        mdi-pause
+      </v-icon>
+      <v-icon v-if="playerState === 'paused'">
+        mdi-play
+      </v-icon>
     </v-btn>
-    <v-btn @click="$replayBus.$emit('sync', selectedVideo)">
-      Sync
-    </v-btn>
-    <v-btn @click="$replayBus.$emit('pause')">
-      Pause
+    <v-btn @click="$replayBus.$emit('sync', selectedVideo)" fab small>
+      <v-icon>mdi-sync</v-icon>
     </v-btn>
   </div>
 </template>
@@ -16,6 +18,12 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  props: {
+    playerState: {
+      type: String,
+      default: 'paused'
+    }
+  },
   computed: {
     ...mapGetters('videos', ['selectedVideo'])
   }

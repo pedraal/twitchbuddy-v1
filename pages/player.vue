@@ -4,14 +4,23 @@
       <div
         v-for="(collection, id) in collections"
         :key="id"
-        :id="'player-'+(id+1)"
+        :id="'gridItem-'+(id+1)"
       >
         <client-only>
           <TwitchPlayer :video="collection.collection[0]" :ref="id" class="grid-item" />
         </client-only>
       </div>
     </div>
-    <sync-controller />
+    <sync-controller @loading="loading=true" @ready="loading=false" />
+    <transition name="fade">
+      <div v-if="loading" class="loader d-flex justify-center align-center">
+        <v-progress-circular
+          :size="150"
+          color="primary"
+          indeterminate
+        />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -20,48 +29,25 @@ import { mapGetters } from 'vuex'
 import TwitchPlayer from '@/components/replaysync/TwitchPlayer'
 import SyncController from '@/components/replaysync/SyncController'
 
+import gridTemplate from '@/mixins/gridTemplateMixin.js'
+
 export default {
-  layout: 'player',
   components: {
     TwitchPlayer,
     SyncController
   },
-
-  computed: {
-    ...mapGetters('videos', ['collections', 'hasSelection']),
-    gridTemplate () {
-      if (this.collections.length >= 4) {
-        return {
-          gridTemplateColumns: '50% 50%',
-          gridTemplateRows: '50%',
-          gridTemplateAreas: '"player1 player2" "player3 player4"'
-
-        }
-      }
-      if (this.collections.length >= 3) {
-        return {
-          gridTemplateColumns: '50% 50%',
-          gridTemplateRows: '50%',
-          gridTemplateAreas: '"player1 player2" "player3 player3"'
-        }
-      }
-      if (this.collections.length === 2) {
-        return {
-          gridTemplateColumns: '100%',
-          gridTemplateRows: '50%',
-          gridTemplateAreas: '"player1" "player2"'
-
-        }
-      }
-      return {
-        gridTemplateColumns: 'auto',
-        gridTemplateRows: 'auto',
-        gridTemplateAreas: '"player1"'
-
-      }
+  mixins: [gridTemplate],
+  layout: 'player',
+  data () {
+    return {
+      loading: false
     }
   },
-  mounted () {
+  computed: {
+    ...mapGetters('videos', ['hasSelection'])
+
+  },
+  beforeMount () {
     if (!this.hasSelection) {
       window.location = '/replaysync'
     }
@@ -77,16 +63,27 @@ export default {
   display: grid;
 }
 
-#player-1{
-  grid-area: player1
+#gridItem-1{
+  grid-area: gridItem1
 }
-#player-2{
-  grid-area: player2
+#gridItem-2{
+  grid-area: gridItem2
 }
-#player-3{
-  grid-area: player3
+#gridItem-3{
+  grid-area: gridItem3
 }
-#player-4{
-  grid-area: player4
+#gridItem-4{
+  grid-area: gridItem4
 }
+
+.loader {
+  position: absolute;
+  top:0;
+  left: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(grey, 0.7)
+}
+
 </style>

@@ -2,17 +2,25 @@
   <div class="wrapper">
     <div :ref="video.id" class="wrapper" />
     <div class="status">
-      <div v-if="video.id === selectedVideo.id" class="blue--text text--lighten-2 font-weight-bold">
-        Reference
+      <div v-if="isReference">
+        <v-icon class="blue--text text--lighten-2 font-weight-bold">
+          mdi-checkbox-blank-circle
+        </v-icon>
       </div>
-      <div v-else-if="notStarted" class="red--text text--lighten-2 font-weight-bold">
-        Not started yet
+      <div v-else-if="video_state === 'idle'">
+        <v-icon class="red--text text--lighten-2 font-weight-bold">
+          mdi-checkbox-blank-circle
+        </v-icon>
       </div>
-      <div v-else-if="ended" class="red--text text--lighten-2 font-weight-bold">
-        Ended
+      <div v-else-if="video_state === 'ended'">
+        <v-icon class="red--text text--lighten-2 font-weight-bold">
+          mdi-checkbox-blank-circle
+        </v-icon>
       </div>
-      <div v-else class="green--text text--lighten-2 font-weight-bold">
-        Running
+      <div v-else>
+        <v-icon class="green--text text--lighten-2 font-weight-bold">
+          mdi-checkbox-blank-circle
+        </v-icon>
       </div>
     </div>
   </div>
@@ -34,13 +42,24 @@ export default {
   data () {
     return {
       player: null,
-      notStarted: false,
-      ended: false
+      video_state: 'init'
     }
   },
   computed: {
-    ...mapGetters('videos', ['selectedVideo', 'selectedVideoTimestamp'])
-
+    ...mapGetters('videos', ['selectedVideo', 'selectedVideoTimestamp']),
+    isReference () {
+      return this.video.id === this.selectedVideo.id
+    }
+  },
+  watch: {
+    isReference (val) {
+      val ? this.unmute() : this.mute()
+    },
+    video_state (val, old) {
+      if (old === 'idle' && val === 'running') {
+        this.$replayBus.$emit('sync')
+      }
+    }
   },
   beforeMount () {
     this.$unloadScript('https://player.twitch.tv/js/embed/v1.js')
@@ -54,11 +73,11 @@ export default {
         }
 
         this.player = new window.Twitch.Player(this.$refs[this.video.id], options)
-        this.player.addEventListener('ended', () => { this.$emit('ended') })
-        this.player.addEventListener('pause', () => { this.$emit('pause') })
-        this.player.addEventListener('play', () => { this.$emit('play') })
-        this.player.addEventListener('offline', () => { this.$emit('offline') })
-        this.player.addEventListener('online', () => { this.$emit('online') })
+        // this.player.addEventListener('ended', () => { this.$emit('ended') })
+        // this.player.addEventListener('pause', () => { this.$emit('pause') })
+        // this.player.addEventListener('play', () => { this.$emit('play') })
+        // this.player.addEventListener('offline', () => { this.$emit('offline') })
+        // this.player.addEventListener('online', () => { this.$emit('online') })
         this.player.addEventListener('ready', () => { this.handleReady() })
       }).catch(e => (this.$emit('error', e)))
   },
@@ -69,11 +88,11 @@ export default {
     this.$replayBus.$on('ping', this.handlePing)
   },
   beforeDestroy () {
-    this.player.removeEventListener('ended', () => { this.$emit('ended') })
-    this.player.removeEventListener('pause', () => { this.$emit('pause') })
-    this.player.removeEventListener('play', () => { this.$emit('play') })
-    this.player.removeEventListener('offline', () => { this.$emit('offline') })
-    this.player.removeEventListener('online', () => { this.$emit('online') })
+    // this.player.removeEventListener('ended', () => { this.$emit('ended') })
+    // this.player.removeEventListener('pause', () => { this.$emit('pause') })
+    // this.player.removeEventListener('play', () => { this.$emit('play') })
+    // this.player.removeEventListener('offline', () => { this.$emit('offline') })
+    // this.player.removeEventListener('online', () => { this.$emit('online') })
     this.player.removeEventListener('ready', () => { this.handleReady() })
     this.$replayBus.$off('play')
     this.$replayBus.$off('pause')
@@ -84,26 +103,32 @@ export default {
     ...mapActions('videos', ['setSelectedVideoTimestamp']),
     handleReady () {
       this.player.setQuality('480p30')
-      this.player.setVolume(1)
+      this.setVolume(1)
+      this.isReference ? this.unmute() : this.mute()
       this.$emit('ready')
     },
     handlePing () {
-      if (this.video.id === this.selectedVideo.id) this.setSelectedVideoTimestamp(this.getCurrentTime())
+      if (this.isReference) this.setSelectedVideoTimestamp(this.getCurrentTime())
       else {
         const offset = this.selectedVideoTimestamp - moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
-        this.notStarted = offset <= 0
-        this.ended = moment(this.video.created_at).add(offset, 'seconds').isAfter(moment(this.video.ended_at))
+        if (offset <= 0) {
+          this.video_state = 'idle'
+        } else if (moment(this.video.created_at).add(offset, 'seconds').isAfter(moment(this.video.ended_at))) {
+          this.video_state = 'ended'
+        } else {
+          this.video_state = 'running'
+        }
       }
     },
     handleSync () {
       this.pause()
-      if (this.video.id === this.selectedVideo.id) return
+      setTimeout(() => { this.play() }, 2500)
+      if (this.isReference) return
       const offset = moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
       this.seek(this.selectedVideoTimestamp - offset)
-      this.notStarted = offset < 0
-      this.ended = moment(this.video.created_at).add(offset, 'seconds').isAfter(moment(this.video.ended_at))
     },
     play () {
+      if (this.video_state === 'idle' && this.video_state === 'ended') return
       this.player.play()
     },
     pause () {
@@ -111,6 +136,9 @@ export default {
     },
     seek (timestamp) {
       this.player.seek(timestamp)
+    },
+    setVolume (val) {
+      this.player.setVolume(val)
     },
     getCurrentTime () {
       return this.player.getCurrentTime()
