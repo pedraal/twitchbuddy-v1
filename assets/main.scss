@@ -11,3 +11,24 @@
 .page-enter, .page-leave-active {
   opacity: 0
 }
+
+.fade-enter-active {
+  transition: opacity .2s
+}.fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+
+.trigger-enter-active, .trigger-leave-active {
+  transition: opacity .2s
+}
+.trigger-enter, .trigger-leave-active {
+  opacity: 0
+}
+
+html,
+body {
+  background-color: #303030;
+}
