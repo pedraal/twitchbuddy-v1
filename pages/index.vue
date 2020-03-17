@@ -39,16 +39,25 @@
             <v-card-text class="pa-4 text-justify">
               {{ item.content }}
             </v-card-text>
-            <v-card-actions>
-              <v-btn
-                :to="item.link"
-                nuxt
-                class="mx-auto mb-4"
-                color="indigo accent-1"
-                outlined
+            <v-card-actions class="text-center">
+              <v-badge
+                class="d-block mx-auto"
+                color="error"
+                icon="mdi-lock"
               >
-                {{ item.action }}
-              </v-btn>
+                <template v-if="item.badge" v-slot:badge>
+                  <span class="overline">{{ item.badge }}</span>
+                </template>
+                <v-btn
+                  :to="item.link"
+                  nuxt
+                  class="mx-auto mb-4"
+                  color="indigo accent-1"
+                  outlined
+                >
+                  {{ item.action }}
+                </v-btn>
+              </v-badge>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -66,17 +75,19 @@ export default {
       items: [
         {
           title: 'Clips',
-          icon: 'mdi-library-video',
+          icon: 'mdi-movie-open-outline',
           content: "The clip tool lets you search precisely for twitch clips using Twitch's API. Discover top twitchs moment or check out for the best clips for your videos and download them directly from this app.",
           link: '/clips',
-          action: 'Get started'
+          action: 'Get started',
+          badge: false
         },
         {
           title: 'Replay sync',
-          icon: 'mdi-movie',
+          icon: 'mdi-filmstrip',
           content: 'The replay sync lets you watch group streams just like if it was live!  Submit a list of channels, find simultaneous broacasts and bring them to our synchronising player.',
           link: '/replaysync',
-          action: 'Get started'
+          action: 'Get started',
+          badge: 'beta'
         }
       ]
     }

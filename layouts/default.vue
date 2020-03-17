@@ -57,12 +57,12 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-library-video',
+          icon: 'mdi-movie-open-outline',
           title: 'Clips',
           to: '/clips'
         },
         {
-          icon: 'mdi-movie',
+          icon: 'mdi-filmstrip',
           title: 'Replay Sync',
           to: '/replaysync'
         }
