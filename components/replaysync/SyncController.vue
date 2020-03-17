@@ -31,16 +31,22 @@ export default {
       this.$replayBus.$emit('ping')
     }, 1000)
 
-    this.$replayBus.$on('sync', () => { this.handleSync() })
+    this.$replayBus.$on('sync', () => {
+      this.handleSync()
+    })
 
     this.$replayBus.$on('main-action', () => {
       if (this.playerState === 'playing') {
         this.$replayBus.$emit('pause')
-        this.playerState = 'paused'
       } else if (this.playerState === 'paused') {
         this.$replayBus.$emit('play')
-        this.playerState = 'playing'
       }
+    })
+    this.$replayBus.$on('play', () => {
+      this.playerState = 'playing'
+    })
+    this.$replayBus.$on('pause', () => {
+      this.playerState = 'paused'
     })
   },
   beforeDestroy () {
@@ -48,15 +54,20 @@ export default {
     window.appClock = null
     this.$replayBus.$off('sync')
     this.$replayBus.$off('main-action')
+    this.$replayBus.$off('play')
+    this.$replayBus.$off('pause')
   },
   methods: {
     handleSync () {
+      const previousState = this.playerState
       this.$emit('loading')
-      this.state = 'paused'
+
+      this.playerState = 'paused'
       setTimeout(() => {
-        this.$replayBus.$emit('play')
-        this.state = 'playing'
         this.$emit('ready')
+        if (previousState === 'playing') {
+          this.$replayBus.$emit('play')
+        }
       }, 2500)
     }
   }

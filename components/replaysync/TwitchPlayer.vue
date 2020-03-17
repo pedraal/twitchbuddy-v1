@@ -1,26 +1,38 @@
 <template>
   <div class="wrapper">
     <div :ref="video.id" class="wrapper" />
-    <div class="status">
+    <div @mouseenter="tooltip = true" @mouseleave="tooltip = false" class="status">
       <div v-if="isReference">
-        <v-icon class="blue--text text--lighten-2 font-weight-bold">
+        <v-icon class="blue--text text--lighten-2">
           mdi-checkbox-blank-circle
         </v-icon>
+        <transition name="trigger">
+          <span v-show="tooltip" class="blue--text text--lighten-2 font-weight-bold">&nbsp;Reference</span>
+        </transition>
       </div>
-      <div v-else-if="video_state === 'idle'">
-        <v-icon class="red--text text--lighten-2 font-weight-bold">
+      <div v-else-if="videoState === 'idle'">
+        <v-icon class="red--text text--lighten-2">
           mdi-checkbox-blank-circle
         </v-icon>
+        <transition name="trigger">
+          <span v-show="tooltip" class="red--text text--lighten-2 font-weight-bold">&nbsp;Not started</span>
+        </transition>
       </div>
-      <div v-else-if="video_state === 'ended'">
-        <v-icon class="red--text text--lighten-2 font-weight-bold">
+      <div v-else-if="videoState === 'ended'">
+        <v-icon class="red--text text--lighten-2">
           mdi-checkbox-blank-circle
         </v-icon>
+        <transition name="trigger">
+          <span v-show="tooltip" class="red--text text--lighten-2 font-weight-bold">&nbsp;Ended</span>
+        </transition>
       </div>
       <div v-else>
-        <v-icon class="green--text text--lighten-2 font-weight-bold">
+        <v-icon class="green--text text--lighten-2">
           mdi-checkbox-blank-circle
         </v-icon>
+        <transition name="trigger">
+          <span v-show="tooltip" class="green--text text--lighten-2 font-weight-bold">&nbsp;Running</span>
+        </transition>
       </div>
     </div>
   </div>
@@ -42,7 +54,8 @@ export default {
   data () {
     return {
       player: null,
-      video_state: 'init'
+      videoState: 'init',
+      tooltip: false
     }
   },
   computed: {
@@ -55,7 +68,7 @@ export default {
     isReference (val) {
       val ? this.unmute() : this.mute()
     },
-    video_state (val, old) {
+    videoState (val, old) {
       if (old === 'idle' && val === 'running') {
         this.$replayBus.$emit('sync')
       }
@@ -82,6 +95,9 @@ export default {
       }).catch(e => (this.$emit('error', e)))
   },
   mounted () {
+    if (this.isReference) {
+      this.videoState = 'reference'
+    }
     this.$replayBus.$on('play', this.play)
     this.$replayBus.$on('pause', this.pause)
     this.$replayBus.$on('sync', this.handleSync)
@@ -112,24 +128,24 @@ export default {
       else {
         const offset = this.selectedVideoTimestamp - moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
         if (offset <= 0) {
-          this.video_state = 'idle'
+          this.videoState = 'idle'
         } else if (moment(this.video.created_at).add(offset, 'seconds').isAfter(moment(this.video.ended_at))) {
-          this.video_state = 'ended'
+          this.videoState = 'ended'
         } else {
-          this.video_state = 'running'
+          this.videoState = 'running'
         }
       }
     },
     handleSync () {
       this.pause()
-      setTimeout(() => { this.play() }, 2500)
       if (this.isReference) return
       const offset = moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
       this.seek(this.selectedVideoTimestamp - offset)
     },
     play () {
-      if (this.video_state === 'idle' && this.video_state === 'ended') return
-      this.player.play()
+      if (this.videoState !== 'idle' && this.videoState !== 'ended') {
+        this.player.play()
+      }
     },
     pause () {
       this.player.pause()
@@ -193,6 +209,10 @@ export default {
     top: 10px;
     left: 10px;
     width: 100%;
+
+    span {
+      text-shadow: 2px 2px black;
+    }
   }
 }
 
