@@ -27,10 +27,12 @@
                 clearable
               />
             </v-col>
+            <v-col>
+              <v-btn @click="submit" :disabled="loading" class="mt-4">
+                submit
+              </v-btn>
+            </v-col>
           </v-row>
-          <v-btn @click="submit" :disabled="loading" class="mr-4">
-            submit
-          </v-btn>
         </v-container>
       </v-form>
     </section>
@@ -89,7 +91,7 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      select: ['camak', 'woodspices']
+      select: []
     }
   },
   computed: {
