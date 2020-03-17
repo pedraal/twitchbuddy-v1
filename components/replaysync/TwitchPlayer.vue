@@ -95,9 +95,6 @@ export default {
       }).catch(e => (this.$emit('error', e)))
   },
   mounted () {
-    if (this.isReference) {
-      this.videoState = 'reference'
-    }
     this.$replayBus.$on('play', this.play)
     this.$replayBus.$on('pause', this.pause)
     this.$replayBus.$on('sync', this.handleSync)
@@ -124,8 +121,10 @@ export default {
       this.$emit('ready')
     },
     handlePing () {
-      if (this.isReference) this.setSelectedVideoTimestamp(this.getCurrentTime())
-      else {
+      if (this.isReference) {
+        this.setSelectedVideoTimestamp(this.getCurrentTime())
+        this.videoState = 'reference'
+      } else {
         const offset = this.selectedVideoTimestamp - moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
         if (offset <= 0) {
           this.videoState = 'idle'
