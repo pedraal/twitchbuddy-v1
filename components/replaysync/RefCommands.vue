@@ -1,7 +1,9 @@
 <template>
   <div :style="gridTemplate" class="grid">
     <div v-for="(collection,id) in collections" :key="id" :id="'gridItem-'+(id+1)" class="gridItem">
-      <v-btn :class="{ 'grey darken-1': hasSelection && collection.collection[0].id === selectedVideo.id}" @click="setSelected(collection.collection[0])" class="panel" small />
+      <v-btn :class="{ 'grey darken-1': hasSelection && collection.collection[0].id === selectedVideo.id}" @click="setSelected(collection.collection[0])" class="panel" small>
+        {{ id+1 }}
+      </v-btn>
     </div>
   </div>
 </template>
