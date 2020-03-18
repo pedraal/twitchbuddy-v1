@@ -25,7 +25,6 @@
     <v-app-bar
       clipped-left
       app
-      elevation="1"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title><span class="grey--text text--lighten-2 font-weight-thin">Twitch</span><span class="indigo--text text--accent-2">Buddy</span></v-toolbar-title>
@@ -49,7 +48,7 @@ export default {
   components: { AppFooter },
   data () {
     return {
-      drawer: false,
+      drawer: null,
       items: [
         {
           icon: 'mdi-apps',
