@@ -46,7 +46,7 @@
                 icon="mdi-lock"
               >
                 <template v-if="item.badge" v-slot:badge>
-                  <span class="overline">{{ item.badge }}</span>
+                  <span class="px-1 overline">{{ item.badge }}</span>
                 </template>
                 <v-btn
                   :to="item.link"
