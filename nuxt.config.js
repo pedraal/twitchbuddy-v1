@@ -5,7 +5,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default {
-  mode: 'spa',
+  mode: 'universal',
   generate: {
     fallback: true
   },
@@ -26,7 +26,10 @@ export default {
   css: [
     '~/assets/main.scss'
   ],
-  plugins: [],
+  plugins: [
+    '~/plugins/load-script',
+    '~/plugins/replay-bus'
+  ],
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
@@ -67,6 +70,10 @@ export default {
       theme_color: '#424242',
       background_color: '#303030'
     }
+  },
+
+  layoutTransition: {
+    name: 'layout'
   },
   build: {
     extend (config, ctx) {

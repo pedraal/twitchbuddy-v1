@@ -1028,6 +1028,11 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
+"@pedraal/vue-plugin-load-script@^1.2.0":
+  version "1.2.0"
+  resolved "https://npm.pkg.github.com/download/@pedraal/vue-plugin-load-script/1.2.0/dc373977dc5222fbe97b95d56c23dc9c63d7c2503f200908c33e511807607005#c756e5d136337e27eed46c8f696c6d459817aadd"
+  integrity sha512-mIASWV1JxAp6PRmPRQ2K3O1tXhp95nqiWdAAUqFL6jNDHsB5KyECG2ZI2RbKFS4HRK9EBVrDLRemjOTiEpogqg==
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
