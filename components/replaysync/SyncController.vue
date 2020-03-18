@@ -31,6 +31,10 @@ export default {
       this.$replayBus.$emit('ping')
     }, 1000)
 
+    setTimeout(() => {
+      this.$replayBus.$emit('sync')
+    }, 1000)
+
     this.$replayBus.$on('sync', () => {
       this.handleSync()
     })
