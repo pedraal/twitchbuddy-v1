@@ -4,7 +4,6 @@
     justify-center
     align-center
   >
-    <h1>Replay Sync</h1>
     <section>
       <v-form @submit.prevent="submit">
         <v-container>
@@ -12,6 +11,7 @@
             <v-col
               cols="12"
               md="8"
+              lg="5"
             >
               <v-combobox
                 v-model="select"
