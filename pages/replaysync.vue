@@ -16,6 +16,7 @@
               <v-combobox
                 v-model="select"
                 :items="select"
+                :append-icon="false"
                 label="Add channels"
                 multiple
                 chips
@@ -58,18 +59,20 @@
               <p class="overline my-0">
                 <v-icon small>
                   mdi-ray-start
-                </v-icon>&nbsp;{{ humanDate(video.created_at) }}&nbsp;{{ humanTime(video.created_at) }}
+                </v-icon>
+                &nbsp;{{ humanDate(video.created_at) }}&nbsp;{{ humanTime(video.created_at) }}
               </p>
               <p class="overline my-0">
                 <v-icon small>
                   mdi-ray-end
-                </v-icon>&nbsp;{{ humanDate(video.ended_at) }}&nbsp;{{ humanTime(video.ended_at) }}
+                </v-icon>
+                &nbsp;{{ humanDate(video.ended_at) }}&nbsp;{{ humanTime(video.ended_at) }}
               </p>
               <p class="overline my-0">
                 <v-icon small>
                   mdi-clock
-                </v-icon>&nbsp;
-                {{ video.duration }}
+                </v-icon>
+                &nbsp;{{ video.duration }}
               </p>
             </v-card>
           </v-col>
@@ -158,4 +161,13 @@ export default {
       background: #727272
     }
   }
+</style>
+
+<style lang="scss">
+.v-autocomplete{
+  .v-input__slot{
+    min-height: 32px !important;
+    height: 46px !important;
+  }
+}
 </style>

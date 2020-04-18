@@ -196,13 +196,14 @@ export default {
   margin: 0 auto;
   height: 100%;
 
-  iframe{
+  iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
   }
+
   .status {
     position: absolute;
     top: 10px;

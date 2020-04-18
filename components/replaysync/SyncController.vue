@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .trigger{
+  .trigger {
     position: absolute;
     top: 10px;
     right: 10px;

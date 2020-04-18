@@ -1,31 +1,44 @@
-.layout-enter-active, .layout-leave-active {
-  transition: opacity .5s
-}
-.layout-enter, .layout-leave-active {
-  opacity: 0
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity 0.5s;
 }
 
-.page-enter-active, .page-leave-active {
-  transition: opacity .5s
+.layout-enter,
+.layout-leave-active {
+  opacity: 0;
 }
-.page-enter, .page-leave-active {
-  opacity: 0
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+
+.page-enter,
+.page-leave-active {
+  opacity: 0;
 }
 
 .fade-enter-active {
-  transition: opacity .2s
-}.fade-leave-active {
-  transition: opacity .5s
-}
-.fade-enter, .fade-leave-active {
-  opacity: 0
+  transition: opacity 0.2s;
 }
 
-.trigger-enter-active, .trigger-leave-active {
-  transition: opacity .2s
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
-.trigger-enter, .trigger-leave-active {
-  opacity: 0
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+.trigger-enter-active,
+.trigger-leave-active {
+  transition: opacity 0.2s;
+}
+
+.trigger-enter,
+.trigger-leave-active {
+  opacity: 0;
 }
 
 html,
