@@ -67,10 +67,25 @@ export const getters = {
       return state.collections.map((collection) => {
         return {
           ...collection,
-          collection: collection.collection.filter(video => moment(video.created_at).isBetween(moment(state.selectedVideo.created_at), moment(state.selectedVideo.ended_at), null, []) ||
-            moment(video.ended_at).isBetween(moment(state.selectedVideo.created_at), moment(state.selectedVideo.ended_at), null, []) ||
-            moment(state.selectedVideo.created_at).isBetween(moment(video.created_at), moment(video.ended_at), null, []) ||
-            moment(state.selectedVideo.ended_at).isBetween(moment(video.created_at), moment(video.ended_at), null, []))
+          videos: collection.videos.filter(
+            video => moment(video.created_at).isBetween(moment(state.selectedVideo.created_at),
+              moment(state.selectedVideo.ended_at),
+              null,
+              []) ||
+            moment(video.ended_at).isBetween(
+              moment(state.selectedVideo.created_at),
+              moment(state.selectedVideo.ended_at),
+              null,
+              []) ||
+            moment(state.selectedVideo.created_at).isBetween(
+              moment(video.created_at),
+              moment(video.ended_at),
+              null,
+              []) ||
+            moment(state.selectedVideo.ended_at).isBetween(moment(video.created_at),
+              moment(video.ended_at),
+              null,
+              []))
         }
       })
     }
