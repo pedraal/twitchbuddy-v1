@@ -14,6 +14,7 @@
             <ReplayList :collection="collection" />
           </v-col>
         </v-row>
+        <ToolHelper v-else />
         <Loader />
       </v-container>
       <div v-if="selectedVideo" class="text-center">
@@ -31,11 +32,13 @@ import { mapGetters } from 'vuex'
 import ReplayForm from '@/components/replaysync/ReplayForm'
 import ReplayList from '@/components/replaysync/ReplayList'
 import Loader from '@/components/utils/Loader'
+import ToolHelper from '@/components/utils/ToolHelper'
 
 export default {
   components: {
     ReplayForm,
     ReplayList,
+    ToolHelper,
     Loader
   },
   computed: {

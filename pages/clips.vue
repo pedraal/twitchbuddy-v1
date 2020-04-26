@@ -24,6 +24,7 @@
           @loadOffset="loadOffset = $event"
           class="cliplist"
         />
+        <ToolHelper v-if="clips.length === 0" />
       </v-container>
 
       <Loader />
@@ -38,12 +39,14 @@ import ClipForm from '@/components/clips/ClipForm'
 import ClipFilter from '@/components/clips/ClipFilter'
 import ClipList from '@/components/clips/ClipList'
 import Loader from '@/components/utils/Loader'
+import ToolHelper from '@/components/utils/ToolHelper'
 
 export default {
   components: {
     ClipForm,
     ClipFilter,
     ClipList,
+    ToolHelper,
     Loader
   },
   data () {
