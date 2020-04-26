@@ -1,33 +1,33 @@
 <template>
   <v-form @submit.prevent="submit">
     <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          md="8"
-          lg="5"
-        >
-          <v-combobox
-            v-model="select"
-            :items="select"
-            append-icon=""
-            label="Add channels"
-            multiple
-            chips
-            small-chips
-            deletable-chips
-            hide-no-data
-            hide-selected
-            full-width
-            clearable
-          />
-        </v-col>
-        <v-col>
-          <v-btn @click="submit" :disabled="loading" class="mt-4">
-            submit
-          </v-btn>
-        </v-col>
-      </v-row>
+      <v-card class="pa-4">
+        <v-row class="mt-2 ml-2">
+          <v-col
+            cols="12"
+            md="8"
+            lg="5"
+          >
+            <v-combobox
+              v-model="select"
+              :error="!!error"
+              append-icon=""
+              label="Add channels"
+              multiple
+              small-chips
+              deletable-chips
+              hide-no-data
+              hide-selected
+              clearable
+            />
+          </v-col>
+          <v-col>
+            <v-btn @click="submit" :disabled="loading" class="mt-4">
+              submit
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-container>
   </v-form>
 </template>
@@ -69,13 +69,5 @@ export default {
 </script>
 
 <style lang="scss">
-.v-input.v-autocomplete {
-  .v-input__slot {
-    min-height: 32px !important;
-    height: 46px !important;
-  }
-  label {
-    margin-top: -5px;
-  }
-}
+
 </style>
