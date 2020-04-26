@@ -7,7 +7,7 @@
         :id="'gridItem-'+(id+1)"
       >
         <client-only>
-          <TwitchPlayer :video="collection.collection[0]" :ref="id" class="grid-item" />
+          <TwitchPlayer :video="collection.videos[0]" :ref="id" class="grid-item" />
         </client-only>
       </div>
     </div>
