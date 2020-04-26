@@ -27,7 +27,12 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title><span class="grey--text text--lighten-2 font-weight-thin">Twitch</span><span class="indigo--text text--accent-2">Buddy</span></v-toolbar-title>
+      <v-toolbar-title v-if="$route.name === 'index'">
+        <span class="indigo--text text--accent-2 ">Twitch</span><span class="grey--text text--lighten-2 font-weight-thin">Buddy</span>
+      </v-toolbar-title>
+      <v-toolbar-title v-else>
+        <span class="indigo--text text--accent-2 route-name">{{ $route.name.substr(0,1) }}</span><span class="grey--text text--lighten-2 font-weight-thin">{{ $route.name.substr(1) }}</span>
+      </v-toolbar-title>
     </v-app-bar>
     <v-content class="mt-4">
       <v-container>
@@ -80,5 +85,9 @@ export default {
   .foreground {
     position: fixed;
     z-index: 4;
+  }
+
+  .route-name {
+    text-transform: capitalize;
   }
 </style>
