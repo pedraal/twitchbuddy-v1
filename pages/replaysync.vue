@@ -17,7 +17,7 @@
         <Loader />
       </v-container>
       <div v-if="selectedVideo" class="text-center">
-        <v-btn @click="play" nuxt to="/player" outlined>
+        <v-btn nuxt to="/player" outlined>
           Play
         </v-btn>
       </div>
