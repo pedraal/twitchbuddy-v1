@@ -41,9 +41,11 @@
             </v-card-text>
             <v-card-actions class="text-center">
               <v-badge
+                :value="!!item.badge"
                 class="d-block mx-auto"
                 color="error"
-                icon="mdi-lock"
+                offset-x="20px"
+                offset-y="10px"
               >
                 <template v-if="item.badge" v-slot:badge>
                   <span class="px-1 overline">{{ item.badge }}</span>
