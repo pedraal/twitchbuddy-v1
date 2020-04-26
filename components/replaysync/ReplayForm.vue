@@ -41,7 +41,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('videos', ['error', 'loading'])
+    ...mapGetters('videos', ['error']),
+    ...mapGetters('global', ['loading'])
+
   },
   watch: {
     select (val) {

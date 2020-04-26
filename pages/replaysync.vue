@@ -9,11 +9,12 @@
     </section>
     <section>
       <v-container>
-        <v-row justify="center">
+        <v-row v-if="collections.length > 0" justify="center">
           <v-col v-for="collection in collections" :key="collection.id" :cols="12/collections.length">
             <ReplayList :collection="collection" />
           </v-col>
         </v-row>
+        <Loader />
       </v-container>
       <div v-if="selectedVideo" class="text-center">
         <v-btn @click="play" nuxt to="/player" outlined>
@@ -29,11 +30,13 @@ import { mapGetters } from 'vuex'
 
 import ReplayForm from '@/components/replaysync/ReplayForm'
 import ReplayList from '@/components/replaysync/ReplayList'
+import Loader from '@/components/utils/Loader'
 
 export default {
   components: {
     ReplayForm,
-    ReplayList
+    ReplayList,
+    Loader
   },
   computed: {
     ...mapGetters('videos', ['collections', 'selectedVideo'])

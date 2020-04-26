@@ -127,7 +127,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('clips', ['error', 'cursor', 'loading']),
+    ...mapGetters('clips', ['error', 'cursor']),
+    ...mapGetters('global', ['loading']),
     apitimerange () {
       let arr = [...this.periods[this.period]]
       arr = arr.sort()

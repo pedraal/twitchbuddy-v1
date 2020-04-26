@@ -5,8 +5,7 @@ export const state = () => ({
   collections: [],
   selectedVideo: null,
   selectedVideoTimestamp: 0,
-  error: false,
-  loading: false
+  error: false
 })
 
 export const mutations = {
@@ -22,9 +21,6 @@ export const mutations = {
   emptyError (state) {
     state.error = false
   },
-  setLoading (state, payload) {
-    state.loading = payload
-  },
   setSelected (state, payload) {
     state.selectedVideo = payload
   },
@@ -34,13 +30,13 @@ export const mutations = {
 }
 export const actions = {
   async getCollections ({ commit }, payload) {
-    commit('setLoading', true)
+    commit('global/setLoading', true, { root: true })
     try {
       const res = await axios.get('/.netlify/functions/videos?channel=' + payload, { responseType: 'json' })
       res.data.forEach(collection => commit('addCollection', collection))
-      commit('setLoading', false)
+      commit('global/setLoading', false, { root: true })
     } catch (error) {
-      commit('setLoading', false)
+      commit('global/setLoading', false, { root: true })
       commit('addError', error)
     }
   },
@@ -102,8 +98,5 @@ export const getters = {
   },
   error: (state) => {
     return state.error
-  },
-  loading: (state) => {
-    return state.loading
   }
 }
