@@ -7,6 +7,7 @@
             cols="12"
             md="8"
             lg="5"
+            class="py-0"
           >
             <v-combobox
               v-model="select"
@@ -21,7 +22,7 @@
               clearable
             />
           </v-col>
-          <v-col>
+          <v-col class="py-0">
             <v-btn @click="submit" :disabled="loading" class="mt-4">
               submit
             </v-btn>
@@ -33,7 +34,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -58,7 +59,9 @@ export default {
   },
   methods: {
     ...mapActions('videos', ['getCollections', 'emptyCollections', 'emptyError', 'setSelected']),
+    ...mapMutations('global', ['setHelpDisplay']),
     submit () {
+      this.setHelpDisplay(false)
       this.emptyError()
       this.emptyCollections()
       this.setSelected(null)

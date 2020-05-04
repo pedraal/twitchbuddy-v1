@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import moment from 'moment'
 const now = moment()
 
@@ -150,11 +150,13 @@ export default {
   },
   methods: {
     ...mapActions('clips', ['loadClips', 'emptyList', 'setCursor', 'emptyError', 'emptyList']),
+    ...mapMutations('global', ['setHelpDisplay']),
     format (value) {
       return moment(value).format('DD/MM/YYYY hh:mm')
     },
     submit () {
       this.keyword = ''
+      this.setHelpDisplay(false)
       this.setCursor('')
       this.emptyError()
       this.emptyList()

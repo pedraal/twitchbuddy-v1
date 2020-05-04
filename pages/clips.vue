@@ -24,7 +24,7 @@
           @loadOffset="loadOffset = $event"
           class="cliplist"
         />
-        <ToolHelper v-if="clips.length === 0" />
+        <ToolHelper v-if="clips.length === 0 && helpDisplay" />
       </v-container>
 
       <Loader />
@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     ...mapGetters('clips', ['clips', 'cursor']),
-    ...mapGetters('global', ['loading']),
+    ...mapGetters('global', ['loading', 'helpDisplay']),
     filteredClips () {
       if (this.filters.keyword.length < 2) {
         return this.clips

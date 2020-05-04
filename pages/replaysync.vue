@@ -14,7 +14,7 @@
             <ReplayList :collection="collection" />
           </v-col>
         </v-row>
-        <ToolHelper v-else />
+        <ToolHelper v-else-if="helpDisplay" />
         <Loader />
       </v-container>
       <div v-if="selectedVideo" class="text-center">
@@ -42,7 +42,8 @@ export default {
     Loader
   },
   computed: {
-    ...mapGetters('videos', ['collections', 'selectedVideo'])
+    ...mapGetters('videos', ['collections', 'selectedVideo']),
+    ...mapGetters('global', ['helpDisplay'])
   }
 
 }
