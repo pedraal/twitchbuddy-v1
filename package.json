@@ -41,7 +41,6 @@
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^2.6.0",
     "lint-staged": "^8.2.1",
-    "netlify-cli": "^2.48.0",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "stylelint": "^13.3.2",
