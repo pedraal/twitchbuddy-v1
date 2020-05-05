@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 import ReplayForm from '@/components/replaysync/ReplayForm'
 import ReplayList from '@/components/replaysync/ReplayList'
@@ -44,6 +44,12 @@ export default {
   computed: {
     ...mapGetters('videos', ['collections', 'selectedVideo']),
     ...mapGetters('global', ['helpDisplay'])
+  },
+  created () {
+    this.setHelpDisplay(true)
+  },
+  methods: {
+    ...mapMutations('global', ['setHelpDisplay'])
   }
 
 }

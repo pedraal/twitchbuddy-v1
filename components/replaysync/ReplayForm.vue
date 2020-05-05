@@ -2,7 +2,7 @@
   <v-form @submit.prevent="submit">
     <v-container>
       <v-card class="pa-4">
-        <v-row class="mt-2 ml-2">
+        <v-row class="mt-2 mx-2">
           <v-col
             cols="12"
             md="8"

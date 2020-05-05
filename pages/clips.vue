@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 import ClipForm from '@/components/clips/ClipForm'
 import ClipFilter from '@/components/clips/ClipFilter'
@@ -83,6 +83,9 @@ export default {
       }
     }
   },
+  created () {
+    this.setHelpDisplay(true)
+  },
   beforeMount () {
     window.addEventListener('scroll', this.handleScroll)
   },
@@ -93,6 +96,7 @@ export default {
   },
   methods: {
     ...mapActions('clips', ['loadClips', 'emptyList', 'setCursor']),
+    ...mapMutations('global', ['setHelpDisplay']),
     handleScroll () {
       this.scrollValue = window.scrollY
     }
