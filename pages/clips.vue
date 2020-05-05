@@ -9,50 +9,45 @@
     </section>
     <section class="clip-list">
       <v-container>
-        <v-row>
+        <v-row v-if="clips.length > 0">
           <v-spacer />
           <v-col cols="12" sm="6" md="4">
             <clip-filter
-              v-if="clips.length != 0"
               :value="filters"
               @input="(newFilters) => {filters = newFilters}"
             />
           </v-col>
         </v-row>
-      </v-container>
-      <clip-list
-        ref="cliplist"
-        :clips="filteredClips"
-        @loadOffset="loadOffset = $event"
-        class="cliplist"
-      />
-      <div
-        class="
-        text-center"
-      >
-        <v-progress-circular
-          v-if="loading"
-          class="ma-4"
-          indeterminate
-          color="primary"
+        <clip-list
+          ref="cliplist"
+          :clips="filteredClips"
+          @loadOffset="loadOffset = $event"
+          class="cliplist"
         />
-      </div>
+        <ToolHelper v-if="clips.length === 0 && helpDisplay" />
+      </v-container>
+
+      <Loader />
     </section>
   </v-layout>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 import ClipForm from '@/components/clips/ClipForm'
 import ClipFilter from '@/components/clips/ClipFilter'
 import ClipList from '@/components/clips/ClipList'
+import Loader from '@/components/utils/Loader'
+import ToolHelper from '@/components/utils/ToolHelper'
 
 export default {
   components: {
     ClipForm,
     ClipFilter,
-    ClipList
+    ClipList,
+    ToolHelper,
+    Loader
   },
   data () {
     return {
@@ -64,7 +59,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('clips', ['clips', 'loading', 'cursor']),
+    ...mapGetters('clips', ['clips', 'cursor']),
+    ...mapGetters('global', ['loading', 'helpDisplay']),
     filteredClips () {
       if (this.filters.keyword.length < 2) {
         return this.clips
@@ -87,6 +83,9 @@ export default {
       }
     }
   },
+  created () {
+    this.setHelpDisplay(true)
+  },
   beforeMount () {
     window.addEventListener('scroll', this.handleScroll)
   },
@@ -97,6 +96,7 @@ export default {
   },
   methods: {
     ...mapActions('clips', ['loadClips', 'emptyList', 'setCursor']),
+    ...mapMutations('global', ['setHelpDisplay']),
     handleScroll () {
       this.scrollValue = window.scrollY
     }

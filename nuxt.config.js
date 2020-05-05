@@ -32,6 +32,7 @@ export default {
   ],
   buildModules: [
     '@nuxtjs/eslint-module',
+    // ['@nuxtjs/stylelint-module', { configFile: '.stylelintrc.js', fix: true }],
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv'
   ],

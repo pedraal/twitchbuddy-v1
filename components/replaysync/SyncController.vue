@@ -22,7 +22,7 @@ export default {
   },
   data () {
     return {
-      playerState: 'paused',
+      playerState: 'init',
       trigger: true
     }
   },
@@ -31,16 +31,17 @@ export default {
       this.$replayBus.$emit('ping')
     }, 1000)
 
-    setTimeout(() => {
-      this.$replayBus.$emit('sync')
-    }, 1000)
-
     this.$replayBus.$on('sync', () => {
       this.handleSync()
     })
 
     this.$replayBus.$on('main-action', () => {
-      if (this.playerState === 'playing') {
+      if (this.playerState === 'init') {
+        this.$replayBus.$emit('play')
+        setTimeout(() => {
+          this.$replayBus.$emit('sync')
+        }, 2000)
+      } else if (this.playerState === 'playing') {
         this.$replayBus.$emit('pause')
       } else if (this.playerState === 'paused') {
         this.$replayBus.$emit('play')
@@ -79,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .trigger{
+  .trigger {
     position: absolute;
     top: 10px;
     right: 10px;

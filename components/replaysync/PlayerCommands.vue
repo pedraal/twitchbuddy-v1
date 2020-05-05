@@ -4,7 +4,7 @@
       <v-icon v-if="playerState === 'playing'">
         mdi-pause
       </v-icon>
-      <v-icon v-if="playerState === 'paused'">
+      <v-icon v-if="playerState === 'paused' || playerState === 'init'">
         mdi-play
       </v-icon>
     </v-btn>
@@ -21,7 +21,12 @@ export default {
   props: {
     playerState: {
       type: String,
-      default: 'paused'
+      default: 'init'
+    }
+  },
+  data () {
+    return {
+      initialAction: true
     }
   },
   computed: {

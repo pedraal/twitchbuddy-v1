@@ -18,7 +18,7 @@ exports.handler = async (event, context, callback) => {
     const broadcaster = await twitch.get('/users?login=' + channels.join('&login='))
     const collections = await Promise.all(
       broadcaster.data.data.map(async (channel) => {
-        channel.collection = await getVideos(channel.id, params)
+        channel.videos = await getVideos(channel.id, params)
         return channel
       })
     )
@@ -69,8 +69,5 @@ const parametize = function (params) {
   if (params.cursor) {
     url = url + '&after=' + params.cursor
   }
-  // if (params.start && params.end) {
-  //   url = url + '&started_at=' + params.start + '&ended_at=' + params.end
-  // }
   return url
 }

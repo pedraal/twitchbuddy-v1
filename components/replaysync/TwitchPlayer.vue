@@ -68,8 +68,8 @@ export default {
     isReference (val) {
       val ? this.unmute() : this.mute()
     },
-    videoState (val, old) {
-      if (old === 'idle' && val === 'running') {
+    videoState (newState, oldState) {
+      if (oldState === 'idle' && newState === 'running') {
         this.$replayBus.$emit('sync')
       }
     }
@@ -86,11 +86,6 @@ export default {
         }
 
         this.player = new window.Twitch.Player(this.$refs[this.video.id], options)
-        // this.player.addEventListener('ended', () => { this.$emit('ended') })
-        // this.player.addEventListener('pause', () => { this.$emit('pause') })
-        // this.player.addEventListener('play', () => { this.$emit('play') })
-        // this.player.addEventListener('offline', () => { this.$emit('offline') })
-        // this.player.addEventListener('online', () => { this.$emit('online') })
         this.player.addEventListener('ready', () => { this.handleReady() })
       }).catch(e => (this.$emit('error', e)))
   },
@@ -101,11 +96,6 @@ export default {
     this.$replayBus.$on('ping', this.handlePing)
   },
   beforeDestroy () {
-    // this.player.removeEventListener('ended', () => { this.$emit('ended') })
-    // this.player.removeEventListener('pause', () => { this.$emit('pause') })
-    // this.player.removeEventListener('play', () => { this.$emit('play') })
-    // this.player.removeEventListener('offline', () => { this.$emit('offline') })
-    // this.player.removeEventListener('online', () => { this.$emit('online') })
     this.player.removeEventListener('ready', () => { this.handleReady() })
     this.$replayBus.$off('play')
     this.$replayBus.$off('pause')
@@ -158,27 +148,6 @@ export default {
     getCurrentTime () {
       return this.player.getCurrentTime()
     },
-    getDuration () {
-      return this.player.getDuration()
-    },
-    getPlaybackStats () {
-      return this.player.getPlaybackStats()
-    },
-    getQuality () {
-      return this.player.getQuality()
-    },
-    isPaused () {
-      return this.player.isPaused()
-    },
-    hasEnded () {
-      return this.player.getEnded()
-    },
-    getVolume () {
-      return this.player.getVolume()
-    },
-    isMuted () {
-      return this.player.getMuted()
-    },
     mute () {
       this.player.setMuted(true)
     },
@@ -196,13 +165,14 @@ export default {
   margin: 0 auto;
   height: 100%;
 
-  iframe{
+  iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
   }
+
   .status {
     position: absolute;
     top: 10px;

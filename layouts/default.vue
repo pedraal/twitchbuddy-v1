@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app light>
     <v-navigation-drawer
       v-model="drawer"
       clipped
@@ -27,7 +27,12 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title><span class="grey--text text--lighten-2 font-weight-thin">Twitch</span><span class="indigo--text text--accent-2">Buddy</span></v-toolbar-title>
+      <v-toolbar-title v-if="$route.path === '/'">
+        <span class="indigo--text text--accent-2 ">Twitch</span><span class="grey--text text--lighten-2 font-weight-thin">Buddy</span>
+      </v-toolbar-title>
+      <v-toolbar-title v-else>
+        <span class="indigo--text text--accent-2 route-name">{{ $route && $route.name && $route.name.substr(0,1) }}</span><span class="grey--text text--lighten-2 font-weight-thin">{{ $route && $route.name && $route.name.substr(1) }}</span>
+      </v-toolbar-title>
     </v-app-bar>
     <v-content class="mt-4">
       <v-container>
@@ -74,11 +79,15 @@ export default {
 
 <style lang="scss" scoped>
   .v-list-item .v-icon {
-    text-shadow: -2px 2px #536DFE;
+    text-shadow: -2px 2px #536dfe;
   }
 
   .foreground {
     position: fixed;
     z-index: 4;
+  }
+
+  .route-name {
+    text-transform: capitalize;
   }
 </style>

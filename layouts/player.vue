@@ -15,7 +15,7 @@ export default {
 
 <style lang="scss" scoped>
   .v-list-item .v-icon {
-    text-shadow: -2px 3px #536DFE;
+    text-shadow: -2px 3px #536dfe;
   }
 
   .foreground {

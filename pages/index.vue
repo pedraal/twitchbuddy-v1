@@ -1,5 +1,5 @@
 <template>
-  <v-row align="center" justify="center" style="min-height: 80vh">
+  <v-row align="center" justify="center" style="min-height: 80vh;">
     <v-col
       cols="12"
       sm="8"
@@ -41,9 +41,11 @@
             </v-card-text>
             <v-card-actions class="text-center">
               <v-badge
+                :value="!!item.badge"
                 class="d-block mx-auto"
                 color="error"
-                icon="mdi-lock"
+                offset-x="20px"
+                offset-y="10px"
               >
                 <template v-if="item.badge" v-slot:badge>
                   <span class="px-1 overline">{{ item.badge }}</span>
@@ -97,10 +99,10 @@ export default {
 
 <style lang="scss" scoped>
   h1 {
-    text-shadow: -3px 4px #536DFE;
+    text-shadow: -3px 4px #536dfe;
   }
 
   .v-card .v-card__title .v-icon {
-    text-shadow: -2px 3px #536DFE;
+    text-shadow: -2px 3px #536dfe;
   }
 </style>

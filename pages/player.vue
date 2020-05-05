@@ -7,7 +7,7 @@
         :id="'gridItem-'+(id+1)"
       >
         <client-only>
-          <TwitchPlayer :video="collection.collection[0]" :ref="id" class="grid-item" />
+          <TwitchPlayer :video="collection.videos[0]" :ref="id" class="grid-item" />
         </client-only>
       </div>
     </div>
@@ -57,33 +57,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.grid{
+.grid {
   height: 100vh;
   width: 100%;
   display: grid;
 }
 
-#gridItem-1{
-  grid-area: gridItem1
+#gridItem-1 {
+  grid-area: gridItem1;
 }
-#gridItem-2{
-  grid-area: gridItem2
+
+#gridItem-2 {
+  grid-area: gridItem2;
 }
-#gridItem-3{
-  grid-area: gridItem3
+
+#gridItem-3 {
+  grid-area: gridItem3;
 }
-#gridItem-4{
-  grid-area: gridItem4
+
+#gridItem-4 {
+  grid-area: gridItem4;
 }
 
 .loader {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   z-index: 10;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(grey, 0.7)
+  background-color: rgba(grey, 0.7);
 }
 
 </style>

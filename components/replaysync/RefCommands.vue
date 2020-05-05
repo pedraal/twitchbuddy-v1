@@ -1,7 +1,7 @@
 <template>
   <div :style="gridTemplate" class="grid">
     <div v-for="(collection,id) in collections" :key="id" :id="'gridItem-'+(id+1)" class="gridItem">
-      <v-btn :class="{ 'grey darken-1': hasSelection && collection.collection[0].id === selectedVideo.id}" @click="setSelected(collection.collection[0])" class="panel" small>
+      <v-btn :class="{ 'grey darken-1': hasSelection && collection.videos[0].id === selectedVideo.id}" @click="setSelected(collection.videos[0])" class="panel" small>
         {{ id+1 }}
       </v-btn>
     </div>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.grid{
+.grid {
   position: absolute;
   top: 60px;
   right: 10px;
@@ -33,25 +33,29 @@ export default {
   display: grid;
 }
 
-.gridItem{
+.gridItem {
   padding: 1px;
 }
-#gridItem-1{
+
+#gridItem-1 {
   grid-area: gridItem1;
 }
-#gridItem-2{
+
+#gridItem-2 {
   grid-area: gridItem2;
 }
-#gridItem-3{
+
+#gridItem-3 {
   grid-area: gridItem3;
 }
-#gridItem-4{
+
+#gridItem-4 {
   grid-area: gridItem4;
 }
 
-.panel{
+.panel {
   width: 100%;
   height: 100% !important;
-  min-width: 10px!important;
+  min-width: 10px !important;
 }
 </style>
