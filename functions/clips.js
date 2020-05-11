@@ -1,4 +1,5 @@
 const axios = require('axios')
+const twitchOauth = require('../utils/twitch-oauth-token')
 
 const twitch = axios.create({
   baseURL: 'https://api.twitch.tv/helix/',
@@ -11,17 +12,18 @@ const twitch = axios.create({
 })
 
 exports.handler = async (event, context, callback) => {
+  const OAUTH_TOKEN = await twitchOauth.getTwitchOauthToken()
   const params = event.queryStringParameters
   try {
-    const { data: broadcaster } = await twitch.get('/users?login=' + params.channel)
-    if (broadcaster.data.length === 0) {
+    const res = await twitch.get('/users?login=' + params.channel, { headers: { Authorization: OAUTH_TOKEN } })
+    if (res.data.data.length === 0) {
       return {
         statusCode: 401,
         body: JSON.stringify('channel not found')
       }
     }
 
-    let url = '/clips?first=100&broadcaster_id=' + broadcaster.data[0].id
+    let url = '/clips?first=100&broadcaster_id=' + res.data.data[0].id
     if (params.cursor) {
       url = url + '&after=' + params.cursor
     }
