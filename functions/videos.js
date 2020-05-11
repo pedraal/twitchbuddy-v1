@@ -1,5 +1,6 @@
 const axios = require('axios')
 const moment = require('moment')
+const twitchOauth = require('../utils/twitch-oauth-token')
 
 const twitch = axios.create({
   baseURL: 'https://api.twitch.tv/helix/',
@@ -12,13 +13,14 @@ const twitch = axios.create({
 })
 
 exports.handler = async (event, context, callback) => {
+  const OAUTH_TOKEN = await twitchOauth.getTwitchOauthToken()
   const params = event.queryStringParameters
   const channels = params.channel.split(',')
   try {
-    const broadcaster = await twitch.get('/users?login=' + channels.join('&login='))
+    const broadcaster = await twitch.get('/users?login=' + channels.join('&login='), { headers: { Authorization: OAUTH_TOKEN } })
     const collections = await Promise.all(
       broadcaster.data.data.map(async (channel) => {
-        channel.videos = await getVideos(channel.id, params)
+        channel.videos = await getVideos(channel.id, params, OAUTH_TOKEN)
         return channel
       })
     )
@@ -34,8 +36,8 @@ exports.handler = async (event, context, callback) => {
   }
 }
 
-const getVideos = async function (id, params) {
-  const videos = await twitch.get('/videos?first=100&type=all&user_id=' + id + parametize(params))
+const getVideos = async function (id, params, token) {
+  const videos = await twitch.get('/videos?first=100&type=all&user_id=' + id + parametize(params), { headers: { Authorization: token } })
   const buffer = videos.data.data.map((video) => {
     return {
       ...video,
