@@ -1,21 +1,20 @@
 const axios = require('axios')
-const twitchOauth = require('../utils/twitch-oauth-token')
 
 const twitch = axios.create({
   baseURL: 'https://api.twitch.tv/helix/',
   headers: {
     common: {
       Accept: 'application/vnd.twitchtv.v5+json',
-      'Client-ID': process.env.TWITCH_TOKEN
+      'Client-ID': process.env.TWITCH_TOKEN,
+      Authorization: process.env.OAUTH_TOKEN
     }
   }
 })
 
 exports.handler = async (event, context, callback) => {
-  const OAUTH_TOKEN = await twitchOauth.getTwitchOauthToken()
   const params = event.queryStringParameters
   try {
-    const res = await twitch.get('/users?login=' + params.channel, { headers: { Authorization: OAUTH_TOKEN } })
+    const res = await twitch.get('/users?login=' + params.channel)
     if (res.data.data.length === 0) {
       return {
         statusCode: 401,
