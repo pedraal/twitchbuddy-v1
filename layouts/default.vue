@@ -21,6 +21,22 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <template v-slot:append>
+        <div class="pa-2 text-center">
+          <p class="overline mb-0">
+            Made with <v-icon class="indigo--text text--accent-2">
+              mdi-cards-heart
+            </v-icon> by <a href="https://twitter.com/jspedraal" target="_blank" class="font-weight-bold blue--text text--accent-2">Pedraal</a>
+          </p>
+          <v-btn small text href="https://ko-fi.com/pedraaldev" target="_blank" class="blue--text text--accent-2">
+            Support me on Ko-fi&nbsp;
+            <v-icon small>
+              mdi-coffee
+            </v-icon>
+          </v-btn>
+        </div>
+      </template>
     </v-navigation-drawer>
     <v-app-bar
       clipped-left
@@ -39,7 +55,6 @@
         <nuxt />
       </v-container>
     </v-content>
-    <app-footer />
     <client-only>
       <VueHandyGa class="foreground" />
     </client-only>
@@ -47,10 +62,7 @@
 </template>
 
 <script>
-import AppFooter from '@/components/layout/AppFooter'
-
 export default {
-  components: { AppFooter },
   data () {
     return {
       drawer: null,
