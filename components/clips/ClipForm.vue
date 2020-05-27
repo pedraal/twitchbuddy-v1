@@ -13,8 +13,8 @@
               :rules="nameRules"
               :error="error"
               @keydown.enter="submit"
+              :label="$t('clips.form.channel.label')"
               prepend-icon="mdi-account"
-              label="Channel name"
               required
             />
           </v-col>
@@ -28,7 +28,7 @@
               v-model="period"
               :items="timeSelect"
               :error="error"
-              label="Period"
+              :label="$t('clips.form.period.label')"
               required
               prepend-icon="mdi-calendar"
             />
@@ -105,26 +105,26 @@ export default {
       menu: false,
       timeSelect: [{
         value: 'daily',
-        text: 'Daily'
+        text: this.$t('clips.form.period.daily')
       }, {
         value: 'weekly',
-        text: 'Weekly'
+        text: this.$t('clips.form.period.weekly')
       }, {
         value: 'monthly',
-        text: 'Monthly'
+        text: this.$t('clips.form.period.monthly')
       }, {
         value: 'year',
-        text: 'Year'
+        text: this.$t('clips.form.period.yearly')
       }, {
         value: 'all',
-        text: 'All'
+        text: this.$t('clips.form.period.all')
       }, {
         value: 'custom',
-        text: 'Custom'
+        text: this.$t('clips.form.period.custom')
       }],
       nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 255 || 'Name must be less than 255 characters'
+        v => !!v || this.$t('clips.form.channel.required'),
+        v => v.length <= 255 || this.$t('clips.form.channel.toolong')
       ]
     }
   },

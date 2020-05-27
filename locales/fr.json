@@ -1,0 +1,116 @@
+{
+  "links": {
+    "home": "Accueil",
+    "clips": "Clips",
+    "replaysync": "Replay Sync"
+  },
+  "navfooter": {
+    "support": "soutenir sur"
+  },
+  "title": {
+    "home": "<span class='indigo--text text--accent-2 '>Twitch</span><span class='grey--text text--lighten-2 font-weight-thin'>Buddy</span>",
+    "clips": "<span class='indigo--text text--accent-2 '>C</span><span class='grey--text text--lighten-2 font-weight-thin'>lips</span>",
+    "replaysync": "<span class='indigo--text text--accent-2 '>R</span><span class='grey--text text--lighten-2 font-weight-thin'>eplaysync</span>"
+  },
+  "home": {
+    "pretitle": "Bienvenue sur",
+    "subtitle": "Conçue pour améliorer votre expérience de créateur de contenu vidéo sur Twitch",
+    "presentation": "Accélerer votre recherche de clips et regarder des replays synchronisés gràce à nos outils.",
+    "clips": "The clip tool lets you search precisely for twitch clips using Twitch's API. Discover top twitchs moment or check out for the best clips for your videos and download them directly from this app.",
+    "replaysync": "The replay sync lets you watch group streams just like if it was live! Submit a list of channels, find simultaneous broacasts and bring them to our synchronising player.",
+    "action": "c'est partit"
+  },
+  "clips": {
+    "form": {
+      "channel": {
+        "label": "Chaine",
+        "required": "Le nom est requis",
+        "toolong": "Le nom ne doit pas dépasser 255 caractères"
+      },
+      "period": {
+        "label": "Période",
+        "daily": "Quotidien",
+        "weekly": "Hebdomadaire",
+        "monthly": "Mensuel",
+        "yearly": "Annuel",
+        "all": "Tout",
+        "custom": "Personnalisé"
+      },
+      "daterange": "Dates",
+      "submit": "Envoyer"
+    },
+    "keyword": "Mot clé",
+    "item": {
+      "views": "Vues",
+      "by": "Par",
+      "createdAt": "Clippé le",
+      "download": "Télécharger",
+      "replay": "Voir le replay"
+    },
+    "help": {
+      "title": "Aide",
+      "steps": {
+        "1": "Fill the channel field.",
+        "2": "Choose a timerange for your clip search.",
+        "3": "If no premade timerange suits you, select a custom one.",
+        "4": "Press the submit button and browse through the clip list.",
+        "5": "You can filter the list (by title, game or creator) using the keyword field.",
+        "6": "Click a clip to open the panel a watch and download it.",
+        "7": "Scroll down the list to load more clips up to a maximum of 1000 clips."
+      },
+      "disclaimer": {
+        "title": "Attention",
+        "text": "Due to Twitch's API limitations, only the first 1000 (at maximum, can be less) most viewed clips for given timerange can be displayed. If there is technicaly 2000 clips for the week timerange, you won't be able to see the last 1000. This count limitation does NOT includes keyword filtering. This filter is applied on top of the initial search. If only 3 clips are matching the keyword in the 1000 clips, and also 3 in the next 1000, you won't see the last ones as the clips below the top 1000 are not retrieved by the API. It's recommended to break down searches into smaller timeranges for accuracy using custom timerange."
+      }
+    }
+  },
+  "replaysync": {
+    "form": {
+      "label": "Ajoutez des chaines",
+      "submit": "Envoyer"
+    },
+    "help": {
+      "title": "Help",
+      "subtitle1": "Search replays",
+      "steps1": {
+        "1": "Add up to 4 channels.",
+        "2": "Find one replay from the lists you would like to watch.",
+        "3": "Click it to filter out non-simultaneous replays and set it as a sync reference.",
+        "4": "Press the \"Play\" button to get into the Sync Player."
+      },
+      "subtitle2": "Watch replays",
+      "steps2": {
+        "1": {
+          "icon": "mdi-plus",
+          "text": "Once in the player, hover the {0} button to display the player controls."
+        },
+        "2": {
+          "icon": "mdi-play",
+          "text": "Press the {0} button to start watching all replays and perform an initial sync."
+        },
+        "3": {
+          "icon": "mdi-sync",
+          "text": "Press the {0} button to re-sync if needed."
+        },
+        "4": {
+          "icon": "",
+          "text": "Select the reference player using the buttons below the playback controls."
+        }
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "texts": {
+          "1": "In the replays list, select only one replay to set it as reference. In the case of another channel having several replays available on the timerange, the first one of the list will be sent to the Sync Player. If the first of the list is not the one you want to watch, you can select one of them as initial reference.",
+          "2": "This tool is not able yet to handle potential delay from a past broadcast. This means that you will probably experience a little delay between channels even after syncing. Also note that in some case (mainly broadcast partial crash), the timestamps used for syncing will be screwed-up and the sync controler won't be able to sync them back.",
+          "3": "Using default twitch player controls (except for volumes) can break the sync controller behing the scene. For a better experience, avoid using them."
+        }
+      }
+    }
+  },
+  "player": {
+    "reference": "Reference",
+    "not_started": "Not started",
+    "ended": "Ended",
+    "running": "Running"
+  }
+}
