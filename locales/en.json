@@ -112,5 +112,16 @@
     "not_started": "Not started",
     "ended": "Ended",
     "running": "Running"
+  },
+  "vuehandyga": {
+    "notification": "This website uses cookies for audience and users activity monitoring. By clicking the Accept button, you give your consent for cookies deposit.",
+    "mandatoryNotification": "This website uses cookies for audience and users activity monitoring. By staying on this website, you give your consent for cookie deposit.",
+    "modalTitle": "Cookies policy",
+    "modalBody": "For audience and users activity monitoring purposes, we use Google's Analytics service. This helps us to adapt web resources and detect potential bugs.\n\n For official Google cookie policy, <a href='https://support.google.com/analytics/answer/6004245' target='_blank'>follow this link</a>.",
+    "accept": "Accept",
+    "mandatoryAccept": "Ok",
+    "refuse": "Refuse",
+    "mandatoryRefuse": "Leave the website",
+    "more": "More infos"
   }
 }

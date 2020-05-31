@@ -60,7 +60,7 @@
       </v-container>
     </v-content>
     <client-only>
-      <VueHandyGa class="foreground" />
+      <VueHandyGa :locales="$t('vuehandyga')" class="foreground" />
     </client-only>
   </v-app>
 </template>

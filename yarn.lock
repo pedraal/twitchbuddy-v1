@@ -9871,10 +9871,10 @@ vue-eslint-parser@^7.0.0:
     esquery "^1.0.1"
     lodash "^4.17.15"
 
-vue-handy-ga@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/vue-handy-ga/-/vue-handy-ga-1.2.0.tgz#04bc874fefc3a5fe79e956d4f35ecf742b23fd19"
-  integrity sha512-stxmaAM+rVdofY7s/ZMvBhKgDimibjvlPF5lmmBPa0ygGgL/B1ll+RsxE7PCEhPr5pSXrUL5Ahct+iA16KzwSQ==
+vue-handy-ga@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/vue-handy-ga/-/vue-handy-ga-1.2.1.tgz#89be018184d2b3e57b28f6579988f6dba0acf5ea"
+  integrity sha512-m2njHi89iDIAhILWJiuwnt7ib8BeAcJl58ZKbtr/Mq1VKc8RDpuIO1YEMEuqD2C+0F/2haFfePwihABsGtPz1w==
   dependencies:
     js-cookie "^2.2.1"
     marked "^0.8.0"
