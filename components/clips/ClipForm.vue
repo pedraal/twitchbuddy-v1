@@ -74,7 +74,7 @@
             class="py-0"
           >
             <v-btn @click="submit" class="mt-4">
-              submit
+              {{ $t('clips.form.submit') }}
             </v-btn>
           </v-col>
         </v-row>

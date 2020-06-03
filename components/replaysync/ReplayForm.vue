@@ -12,9 +12,9 @@
             <v-combobox
               v-model="select"
               :error="!!error"
+              :label="$t('replaysync.form.label')"
               prepend-icon="mdi-account-group"
               append-icon=""
-              label="Add channels"
               multiple
               small-chips
               deletable-chips
@@ -25,7 +25,7 @@
           </v-col>
           <v-col class="py-0">
             <v-btn @click="submit" :disabled="loading" class="mt-4">
-              submit
+              {{ $t('replaysync.form.submit') }}
             </v-btn>
           </v-col>
         </v-row>
