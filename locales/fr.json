@@ -16,9 +16,9 @@
     "pretitle": "Bienvenue sur",
     "subtitle": "Conçue pour améliorer votre expérience de créateur de contenu vidéo sur Twitch",
     "presentation": "Accélerer votre recherche de clips et regarder des replays synchronisés gràce à nos outils.",
-    "clips": "The clip tool lets you search precisely for twitch clips using Twitch's API. Discover top twitchs moment or check out for the best clips for your videos and download them directly from this app.",
-    "replaysync": "The replay sync lets you watch group streams just like if it was live! Submit a list of channels, find simultaneous broacasts and bring them to our synchronising player.",
-    "action": "c'est partit"
+    "clips": "L'outil Clips vous permets de rechercher et télécharger plus facilement des extraits Twitch. Découvrez les moments les plus vus d'une chaine ou chercher les meilleurs clips à introduire dans vos vidéos.",
+    "replaysync": "ReplaySync est un outil qui vous permets de chercher des replays de lives simultannés pour une liste de chaine donnée, puis de les synchroniser sur l'heure de diffusion pour les regarder à la manière d'un multitwitch ou de la fonctionnalité Twitch stream squad",
+    "action": "commencer"
   },
   "clips": {
     "form": {
@@ -50,17 +50,17 @@
     "help": {
       "title": "Aide",
       "steps": {
-        "1": "Fill the channel field.",
-        "2": "Choose a timerange for your clip search.",
-        "3": "If no premade timerange suits you, select a custom one.",
-        "4": "Press the submit button and browse through the clip list.",
-        "5": "You can filter the list (by title, game or creator) using the keyword field.",
-        "6": "Click a clip to open the panel a watch and download it.",
-        "7": "Scroll down the list to load more clips up to a maximum of 1000 clips."
+        "1": "Remplir le champs chaine.",
+        "2": "Choisir une période pour votre recherche.",
+        "3": "Si aucune des périodes ne vous convient, créez-en une personnalisée.",
+        "4": "Cliquer sur le bouton envoyer et naviguer dans la liste des clips.",
+        "5": "Vous pouvez filtrer la liste (par titre, jeu et créateur) avec le champ mot de clé.",
+        "6": "Cliquer sur un clip pour ouvrir le panel et le télécharger si vous le souhaitez.",
+        "7": "Vous pouvez défillé dans la liste jusqu'à un maximum de 1000 clips."
       },
       "disclaimer": {
         "title": "Attention",
-        "text": "Due to Twitch's API limitations, only the first 1000 (at maximum, can be less) most viewed clips for given timerange can be displayed. If there is technicaly 2000 clips for the week timerange, you won't be able to see the last 1000. This count limitation does NOT includes keyword filtering. This filter is applied on top of the initial search. If only 3 clips are matching the keyword in the 1000 clips, and also 3 in the next 1000, you won't see the last ones as the clips below the top 1000 are not retrieved by the API. It's recommended to break down searches into smaller timeranges for accuracy using custom timerange."
+        "text": "De part les limitations de l'API Twitch, seul les 1000 premiers clips (au maximum, cela peut être moins) les plus vus pour une période donnée ne peuvent être affichés. Si il y a technique 2000 clips hebdomadaire, vous ne pourrez pas voir les 1000 derniers. Ceci n'inclus pas le filtrage par mot clé. Ce filtre est appliqué sur la liste de clips retournée par votre recherche. Si seulement 3 clips contiennent le mot clé recherché au sein des 1000 clips et également 3 au sein des 1000 suivants, vous ne serez pas en mesure de voir les 3 derniers comme les 1000 derniers ne sont pas récupérables. Il est recommandé pour des recherches précises de découper la période en plus courtes périodes pour plus de précision."
       }
     }
   },
@@ -70,58 +70,58 @@
       "submit": "Envoyer"
     },
     "help": {
-      "title": "Help",
-      "subtitle1": "Search replays",
+      "title": "Aide",
+      "subtitle1": "Chercher des replays",
       "steps1": {
-        "1": "Add up to 4 channels.",
-        "2": "Find one replay from the lists you would like to watch.",
-        "3": "Click it to filter out non-simultaneous replays and set it as a sync reference.",
-        "4": "Press the \"Play\" button to get into the Sync Player."
+        "1": "Ajouter jusqu'à 4 chaines.",
+        "2": "Choisir un replay que vous souhaitez regarder parmis les listes.",
+        "3": "Cliquez le pour retirer les replays non simultanées des listes et le sélectionner comme référence de synchronisation.",
+        "4": "Appuyez sur le boutton \"Commencer\" pour vous rendre dans le lecteur synchronisé."
       },
-      "subtitle2": "Watch replays",
+      "subtitle2": "Regarder des replays",
       "steps2": {
         "1": {
           "icon": "mdi-plus",
-          "text": "Once in the player, hover the {0} button to display the player controls."
+          "text": "Une fois dans le lecteur, survoller le bouton {0} pour afficher les controles du lecteur."
         },
         "2": {
           "icon": "mdi-play",
-          "text": "Press the {0} button to start watching all replays and perform an initial sync."
+          "text": "Appuyer sur le bouton {0} pour commencer à regarder mes replays et faire une première synchronisation."
         },
         "3": {
           "icon": "mdi-sync",
-          "text": "Press the {0} button to re-sync if needed."
+          "text": "Appuyez sur le boutton {0} pour re-synchroniser si besoin."
         },
         "4": {
           "icon": "",
-          "text": "Select the reference player using the buttons below the playback controls."
+          "text": "Changer le replay de référence en utilisant les boutons du dessous."
         }
       },
       "disclaimer": {
-        "title": "Disclaimer",
+        "title": "Attention",
         "texts": {
-          "1": "In the replays list, select only one replay to set it as reference. In the case of another channel having several replays available on the timerange, the first one of the list will be sent to the Sync Player. If the first of the list is not the one you want to watch, you can select one of them as initial reference.",
-          "2": "This tool is not able yet to handle potential delay from a past broadcast. This means that you will probably experience a little delay between channels even after syncing. Also note that in some case (mainly broadcast partial crash), the timestamps used for syncing will be screwed-up and the sync controler won't be able to sync them back.",
-          "3": "Using default twitch player controls (except for volumes) can break the sync controller behing the scene. For a better experience, avoid using them."
+          "1": "Dans la liste des replays, ne selectionner qu'un seul pour le définir comme référence. Dans le cas où une chaine aurait plusieurs replays simultanées à la référence, le premier de la liste sera envoyé dans le lecteur synchronisé. Si ce n'est pas le replay que vous souhaitez regarder, choisissez celui de votre choix parmis eux pour qu'il soit défini comme réfénrece.",
+          "2": "Cet outil n'est pas en mesure de détecter le potentiel délait de diffusion. Ceci signifie que vous rencontrerez probablement de petits décalage même après synchronisation. Veuillez également noté que dans certains cas (notament des crash partiels du live), les  horodatages utilisés pour synchroniser les replays peuvent devenir invalides et ne pourront plus être synchronisés.",
+          "3": "Utiliser les controles des lecteurs videos de Twitch (à l'exception des controles de volumes) peuvent casser le controlleur de synchronisation. Pour une meilleure expérience, évitez de les utiliser."
         }
       }
     }
   },
   "player": {
-    "reference": "Reference",
-    "not_started": "Not started",
-    "ended": "Ended",
-    "running": "Running"
+    "reference": "Référence",
+    "not_started": "Pas commencé",
+    "ended": "Terminé",
+    "running": "En cours"
   },
   "vuehandyga": {
-    "notification": "This website uses cookies for audience and users activity monitoring. By clicking the Accept button, you give your consent for cookies deposit.",
-    "mandatoryNotification": "This website uses cookies for audience and users activity monitoring. By staying on this website, you give your consent for cookie deposit.",
-    "modalTitle": "Cookies policy",
-    "modalBody": "For audience and users activity monitoring purposes, we use Google's Analytics service. This helps us to adapt web resources and detect potential bugs.\n\n For official Google cookie policy, <a href='https://support.google.com/analytics/answer/6004245' target='_blank'>follow this link</a>.",
-    "accept": "Accept",
+    "notification": "Ce site utilise les cookies pour mesurer l'audience et l'activité des utilisateurs. En cliquant sur le boutton Accepter, vous nous donnez votre consentement pour déposer des cookies.",
+    "mandatoryNotification": "Ce site utilise les cookies pour mesurer l'audience et l'activité des utilisateurs. En naviguant sur ce site, vous nous donnez votre consentement pour déposer des cookies.",
+    "modalTitle": "Politique de cookies",
+    "modalBody": "Afin de mesurer l'audience et les activités de nos utilisateurs, nous utilisons le service Google Analatyics. Ceci nous permets d'adapter nos ressources et de détecter de potentiels bugs.\n\n Vous pouvez consulter la politique officiel de cookies de Google Analytics <a href='https://support.google.com/analytics/answer/6004245' target='_blank'> sur ce lien</a>.",
+    "accept": "Accepter",
     "mandatoryAccept": "Ok",
-    "refuse": "Refuse",
-    "mandatoryRefuse": "Leave the website",
-    "more": "More infos"
+    "refuse": "Refuser",
+    "mandatoryRefuse": "Quitter le site",
+    "more": "Plus d'infos"
   }
 }
