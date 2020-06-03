@@ -4,7 +4,7 @@
     justify-center
     align-center
   >
-    <section>
+    <section class="mb-4">
       <ReplayForm />
     </section>
     <section>
@@ -14,7 +14,7 @@
             <ReplayList :collection="collection" />
           </v-col>
         </v-row>
-        <ToolHelper v-else-if="helpDisplay" />
+        <tool-helper v-else-if="helpDisplay" />
         <Loader />
       </v-container>
       <div v-if="selectedVideo" class="text-center">

@@ -1,6 +1,6 @@
 .layout-enter-active,
 .layout-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.2s;
 }
 
 .layout-enter,
@@ -10,7 +10,7 @@
 
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.2s;
 }
 
 .page-enter,
@@ -23,7 +23,7 @@
 }
 
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.2s;
 }
 
 .fade-enter,

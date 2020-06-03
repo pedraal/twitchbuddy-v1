@@ -12,6 +12,7 @@
             <v-combobox
               v-model="select"
               :error="!!error"
+              prepend-icon="mdi-account-group"
               append-icon=""
               label="Add channels"
               multiple

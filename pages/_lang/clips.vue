@@ -24,7 +24,7 @@
           @loadOffset="loadOffset = $event"
           class="cliplist"
         />
-        <ToolHelper v-if="clips.length === 0 && helpDisplay" />
+        <tool-helper v-if="clips.length === 0 && helpDisplay" />
       </v-container>
 
       <Loader />
