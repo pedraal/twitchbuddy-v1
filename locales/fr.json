@@ -17,7 +17,7 @@
     "subtitle": "Conçu pour améliorer votre expérience de créateur de contenu vidéo sur Twitch",
     "presentation": "Accélerez votre recherche de clips et regardez plusieurs replays de différentes chaines synchronisés.",
     "clips": "Recherchez les meilleurs clips d'une chaine pour une période donnée, affinez vos recherches et téléchargez les clips de votre choix.",
-    "replaysync": "Choisissez le replay que vous souhaitez regarder parmis votre sélection de chaine pour filtrer celles qui diffusaient au même moment et regarder les replays synchronisés sur leurs heures de diffusion.",
+    "replaysync": "Dans la liste des chaînes que vous aurez sélectionné, choisissez la rediffusion d'un live qui vous intéresse. Parmi les autres chaînes, l'application va ensuite filtrer grâce à l'horodatage, toutes les VoD de lives qui ont été diffusés simultanément. Elles seront ensuite synchronisés sur votre première sélection qui fera référence.",
     "action": "commencer"
   },
   "clips": {
@@ -60,7 +60,7 @@
       },
       "disclaimer": {
         "title": "Attention",
-        "text": "De part les limitations de l'API Twitch, seul les 1000 premiers clips (au maximum, cela peut être moins) les plus vus pour une période donnée ne peuvent être affichés. Si il y a technique 2000 clips hebdomadaire, vous ne pourrez pas voir les 1000 derniers. Ceci n'inclus pas le filtrage par mot clé. Ce filtre est appliqué sur la liste de clips retournée par votre recherche. Si seulement 3 clips contiennent le mot clé recherché au sein des 1000 clips et également 3 au sein des 1000 suivants, vous ne serez pas en mesure de voir les 3 derniers comme les 1000 derniers ne sont pas récupérables. Il est recommandé pour des recherches précises de découper la période en plus courtes périodes pour plus de précision."
+        "text": "De part les limitations de l'API Twitch, seul les 1000 premiers clips (au maximum, cela peut être moins) les plus vus pour une période donnée peuvent être affichés. S'il y a par exemple 2000 clips hebdomadaire, vous ne pourrez pas voir les 1000 derniers. Concernant le filtrage par mot-clé, il est appliqué sur la liste de clips retournée par votre recherche, à savoir les 1000 présélectionnés par l'API comme dit précédemment. S'il existe d'autres clips, contenant ces mots clés, antérieurs aux "1000" sélectionnés, ils ne vous seront pas accessibles. Il est recommandé pour des recherches précises de découper la période en plus courtes périodes pour plus de précision dans cette présélection."
       }
     }
   },
@@ -74,8 +74,7 @@
       "subtitle1": "Chercher des replays",
       "steps1": {
         "1": "Ajouter jusqu'à 4 chaines.",
-        "2": "Choisir un replay que vous souhaitez regarder parmis les listes.",
-        "3": "Cliquez le pour retirer les replays non simultanées des listes et le sélectionner comme référence de synchronisation.",
+        "2": "Sélectionnez un replay pour retirer des autres listes ceux dont la diffusion n'était pas simultanée.",
         "4": "Appuyez sur le boutton \"Commencer\" pour vous rendre dans le lecteur synchronisé."
       },
       "subtitle2": "Regarder des replays",
