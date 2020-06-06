@@ -5,6 +5,7 @@
       sm="8"
       md="6"
       lg="5"
+      xl="4"
       class="text-center text-md-left"
     >
       <h2 class="display-1 font-weight-bold">
@@ -23,15 +24,16 @@
     <v-col
       cols="12"
       sm="8"
-      md="6"
-      lg="5"
+      md="5"
+      lg="4"
+      xl="3"
     >
       <v-row justify="center">
         <v-col v-for="item in items" :key="item.title" cols="12" class="ma-4">
-          <v-card>
+          <v-card class="px-4">
             <v-card-title>
               <h2 class="mx-auto headline">
-                <v-icon class="mb-1">
+                <v-icon class="mb-2">
                   {{ item.icon }}
                 </v-icon>&nbsp;{{ item.title }}
               </h2>

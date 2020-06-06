@@ -14,12 +14,15 @@
 
       <template v-slot:append>
         <div class="pa-2 text-center">
-          <p class="overline mb-3">
-            <nuxt-link v-if="$i18n.locale === 'en'" :to="$route.fullPath.replace(/^\/[^\/]+/, '')">
-              Version française
+          <p class="mb-3">
+            <nuxt-link :class="{filtered: $i18n.locale === 'en' }" :to="$route.fullPath.replace(/^\/[^\/]+/, '')">
+              <img src="/fr.png" alt="" width="20">
             </nuxt-link>
-            <nuxt-link v-else :to="`/en` + $route.fullPath">
-              English version
+            <nuxt-link
+              :class="{filtered: $i18n.locale === 'fr' }"
+              :to="$i18n.locale === 'en' ? $route.fullPath : `/en${$route.fullPath}`"
+            >
+              <img src="/uk.png" alt="" width="20">
             </nuxt-link>
           </p>
           <p class="overline mb-0">
@@ -72,7 +75,7 @@ export default {
       drawer: null,
       items: [
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-home',
           paths: ['index', 'lang'],
           to: ''
         },
@@ -104,5 +107,14 @@ export default {
 
 .route-name {
   text-transform: capitalize;
+}
+
+.filtered {
+  filter: grayscale(100%);
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    filter: grayscale(0%);
+  }
 }
 </style>
