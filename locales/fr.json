@@ -10,14 +10,14 @@
   "title": {
     "home": "<span class='indigo--text text--accent-2 '>Twitch</span><span class='grey--text text--lighten-2 font-weight-thin'>Buddy</span>",
     "clips": "<span class='indigo--text text--accent-2 '>C</span><span class='grey--text text--lighten-2 font-weight-thin'>lips</span>",
-    "replaysync": "<span class='indigo--text text--accent-2 '>R</span><span class='grey--text text--lighten-2 font-weight-thin'>eplaysync</span>"
+    "replaysync": "<span class='indigo--text text--accent-2 '>R</span><span class='grey--text text--lighten-2 font-weight-thin'>eplaySync</span>"
   },
   "home": {
     "pretitle": "Bienvenue sur",
-    "subtitle": "Conçue pour améliorer votre expérience de créateur de contenu vidéo sur Twitch",
-    "presentation": "Accélerer votre recherche de clips et regarder des replays synchronisés gràce à nos outils.",
-    "clips": "L'outil Clips vous permets de rechercher et télécharger plus facilement des extraits Twitch. Découvrez les moments les plus vus d'une chaine ou chercher les meilleurs clips à introduire dans vos vidéos.",
-    "replaysync": "ReplaySync est un outil qui vous permets de chercher des replays de lives simultannés pour une liste de chaine donnée, puis de les synchroniser sur l'heure de diffusion pour les regarder à la manière d'un multitwitch ou de la fonctionnalité Twitch stream squad",
+    "subtitle": "Conçu pour améliorer votre expérience de créateur de contenu vidéo sur Twitch",
+    "presentation": "Accélerez votre recherche de clips et regardez plusieurs replays de différentes chaines synchronisés.",
+    "clips": "Recherchez les meilleurs clips d'une chaine pour une période donnée, affinez vos recherches et téléchargez les clips de votre choix.",
+    "replaysync": "Choisissez le replay que vous souhaitez regarder parmis votre sélection de chaine pour filtrer celles qui diffusaient au même moment et regarder les replays synchronisés sur leurs heures de diffusion.",
     "action": "commencer"
   },
   "clips": {
@@ -37,7 +37,7 @@
         "custom": "Personnalisé"
       },
       "daterange": "Dates",
-      "submit": "Envoyer"
+      "submit": "Rechercher"
     },
     "keyword": "Mot clé",
     "item": {
@@ -50,13 +50,13 @@
     "help": {
       "title": "Aide",
       "steps": {
-        "1": "Remplir le champs chaine.",
+        "1": "Renseigner un nom de chaine.",
         "2": "Choisir une période pour votre recherche.",
         "3": "Si aucune des périodes ne vous convient, créez-en une personnalisée.",
         "4": "Cliquer sur le bouton envoyer et naviguer dans la liste des clips.",
         "5": "Vous pouvez filtrer la liste (par titre, jeu et créateur) avec le champ mot de clé.",
         "6": "Cliquer sur un clip pour ouvrir le panel et le télécharger si vous le souhaitez.",
-        "7": "Vous pouvez défillé dans la liste jusqu'à un maximum de 1000 clips."
+        "7": "Vous pouvez défiler dans la liste jusqu'à un maximum de 1000 clips."
       },
       "disclaimer": {
         "title": "Attention",
@@ -67,7 +67,7 @@
   "replaysync": {
     "form": {
       "label": "Ajoutez des chaines",
-      "submit": "Envoyer"
+      "submit": "Rechercher"
     },
     "help": {
       "title": "Aide",

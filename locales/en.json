@@ -10,14 +10,14 @@
   "title": {
     "home": "<span class='indigo--text text--accent-2 '>Twitch</span><span class='grey--text text--lighten-2 font-weight-thin'>Buddy</span>",
     "clips": "<span class='indigo--text text--accent-2 '>C</span><span class='grey--text text--lighten-2 font-weight-thin'>lips</span>",
-    "replaysync": "<span class='indigo--text text--accent-2 '>R</span><span class='grey--text text--lighten-2 font-weight-thin'>eplaysync</span>"
+    "replaysync": "<span class='indigo--text text--accent-2 '>R</span><span class='grey--text text--lighten-2 font-weight-thin'>eplaySync</span>"
   },
   "home": {
     "pretitle": "Welcome on",
     "subtitle": "Designed to bring your twitch videomaking to the next level.",
     "presentation": "Enjoy enhanced clip hunting and multi replay in sync experience using our tools.",
-    "clips": "The clip tool lets you search precisely for twitch clips using Twitch's API. Discover top twitchs moment or check out for the best clips for your videos and download them directly from this app.",
-    "replaysync": "The replay sync lets you watch group streams just like if it was live! Submit a list of channels, find simultaneous broacasts and bring them to our synchronising player.",
+    "clips": "Search for the best clips from a channel in a chosen timerange, narrow your selection and download your favorite ones.",
+    "replaysync": "Choose a replay from your channel selection to only keep ones that were broadcasted at the same time to watch them in sync based on their broadcast timestamps.",
     "action": "get started"
   },
   "clips": {
@@ -37,7 +37,7 @@
         "custom": "Custom"
       },
       "daterange": "Dates",
-      "submit": "Submit"
+      "submit": "Search"
     },
     "keyword": "Keyword",
     "item": {
@@ -67,7 +67,7 @@
   "replaysync": {
     "form": {
       "label": "Add channels",
-      "submit": "Submit"
+      "submit": "Search"
     },
     "help": {
       "title": "Help",
