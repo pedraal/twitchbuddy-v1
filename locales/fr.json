@@ -60,7 +60,7 @@
       },
       "disclaimer": {
         "title": "Attention",
-        "text": "De part les limitations de l'API Twitch, seul les 1000 premiers clips (au maximum, cela peut être moins) les plus vus pour une période donnée peuvent être affichés. S'il y a par exemple 2000 clips hebdomadaire, vous ne pourrez pas voir les 1000 derniers. Concernant le filtrage par mot-clé, il est appliqué sur la liste de clips retournée par votre recherche, à savoir les 1000 présélectionnés par l'API comme dit précédemment. S'il existe d'autres clips, contenant ces mots clés, antérieurs aux "1000" sélectionnés, ils ne vous seront pas accessibles. Il est recommandé pour des recherches précises de découper la période en plus courtes périodes pour plus de précision dans cette présélection."
+        "text": "De part les limitations de l'API Twitch, seul les 1000 premiers clips (au maximum, cela peut être moins) les plus vus pour une période donnée peuvent être affichés. S'il y a par exemple 2000 clips hebdomadaire, vous ne pourrez pas voir les 1000 derniers. Concernant le filtrage par mot-clé, il est appliqué sur la liste de clips retournée par votre recherche, à savoir les 1000 présélectionnés par l'API comme dit précédemment. S'il existe d'autres clips, contenant ces mots clés, antérieurs aux \"1000\" sélectionnés, ils ne vous seront pas accessibles. Il est recommandé pour des recherches précises de découper la période en plus courtes périodes pour plus de précision dans cette présélection."
       }
     }
   },
