@@ -22,7 +22,7 @@
         <v-btn :disabled="!canPause" @click="$store.commit('player/SET_GLOBAL_STATE', 'paused')" fab>
           <v-icon>mdi-pause</v-icon>
         </v-btn>
-        <v-btn :disabled="!canSync" @click="$store.dispatch('player/globalSync')" fab>
+        <v-btn :disabled="!canSync" @click="$store.dispatch('player/sync', canPlay ? 'paused' : 'playing')" fab>
           <v-icon>mdi-sync</v-icon>
         </v-btn>
       </div>

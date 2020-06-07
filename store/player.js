@@ -41,10 +41,11 @@ export const actions = {
       commit('ADD_SLOT', slotBuilder(collection))
     })
   },
-  globalSync ({ commit, state }) {
-    state.slots
-      .filter(slot => slot.id !== state.referenceSlot)
-      .forEach(slot => commit('SET_VIDEO_STATE', { id: slot.id, state: 'sync' }))
+  sync ({ commit }, newValue) {
+    commit('SET_GLOBAL_STATE', 'sync')
+    setTimeout(() => {
+      commit('SET_GLOBAL_STATE', newValue)
+    }, 2000)
   }
 }
 

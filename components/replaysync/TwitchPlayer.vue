@@ -27,7 +27,7 @@ export default {
     slotStatus () {
       return this.$store.getters['player/slotStatus'](this.slotData.id)
     },
-    playerState () {
+    globalState () {
       return this.$store.state.player.globalState
     },
     offset () {
@@ -43,31 +43,34 @@ export default {
         this.play()
       }
     },
-    playerState (newState, oldState) {
+    globalState (newState, oldState) {
       if (newState === 'playing' && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
         this.play()
       } else if (newState === 'paused' && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
         this.pause()
+      } else if ((newState === 'sync') && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
+        this.pause()
+        if (this.slotStatus !== 'reference') this.seek(this.offset)
       }
 
-      if (oldState === 'init' && this.slotStatus !== 'reference') {
-        setTimeout(() => {
-          this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'sync' })
-        }, 2000)
-      }
+      // if (oldState === 'init' && this.slotStatus !== 'reference') {
+      // setTimeout(() => {
+      //   this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'sync' })
+      // }, 2000)
+      // }
     },
     // video (newVideo) {
     //   player.setVideo(newVideo)
     // },
-    'slotData.video.state' (newState, oldState) {
-      if (newState === 'sync') {
-        this.seek(this.offset)
-        setTimeout(() => {
-          this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'ready' })
-        // récupérer l'état global pré sync pour remettre play si il faut
-        }, 2000)
-      }
-    },
+    // 'slotData.video.state' (newState, oldState) {
+    //   if (newState === 'sync') {
+    //     this.seek(this.offset)
+    //     setTimeout(() => {
+    //       this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'ready' })
+    //     // récupérer l'état global pré sync pour remettre play si il faut
+    //     }, 2000)
+    //   }
+    // },
     volume (newVolume) {
       players[this.slotData.id].setVolume(newVolume)
     }
@@ -105,7 +108,7 @@ export default {
   mounted () {
     const self = this
     timers[this.slotData.id] = setInterval(() => {
-      if (self.playerState === 'playing') self.$store.commit('player/SET_VIDEO_TIMESTAMP', { id: self.slotData.id, timestamp: self.getCurrentTime() })
+      if (self.globalState === 'playing') self.$store.commit('player/SET_VIDEO_TIMESTAMP', { id: self.slotData.id, timestamp: self.getCurrentTime() })
     }, 500)
   },
   beforeDestroy () {

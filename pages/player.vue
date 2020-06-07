@@ -12,7 +12,7 @@
         </div>
       </div>
       <transition name="fade">
-        <div v-if="!$store.getters['player/allPlayersReady']" class="loader d-flex justify-center align-center">
+        <div v-if="!$store.getters['player/allPlayersReady'] || $store.state.player.globalState === 'sync'" class="loader d-flex justify-center align-center">
           <v-progress-circular
             :size="150"
             color="primary"
@@ -46,8 +46,19 @@ export default {
   computed: {
     slots () {
       return this.$store.state.player.slots
+    },
+    globalState () {
+      return this.$store.state.player.globalState
     }
-
+  },
+  watch: {
+    globalState (newValue, oldValue) {
+      if (oldValue === 'init' && newValue === 'playing') {
+        setTimeout(() => {
+          this.$store.dispatch('player/sync', newValue)
+        }, 1000)
+      }
+    }
   },
   created () {
     if (this.$store.state.player.referenceSlot === '') {
