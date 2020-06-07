@@ -1,5 +1,5 @@
 <template>
-  <v-app light>
+  <v-app>
     <v-navigation-drawer
       v-model="drawer"
       clipped
@@ -63,6 +63,7 @@
 
 <script>
 export default {
+  name: 'DefaultLayout',
   data () {
     return {
       drawer: null,

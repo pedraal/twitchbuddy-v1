@@ -1,78 +1,81 @@
 <template>
   <div class="wrapper">
-    <div :ref="video.id" class="wrapper" />
-    <div @mouseenter="tooltip = true" @mouseleave="tooltip = false" class="status">
-      <div v-if="isReference">
-        <v-icon class="blue--text text--lighten-2">
-          mdi-checkbox-blank-circle
-        </v-icon>
-        <transition name="trigger">
-          <span v-show="tooltip" class="blue--text text--lighten-2 font-weight-bold">&nbsp;Reference</span>
-        </transition>
-      </div>
-      <div v-else-if="videoState === 'idle'">
-        <v-icon class="red--text text--lighten-2">
-          mdi-checkbox-blank-circle
-        </v-icon>
-        <transition name="trigger">
-          <span v-show="tooltip" class="red--text text--lighten-2 font-weight-bold">&nbsp;Not started</span>
-        </transition>
-      </div>
-      <div v-else-if="videoState === 'ended'">
-        <v-icon class="red--text text--lighten-2">
-          mdi-checkbox-blank-circle
-        </v-icon>
-        <transition name="trigger">
-          <span v-show="tooltip" class="red--text text--lighten-2 font-weight-bold">&nbsp;Ended</span>
-        </transition>
-      </div>
-      <div v-else>
-        <v-icon class="green--text text--lighten-2">
-          mdi-checkbox-blank-circle
-        </v-icon>
-        <transition name="trigger">
-          <span v-show="tooltip" class="green--text text--lighten-2 font-weight-bold">&nbsp;Running</span>
-        </transition>
-      </div>
-    </div>
+    <div ref="player" class="wrapper" />
+    {{ offset }}
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import moment from 'moment'
+const players = {}
+const timers = {}
 
 export default {
   props: {
-    video: {
+    slotData: {
       type: Object,
-      default () {
-        return {}
-      }
-    }
-  },
-  data () {
-    return {
-      player: null,
-      videoState: 'init',
-      tooltip: false
+      default: () => {}
+    },
+    volume: {
+      type: Number,
+      default: 0.5
     }
   },
   computed: {
-    ...mapGetters('videos', ['selectedVideo', 'selectedVideoTimestamp']),
     isReference () {
-      return this.video.id === this.selectedVideo.id
+      return this.$store.getters['player/isRef'](this.slotData.id)
+    },
+    slotStatus () {
+      return this.$store.getters['player/slotStatus'](this.slotData.id)
+    },
+    playerState () {
+      return this.$store.state.player.globalState
+    },
+    offset () {
+      return this.$store.getters['player/calcOffset'](this.slotData.id)
     }
   },
   watch: {
     isReference (val) {
       val ? this.unmute() : this.mute()
     },
-    videoState (newState, oldState) {
+    slotStatus (newState, oldState) {
       if (oldState === 'idle' && newState === 'running') {
-        this.$replayBus.$emit('sync')
+        this.play()
       }
+    },
+    playerState (newState, oldState) {
+      if (newState === 'playing' && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
+        this.play()
+      } else if (newState === 'paused' && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
+        this.pause()
+      }
+
+      if (oldState === 'init' && this.slotStatus !== 'reference') {
+        setTimeout(() => {
+          this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'sync' })
+        }, 2000)
+      }
+    },
+    // video (newVideo) {
+    //   player.setVideo(newVideo)
+    // },
+    'slotData.video.state' (newState, oldState) {
+      if (newState === 'sync') {
+        this.seek(this.offset)
+        setTimeout(() => {
+          this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'ready' })
+        // récupérer l'état global pré sync pour remettre play si il faut
+        }, 2000)
+      }
+    },
+    volume (newVolume) {
+      players[this.slotData.id].setVolume(newVolume)
     }
+    // quality (newQuality) {
+    //   if (player.getQualities().includes(newQuality)) {
+    //     player.setQuality(newQuality)
+    //   }
+    // }
   },
   beforeMount () {
     this.$unloadScript('https://player.twitch.tv/js/embed/v1.js')
@@ -81,78 +84,72 @@ export default {
         const options = {
           width: '100%',
           height: '100%',
-          video: this.video.id,
+          video: this.slotData.video.id,
           autoplay: false
         }
 
-        this.player = new window.Twitch.Player(this.$refs[this.video.id], options)
-        this.player.addEventListener('ready', () => { this.handleReady() })
+        players[this.slotData.id] = new window.Twitch.Player(this.$refs.player, options)
+        players[this.slotData.id].addEventListener('ended', () => (this.$emit('ended')))
+        players[this.slotData.id].addEventListener('pause', () => (this.$emit('pause')))
+        players[this.slotData.id].addEventListener('play', () => (this.$emit('play')))
+        players[this.slotData.id].addEventListener('offline', () => (this.$emit('offline')))
+        players[this.slotData.id].addEventListener('online', () => (this.$emit('online')))
+        players[this.slotData.id].addEventListener('ready', () => {
+          players[this.slotData.id].setQuality('480p30')
+          players[this.slotData.id].setVolume(this.volume)
+          this.isReference ? this.unmute() : this.mute()
+          this.$emit('ready', this.slotData.id)
+        })
       }).catch(e => (this.$emit('error', e)))
   },
   mounted () {
-    this.$replayBus.$on('play', this.play)
-    this.$replayBus.$on('pause', this.pause)
-    this.$replayBus.$on('sync', this.handleSync)
-    this.$replayBus.$on('ping', this.handlePing)
+    const self = this
+    timers[this.slotData.id] = setInterval(() => {
+      if (self.playerState === 'playing') self.$store.commit('player/SET_VIDEO_TIMESTAMP', { id: self.slotData.id, timestamp: self.getCurrentTime() })
+    }, 500)
   },
   beforeDestroy () {
-    this.player.removeEventListener('ready', () => { this.handleReady() })
-    this.$replayBus.$off('play')
-    this.$replayBus.$off('pause')
-    this.$replayBus.$off('sync')
-    this.$replayBus.$off('ping')
+    clearInterval(timers[this.slotData.id])
   },
   methods: {
-    ...mapActions('videos', ['setSelectedVideoTimestamp']),
-    handleReady () {
-      this.player.setQuality('480p30')
-      this.setVolume(1)
-      this.isReference ? this.unmute() : this.mute()
-      this.$emit('ready')
+    play () { // Begins playing the specified video.
+      players[this.slotData.id].play()
     },
-    handlePing () {
-      if (this.isReference) {
-        this.setSelectedVideoTimestamp(this.getCurrentTime())
-        this.videoState = 'reference'
-      } else {
-        const offset = this.selectedVideoTimestamp - moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
-        if (offset <= 0) {
-          this.videoState = 'idle'
-        } else if (moment(this.video.created_at).add(offset, 'seconds').isAfter(moment(this.video.ended_at))) {
-          this.videoState = 'ended'
-        } else {
-          this.videoState = 'running'
-        }
-      }
+    pause () { // Pauses the player.
+      players[this.slotData.id].pause()
     },
-    handleSync () {
-      this.pause()
-      if (this.isReference) return
-      const offset = moment(this.video.created_at).diff(moment(this.selectedVideo.created_at), 'seconds', true)
-      this.seek(this.selectedVideoTimestamp - offset)
+    seek (timestamp) { // Seeks to the specified timestamp (in seconds) in the video and resumes playing if paused. Does not work for live streams.
+      players[this.slotData.id].seek(timestamp)
     },
-    play () {
-      if (this.videoState !== 'idle' && this.videoState !== 'ended') {
-        this.player.play()
-      }
+    getCurrentTime () { // Returns the current video’s timestamp, in seconds. Works only for VODs, not live streams.
+      return players[this.slotData.id].getCurrentTime()
     },
-    pause () {
-      this.player.pause()
+    // getDuration () { // Returns the duration of the video, in seconds. Works only for VODs,not live streams.
+    //   return player.getDuration()
+    // },
+    // getPlaybackStats () { // Returns an object with statistics the embedded video player and the current live stream or VOD.
+    //   return player.getPlaybackStats()
+    // },
+    // getQuality () { // Returns the current quality of video playback.
+    //   return player.getQuality()
+    // },
+    isPaused () { // Returns true if the video is paused; otherwise, false. Buffering or seeking is considered playing.
+      return players[this.slotData.id].isPaused()
     },
-    seek (timestamp) {
-      this.player.seek(timestamp)
+    hasEnded () { // Returns true if the live stream or VOD has ended; otherwise, false.
+      return players[this.slotData.id].getEnded()
     },
-    setVolume (val) {
-      this.player.setVolume(val)
+    getVolume () { // Returns the volume level, a value between 0.0 and 1.0.
+      return players[this.slotData.id].getVolume()
     },
-    getCurrentTime () {
-      return this.player.getCurrentTime()
+    isMuted () { // Returns true if the player is muted; otherwise, false.
+      return players[this.slotData.id].getMuted()
     },
-    mute () {
-      this.player.setMuted(true)
+    mute () { // Mutes the player.
+      players[this.slotData.id].setMuted(true)
     },
-    unmute () {
-      this.player.setMuted(false)
+    unmute () { // Unmutes the player.
+      players[this.slotData.id].setMuted(false)
     }
   }
 }
@@ -171,17 +168,6 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-  }
-
-  .status {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 100%;
-
-    span {
-      text-shadow: 2px 2px black;
-    }
   }
 }
 

@@ -18,7 +18,7 @@
         <Loader />
       </v-container>
       <div v-if="selectedVideo" class="text-center">
-        <v-btn nuxt to="/player" outlined>
+        <v-btn @click="goToPlayer" outlined>
           Play
         </v-btn>
       </div>
@@ -49,7 +49,13 @@ export default {
     this.setHelpDisplay(true)
   },
   methods: {
-    ...mapMutations('global', ['setHelpDisplay'])
+    ...mapMutations('global', ['setHelpDisplay']),
+    goToPlayer () {
+      this.$store.commit('player/EMPTY_SLOTS')
+      this.$store.commit('player/SET_REFERENCE_SLOT', this.collections.filter(c => c.videos[0].id === this.selectedVideo.id)[0].id)
+      this.$store.dispatch('player/buildSlots', this.collections)
+      this.$router.push('player')
+    }
   }
 
 }
