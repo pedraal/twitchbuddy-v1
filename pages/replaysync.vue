@@ -15,13 +15,13 @@
           </v-col>
         </v-row>
         <ToolHelper v-else-if="helpDisplay" />
+        <div v-if="selectedVideo" class="text-center">
+          <v-btn @click="goToPlayer" outlined>
+            Play
+          </v-btn>
+        </div>
         <Loader />
       </v-container>
-      <div v-if="selectedVideo" class="text-center">
-        <v-btn @click="goToPlayer" outlined>
-          Play
-        </v-btn>
-      </div>
     </section>
   </v-layout>
 </template>

@@ -102,7 +102,10 @@ export const getters = {
     else return 'running'
   },
   allPlayersReady: (state) => {
-    return state.slots.every(slot => slot.video.state === 'ready')
+    return state.slots.every(slot => slot.video.state === 'ready' || slot.video.state === 'paused' || slot.video.state === 'playing')
+  },
+  allPlayersPlaying: (state) => {
+    return state.slots.every(slot => slot.video.state === 'playing')
   },
   calcExpected: state => (id) => {
     const target = state.slots.find(slot => slot.id === id)
@@ -117,7 +120,7 @@ export const getters = {
 
     if (delta < 2) {
       return 'good'
-    } else if (delta >= 2 && delta < 8) {
+    } else if (delta >= 2 && delta < 5) {
       return 'ok'
     } else {
       return 'bad'

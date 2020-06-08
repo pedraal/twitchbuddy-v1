@@ -8,7 +8,15 @@
           :key="slot.id"
           :id="'gridItem-'+(id+1)"
         >
-          <TwitchPlayer :slotData="slot" :ref="`slot-${slot.id}`" :volume="$store.state.player.volume" @ready="setSlotReady" class="grid-item" />
+          <TwitchPlayer
+            :slotData="slot"
+            :ref="`slot-${slot.id}`"
+            :volume="$store.state.player.volume"
+            @ready="setSlotReady"
+            @play="setSlotPlaying"
+            @pause="setSlotPaused"
+            class="grid-item"
+          />
         </div>
       </div>
       <transition name="fade">
@@ -38,21 +46,34 @@ export default {
   },
   mixins: [gridTemplate],
   layout: 'player',
-
+  data () {
+    return {
+      init: true
+    }
+  },
   computed: {
     slots () {
       return this.$store.state.player.slots
     },
     globalState () {
       return this.$store.state.player.globalState
+    },
+    allPlayerPlaying () {
+      return this.$store.getters['player/allPlayersPlaying']
     }
   },
   watch: {
-    globalState (newValue, oldValue) {
-      if (oldValue === 'init' && newValue === 'playing') {
-        setTimeout(() => {
-          this.$store.dispatch('player/sync', newValue)
-        }, 2000)
+    // globalState (newValue, oldValue) {
+    //   if (oldValue === 'init' && newValue === 'playing') {
+
+    //   }
+    // },
+    allPlayerPlaying (newValue, oldValue) {
+      if (newValue && this.init && !this.$store.state.autoSync) {
+        // setTimeout(() => {
+        this.$store.dispatch('player/sync', 'playing')
+        // }, 2000)
+        this.init = false
       }
     }
   },
@@ -65,6 +86,12 @@ export default {
   methods: {
     setSlotReady (payload) {
       this.$store.commit('player/SET_VIDEO_STATE', { id: payload, state: 'ready' })
+    },
+    setSlotPlaying (payload) {
+      this.$store.commit('player/SET_VIDEO_STATE', { id: payload, state: 'playing' })
+    },
+    setSlotPaused (payload) {
+      this.$store.commit('player/SET_VIDEO_STATE', { id: payload, state: 'paused' })
     }
   }
 }

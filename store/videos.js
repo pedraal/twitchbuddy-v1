@@ -3,7 +3,7 @@ import moment from 'moment'
 
 export const state = () => ({
   collections: [],
-  selectedVideo: { },
+  selectedVideo: null,
   selectedVideoTimestamp: 0,
   error: false
 })

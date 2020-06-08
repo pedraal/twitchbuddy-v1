@@ -34,6 +34,9 @@ export default {
     },
     syncStatus () {
       return this.$store.getters['player/slotSyncStatus'](this.slotData.id)
+    },
+    allPlaying () {
+      return this.$store.getters['player/allPlayersPlaying']
     }
 
   },
@@ -54,6 +57,7 @@ export default {
       } else if ((newState === 'sync') && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
         this.pause()
         if (this.slotStatus !== 'reference') this.seek(this.expected)
+        if (this.slotStatus === 'reference') this.seek(this.slotData.video.timestamp)
       }
 
       // if (oldState === 'init' && this.slotStatus !== 'reference') {
@@ -62,11 +66,16 @@ export default {
       // }, 2000)
       // }
     },
-    syncStatus (newValue, oldValue) {
-      if (newValue === 'bad' && this.$store.state.player.autoSync && this.$store.state.player.canAutoSync && this.$store.state.player.globalState === 'playing') {
-        this.$store.dispatch('player/sync', 'playing')
-      }
-    },
+    // allPlaying (newValue, oldValue) {
+    //   if (newValue && this.$store.state.player.autoSync && this.$store.state.player.canAutoSync && this.syncStatus !== 'good') {
+    //     this.$store.dispatch('player/sync', 'playing')
+    //   }
+    // },
+    // '$store.state.player.autoSync' (newValue) {
+    //   if (newValue && this.syncStatus === 'ok' && this.$store.state.player.canAutoSync && this.$store.state.player.globalState === 'playing') {
+    //     this.$store.dispatch('player/sync', 'playing')
+    //   }
+    // },
     // video (newVideo) {
     //   player.setVideo(newVideo)
     // },
@@ -101,8 +110,8 @@ export default {
 
         players[this.slotData.id] = new window.Twitch.Player(this.$refs.player, options)
         players[this.slotData.id].addEventListener('ended', () => (this.$emit('ended')))
-        players[this.slotData.id].addEventListener('pause', () => (this.$emit('pause')))
-        players[this.slotData.id].addEventListener('play', () => (this.$emit('play')))
+        players[this.slotData.id].addEventListener('pause', () => (this.$emit('pause', this.slotData.id)))
+        players[this.slotData.id].addEventListener('play', () => { this.$emit('play', this.slotData.id) })
         players[this.slotData.id].addEventListener('offline', () => (this.$emit('offline')))
         players[this.slotData.id].addEventListener('online', () => (this.$emit('online')))
         players[this.slotData.id].addEventListener('ready', () => {
@@ -116,8 +125,13 @@ export default {
   mounted () {
     const self = this
     timers[this.slotData.id] = setInterval(() => {
-      if (self.globalState === 'playing') self.$store.commit('player/SET_VIDEO_TIMESTAMP', { id: self.slotData.id, timestamp: self.getCurrentTime() })
-    }, 500)
+      if (self.globalState === 'playing') {
+        self.$store.commit('player/SET_VIDEO_TIMESTAMP', { id: self.slotData.id, timestamp: Math.trunc(self.getCurrentTime()) })
+      }
+      if (this.allPlaying && this.$store.state.player.autoSync && this.$store.state.player.canAutoSync && this.syncStatus !== 'good') {
+        this.$store.dispatch('player/sync', 'playing')
+      }
+    }, 1000)
   },
   beforeDestroy () {
     clearInterval(timers[this.slotData.id])
