@@ -16,14 +16,14 @@
     "pretitle": "Bienvenue sur",
     "subtitle": "Conçu pour améliorer votre expérience de créateur de contenu vidéo sur Twitch",
     "presentation": "Accélerez votre recherche de clips et regardez plusieurs replays de différentes chaines synchronisés.",
-    "clips": "Recherchez les meilleurs clips d'une chaine pour une période donnée, affinez vos recherches et téléchargez les clips de votre choix.",
-    "replaysync": "Dans la liste des chaînes que vous aurez sélectionné, choisissez la rediffusion d'un live qui vous intéresse. Parmi les autres chaînes, l'application va ensuite filtrer grâce à l'horodatage, toutes les VoD de lives qui ont été diffusés simultanément. Elles seront ensuite synchronisés sur votre première sélection qui fera référence.",
+    "clips": "Recherchez les meilleurs clips d'une chaîne pour une période donnée, affinez vos recherches et téléchargez les clips de votre choix.",
+    "replaysync": "Dans la liste des chaînes que vous aurez sélectionné, choisissez la rediffusion d'un live qui vous intéresse. Parmi les autres chaînes, l'application va ensuite filtrer grâce à l'horodatage, toutes les VoD de lives qui ont été diffusées simultanément. Elles seront ensuite synchronisées sur votre première sélection qui fera référence.",
     "action": "commencer"
   },
   "clips": {
     "form": {
       "channel": {
-        "label": "Chaine",
+        "label": "Chaîne",
         "required": "Le nom est requis",
         "toolong": "Le nom ne doit pas dépasser 255 caractères"
       },
@@ -39,7 +39,7 @@
       "daterange": "Dates",
       "submit": "Rechercher"
     },
-    "keyword": "Mot clé",
+    "keyword": "Mot-clé",
     "item": {
       "views": "Vues",
       "by": "Par",
@@ -53,35 +53,35 @@
         "1": "Renseigner un nom de chaine.",
         "2": "Choisir une période pour votre recherche.",
         "3": "Si aucune des périodes ne vous convient, créez-en une personnalisée.",
-        "4": "Cliquer sur le bouton envoyer et naviguer dans la liste des clips.",
-        "5": "Vous pouvez filtrer la liste (par titre, jeu et créateur) avec le champ mot de clé.",
+        "4": "Cliquer sur le bouton \" Rechercher \" et naviguer dans la liste des clips.",
+        "5": "Vous pouvez filtrer la liste (par titre, jeu et créateur) avec le champ mot-clé.",
         "6": "Cliquer sur un clip pour ouvrir le panel et le télécharger si vous le souhaitez.",
-        "7": "Vous pouvez défiler dans la liste jusqu'à un maximum de 1000 clips."
+        "7": "Vous pouvez défiler dans la liste jusqu'à un maximum de 1 000 clips."
       },
       "disclaimer": {
         "title": "Attention",
-        "text": "De part les limitations de l'API Twitch, seul les 1000 premiers clips (au maximum, cela peut être moins) les plus vus pour une période donnée peuvent être affichés. S'il y a par exemple 2000 clips hebdomadaire, vous ne pourrez pas voir les 1000 derniers. Concernant le filtrage par mot-clé, il est appliqué sur la liste de clips retournée par votre recherche, à savoir les 1000 présélectionnés par l'API comme dit précédemment. S'il existe d'autres clips, contenant ces mots clés, antérieurs aux \"1000\" sélectionnés, ils ne vous seront pas accessibles. Il est recommandé pour des recherches précises de découper la période en plus courtes périodes pour plus de précision dans cette présélection."
+        "text": "De part les limitations de l'API Twitch, seul les 1 000 premiers clips (au maximum, cela peut être moins) les plus vus pour une période donnée peuvent être affichés. S'il y a par exemple 2 000 clips hebdomadaires, vous ne pourrez pas voir les 1 000 derniers. Concernant le filtrage par mot-clé, il est appliqué sur la liste de clips retournée par votre recherche, à savoir les 1 000 présélectionnés par l'API comme dit précédemment. S'il existe d'autres clips, contenant ces mots-clés, antérieurs aux \"1 000\" sélectionnés, ils ne vous seront pas accessibles. Il est recommandé pour des recherches précises de découper la période en plus courtes périodes pour plus de précision dans cette présélection."
       }
     }
   },
   "replaysync": {
     "form": {
-      "label": "Ajoutez des chaines",
+      "label": "Ajoutez des chaînes",
       "submit": "Rechercher"
     },
     "help": {
       "title": "Aide",
       "subtitle1": "Chercher des replays",
       "steps1": {
-        "1": "Ajouter jusqu'à 4 chaines.",
-        "2": "Sélectionnez un replay pour retirer des autres listes ceux dont la diffusion n'était pas simultanée.",
-        "4": "Appuyez sur le boutton \"Commencer\" pour vous rendre dans le lecteur synchronisé."
+        "1": "Ajouter jusqu'à 4 chaînes.",
+        "2": "Sélectionner un replay pour retirer des autres listes ceux dont la diffusion n'était pas simultanée.",
+        "3": "Appuyer sur le bouton \" Rechercher \" pour vous rendre dans le lecteur synchronisé."
       },
       "subtitle2": "Regarder des replays",
       "steps2": {
         "1": {
           "icon": "mdi-plus",
-          "text": "Une fois dans le lecteur, survoller le bouton {0} pour afficher les controles du lecteur."
+          "text": "Une fois dans le lecteur, survoller le bouton {0} pour afficher les contrôles du lecteur."
         },
         "2": {
           "icon": "mdi-play",
@@ -89,7 +89,7 @@
         },
         "3": {
           "icon": "mdi-sync",
-          "text": "Appuyez sur le boutton {0} pour re-synchroniser si besoin."
+          "text": "Appuyer sur le bouton {0} pour re-synchroniser si besoin."
         },
         "4": {
           "icon": "",
@@ -99,9 +99,9 @@
       "disclaimer": {
         "title": "Attention",
         "texts": {
-          "1": "Dans la liste des replays, ne selectionner qu'un seul pour le définir comme référence. Dans le cas où une chaine aurait plusieurs replays simultanées à la référence, le premier de la liste sera envoyé dans le lecteur synchronisé. Si ce n'est pas le replay que vous souhaitez regarder, choisissez celui de votre choix parmis eux pour qu'il soit défini comme réfénrece.",
-          "2": "Cet outil n'est pas en mesure de détecter le potentiel délait de diffusion. Ceci signifie que vous rencontrerez probablement de petits décalage même après synchronisation. Veuillez également noté que dans certains cas (notament des crash partiels du live), les  horodatages utilisés pour synchroniser les replays peuvent devenir invalides et ne pourront plus être synchronisés.",
-          "3": "Utiliser les controles des lecteurs videos de Twitch (à l'exception des controles de volumes) peuvent casser le controlleur de synchronisation. Pour une meilleure expérience, évitez de les utiliser."
+          "1": "Dans la liste des replays, ne sélectionner qu'un seul pour le définir comme référence. Dans le cas où une chaîne aurait plusieurs replays simultanés à la référence, le premier de la liste sera envoyé dans le lecteur. Si ce n'est pas le replay que vous souhaitez regarder, choisissez celui de votre choix parmi eux pour qu'il soit défini comme référence.",
+          "2": "Cet outil n'est pas en mesure de détecter le potentiel délai de diffusion. Ceci signifie que vous rencontrerez probablement de petits décalages même après synchronisation. Veuillez également noter que dans certains cas (notament des crash partiels du live), les  horodatages utilisés pour synchroniser les replays peuvent devenir invalides et ne pourront plus être synchronisés.",
+          "3": "Utiliser les contrôles des lecteurs vidéos de Twitch (à l'exception des contrôles de volume) peuvent casser la synchronisation. Pour une meilleure expérience, évitez de les utiliser."
         }
       }
     }
