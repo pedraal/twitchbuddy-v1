@@ -24,9 +24,6 @@ export const mutations = {
   SET_VOLUME (state, payload) {
     state.volume = payload
   },
-  SET_LOADING (state, payload) {
-    state.loading = payload
-  },
   SET_VIDEO_TIMESTAMP (state, payload) {
     state.slots.find(slot => slot.id === payload.id).video.timestamp = payload.timestamp
   },

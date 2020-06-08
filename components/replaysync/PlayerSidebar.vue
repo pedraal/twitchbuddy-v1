@@ -121,6 +121,7 @@ export default {
   right: 2px;
   z-index: 10;
   transform: translateX(100px);
+  background-color: rgba(0,0,0,0) !important;
   &.show {
     transform: translateX(0px);
   }

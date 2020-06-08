@@ -38,11 +38,7 @@ export default {
   },
   mixins: [gridTemplate],
   layout: 'player',
-  data () {
-    return {
-      loading: false
-    }
-  },
+
   computed: {
     slots () {
       return this.$store.state.player.slots
