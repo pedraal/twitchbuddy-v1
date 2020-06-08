@@ -51,6 +51,7 @@ export default {
   methods: {
     ...mapMutations('global', ['setHelpDisplay']),
     goToPlayer () {
+      this.$store.commit('player/HARD_RESET_PLAYER')
       this.$store.commit('player/EMPTY_SLOTS')
       this.$store.commit('player/SET_REFERENCE_SLOT', this.collections.filter(c => c.videos[0].id === this.selectedVideo.id)[0].id)
       this.$store.dispatch('player/buildSlots', this.collections)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" :right="true" class="playersidebar" app>
+    <v-navigation-drawer v-model="drawer" :right="true" class="playersidebar" width="300px" app>
       <v-list dense nav class="py-0">
         <v-list-item class="px-2" two-line>
           <h1 class="mx-auto">
@@ -26,7 +26,14 @@
           <v-icon>mdi-sync</v-icon>
         </v-btn>
       </div>
-      <v-slider v-model="volume" append-icon="mdi-volume-high" prepend-icon="mdi-volume-low" class="mx-2 my-4" />
+      <div class="pa-4">
+        <v-slider v-model="volume" append-icon="mdi-volume-high" prepend-icon="mdi-volume-low" class="mt-4" />
+        <v-switch
+          v-model="autoSync"
+          :label="`Autosync: ${autoSync ? 'on' : 'off'}`"
+          class="my-0 ml-2"
+        />
+      </div>
       <p class="text-center mt-4 mb-3 overline">
         Reference controls
       </p>
@@ -45,8 +52,25 @@
             <p class="ma-0 pl-4">
               {{ channel.name.charAt(0).toUpperCase() + channel.name.slice(1) }}
             </p>
-            <p :class="slotStatusClass($store.getters['player/slotStatus'](channel.id))" class="ma-0 pl-4 slot-status overline">
-              {{ $store.getters['player/slotStatus'](channel.id) }}
+            <p class="ma-0 pl-4 slot-status overline">
+              <span>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-icon v-on="on" :class="syncStatusClass($store.getters['player/slotSyncStatus'](channel.id), channel.id)" small>
+                      mdi-checkbox-blank-circle
+                    </v-icon>
+                  </template>
+                  <span>Sync status</span>
+                </v-tooltip>
+              </span>
+              <span :class="slotStatusClass($store.getters['player/slotStatus'](channel.id))">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <span v-on="on">{{ $store.getters['player/slotStatus'](channel.id) }}</span>
+                  </template>
+                  <span>Replay status</span>
+                </v-tooltip>
+              </span>
             </p>
           </div>
         </v-list-item>
@@ -95,6 +119,14 @@ export default {
       set (value) {
         this.$store.commit('player/SET_VOLUME', value === 0 ? 0.01 : parseFloat(value / 100))
       }
+    },
+    autoSync: {
+      get () {
+        return this.$store.state.player.autoSync
+      },
+      set (value) {
+        this.$store.commit('player/SET_AUTO_SYNC', value)
+      }
     }
   },
   watch: {
@@ -109,6 +141,12 @@ export default {
       if (status === 'idle' || status === 'ended') return 'red--text text--lighten-2'
       else if (status === 'reference') return 'blue--text text--lighten-2'
       else if (status === 'running') return 'green--text text--lighten-2'
+    },
+    syncStatusClass (status, id) {
+      if (this.$store.state.player.referenceSlot === id) return 'blue--text text--lighten-2'
+      else if (status === 'good') return 'green--text text--lighten-2'
+      else if (status === 'ok') return 'yellow--text text--lighten-2'
+      else if (status === 'bad') return 'red--text text--lighten-2'
     }
   }
 }

@@ -5,10 +5,23 @@ export const state = () => ({
   referenceSlot: '',
   globalState: 'init',
   volume: 0.5,
-  loading: false
+  autoSync: false,
+  canAutoSync: false
 })
 
 export const mutations = {
+  HARD_RESET_PLAYER (state) {
+    state.slots = []
+    state.referenceSlot = ''
+    state.globalState = 'init'
+    state.volume = 0.5
+    state.autoSync = false
+    state.canAutoSync = false
+  },
+  SOFT_RESET_PLAYER (state) {
+    state.globalState = 'init'
+    state.canAutoSync = false
+  },
   ADD_SLOT (state, payload) {
     state.slots.push(payload)
   },
@@ -29,6 +42,12 @@ export const mutations = {
   },
   SET_VIDEO_STATE (state, payload) {
     state.slots.find(slot => slot.id === payload.id).video.state = payload.state
+  },
+  SET_AUTO_SYNC (state, payload) {
+    state.autoSync = payload
+  },
+  SET_CAN_AUTO_SYNC (state, payload) {
+    state.canAutoSync = payload
   }
 }
 
@@ -43,6 +62,9 @@ export const actions = {
     setTimeout(() => {
       commit('SET_GLOBAL_STATE', newValue)
     }, 2000)
+    setTimeout(() => {
+      commit('SET_CAN_AUTO_SYNC', true)
+    }, 2500)
   }
 }
 
@@ -82,11 +104,24 @@ export const getters = {
   allPlayersReady: (state) => {
     return state.slots.every(slot => slot.video.state === 'ready')
   },
-  calcOffset: state => (id) => {
+  calcExpected: state => (id) => {
     const target = state.slots.find(slot => slot.id === id)
     const ref = state.slots.find(slot => slot.id === state.referenceSlot)
     const offset = ref.video.timestamp - moment(target.video.createdAt).diff(moment(ref.video.createdAt), 'seconds', true)
     return offset
+  },
+  slotSyncStatus: (state, getters) => (id) => {
+    const target = state.slots.find(slot => slot.id === id)
+    const expected = getters.calcExpected(target.id)
+    const delta = (expected - target.video.timestamp) - 1
+
+    if (delta < 2) {
+      return 'good'
+    } else if (delta >= 2 && delta < 8) {
+      return 'ok'
+    } else {
+      return 'bad'
+    }
   }
 }
 

@@ -52,7 +52,7 @@ export default {
       if (oldValue === 'init' && newValue === 'playing') {
         setTimeout(() => {
           this.$store.dispatch('player/sync', newValue)
-        }, 1000)
+        }, 2000)
       }
     }
   },
@@ -60,6 +60,7 @@ export default {
     if (this.$store.state.player.referenceSlot === '') {
       this.$router.push('replaysync')
     }
+    this.$store.commit('player/SOFT_RESET_PLAYER')
   },
   methods: {
     setSlotReady (payload) {

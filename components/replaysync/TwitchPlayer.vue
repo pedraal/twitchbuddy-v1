@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
     <div ref="player" class="wrapper" />
-    {{ offset }}
   </div>
 </template>
 
@@ -30,9 +29,13 @@ export default {
     globalState () {
       return this.$store.state.player.globalState
     },
-    offset () {
-      return this.$store.getters['player/calcOffset'](this.slotData.id)
+    expected () {
+      return this.$store.getters['player/calcExpected'](this.slotData.id)
+    },
+    syncStatus () {
+      return this.$store.getters['player/slotSyncStatus'](this.slotData.id)
     }
+
   },
   watch: {
     isReference (val) {
@@ -50,7 +53,7 @@ export default {
         this.pause()
       } else if ((newState === 'sync') && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
         this.pause()
-        if (this.slotStatus !== 'reference') this.seek(this.offset)
+        if (this.slotStatus !== 'reference') this.seek(this.expected)
       }
 
       // if (oldState === 'init' && this.slotStatus !== 'reference') {
@@ -59,12 +62,17 @@ export default {
       // }, 2000)
       // }
     },
+    syncStatus (newValue, oldValue) {
+      if (newValue === 'bad' && this.$store.state.player.autoSync && this.$store.state.player.canAutoSync && this.$store.state.player.globalState === 'playing') {
+        this.$store.dispatch('player/sync', 'playing')
+      }
+    },
     // video (newVideo) {
     //   player.setVideo(newVideo)
     // },
     // 'slotData.video.state' (newState, oldState) {
     //   if (newState === 'sync') {
-    //     this.seek(this.offset)
+    //     this.seek(this.expected)
     //     setTimeout(() => {
     //       this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'ready' })
     //     // récupérer l'état global pré sync pour remettre play si il faut
