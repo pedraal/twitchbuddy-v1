@@ -80,20 +80,16 @@
       "subtitle2": "Regarder des replays",
       "steps2": {
         "1": {
-          "icon": "mdi-plus",
-          "text": "Une fois dans le lecteur, survoller le bouton {0} pour afficher les contrôles du lecteur."
+          "icon": "mdi-play",
+          "text": "Une fois dans le lecteur, appuyer sur le bouton {0} pour commencer à regarder les replays et faire une première synchronisation."
         },
         "2": {
-          "icon": "mdi-play",
-          "text": "Appuyer sur le bouton {0} pour commencer à regarder mes replays et faire une première synchronisation."
-        },
-        "3": {
           "icon": "mdi-sync",
           "text": "Appuyer sur le bouton {0} pour re-synchroniser si besoin."
         },
-        "4": {
+        "3": {
           "icon": "",
-          "text": "Changer le replay de référence en utilisant les boutons du dessous."
+          "text": "Changer le replay de référence en utilisant les boutons de chaines."
         }
       },
       "disclaimer": {
@@ -101,16 +97,21 @@
         "texts": {
           "1": "Dans la liste des replays, ne sélectionner qu'un seul pour le définir comme référence. Dans le cas où une chaîne aurait plusieurs replays simultanés à la référence, le premier de la liste sera envoyé dans le lecteur. Si ce n'est pas le replay que vous souhaitez regarder, choisissez celui de votre choix parmi eux pour qu'il soit défini comme référence.",
           "2": "Cet outil n'est pas en mesure de détecter le potentiel délai de diffusion. Ceci signifie que vous rencontrerez probablement de petits décalages même après synchronisation. Veuillez également noter que dans certains cas (notament des crash partiels du live), les  horodatages utilisés pour synchroniser les replays peuvent devenir invalides et ne pourront plus être synchronisés.",
-          "3": "Utiliser les contrôles des lecteurs vidéos de Twitch (à l'exception des contrôles de volume) peuvent casser la synchronisation. Pour une meilleure expérience, évitez de les utiliser."
+          "3": "Utiliser les contrôles des lecteurs vidéos de Twitch (à l'exception des contrôles de volume) peuvent rompre la synchronisation. Pour une meilleure expérience, évitez de les utiliser."
         }
       }
-    }
+    },
+    "play": "Play"
   },
   "player": {
     "reference": "Référence",
-    "not_started": "Pas commencé",
+    "idle": "Pas commencé",
     "ended": "Terminé",
-    "running": "En cours"
+    "running": "En cours",
+    "playercontrols": "Player controls",
+    "refcontrols": "Reference controls",
+    "syncstatus": "Sync status",
+    "replaystatus": "Replay status"
   },
   "vuehandyga": {
     "notification": "Ce site utilise les cookies pour mesurer l'audience et l'activité des utilisateurs. En cliquant sur le boutton Accepter, vous nous donnez votre consentement pour déposer des cookies.",

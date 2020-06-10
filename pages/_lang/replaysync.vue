@@ -4,7 +4,7 @@
     justify-center
     align-center
   >
-    <section class="mb-4">
+    <section>
       <ReplayForm />
     </section>
     <section>
@@ -14,14 +14,14 @@
             <ReplayList :collection="collection" />
           </v-col>
         </v-row>
-        <tool-helper v-else-if="helpDisplay" />
+        <ToolHelper v-else-if="helpDisplay" />
+        <div v-if="selectedVideo" class="text-center">
+          <v-btn @click="goToPlayer" outlined>
+            {{ $t('replaysync.play') }}
+          </v-btn>
+        </div>
         <Loader />
       </v-container>
-      <div v-if="selectedVideo" class="text-center">
-        <v-btn nuxt to="/player" outlined>
-          Play
-        </v-btn>
-      </div>
     </section>
   </v-layout>
 </template>
@@ -49,7 +49,22 @@ export default {
     this.setHelpDisplay(true)
   },
   methods: {
-    ...mapMutations('global', ['setHelpDisplay'])
+    ...mapMutations('global', ['setHelpDisplay']),
+    goToPlayer () {
+      this.$store.commit('player/HARD_RESET_PLAYER')
+      this.$store.commit('player/EMPTY_SLOTS')
+      const ref = this.collections.filter((c) => {
+        if (c.videos.length === 0) {
+          return false
+        } else {
+          return c.videos[0].id === this.selectedVideo.id
+        }
+      })[0]
+      if (ref.length === 0) return
+      this.$store.commit('player/SET_REFERENCE_SLOT', ref.id)
+      this.$store.dispatch('player/buildSlots', this.collections)
+      this.$router.push('player')
+    }
   }
 
 }

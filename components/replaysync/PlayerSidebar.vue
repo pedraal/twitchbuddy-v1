@@ -13,7 +13,7 @@
         <v-divider />
       </v-list>
       <p class="text-center mt-4 mb-3 overline">
-        Player controls
+        {{ $t('player.playercontrols') }}
       </p>
       <div class="text-center">
         <v-btn :disabled="!canPlay" @click="$store.commit('player/SET_GLOBAL_STATE', 'playing')" fab>
@@ -28,20 +28,20 @@
       </div>
       <div class="pa-4">
         <v-slider v-model="volume" append-icon="mdi-volume-high" prepend-icon="mdi-volume-low" class="mt-4" />
-        <v-switch
-          v-model="autoSync"
-          label="Autosync"
-          class="my-0 ml-2"
-        />
         <v-select
           :items="qualities"
           v-model="quality"
           label="Quality"
           solo
         />
+        <v-switch
+          v-model="autoSync"
+          label="Autosync"
+          class="my-0 ml-2"
+        />
       </div>
       <p class="text-center mt-4 mb-3 overline">
-        Reference controls
+        {{ $t('player.refcontrols') }}
       </p>
       <v-list dense nav class="px-4">
         <v-list-item
@@ -66,15 +66,15 @@
                       mdi-checkbox-blank-circle
                     </v-icon>
                   </template>
-                  <span>Sync status</span>
+                  <span>{{ $t('player.syncstatus') }}</span>
                 </v-tooltip>
               </span>
               <span :class="slotStatusClass($store.getters['player/slotStatus'](channel.id))">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
-                    <span v-on="on">{{ $store.getters['player/slotStatus'](channel.id) }}</span>
+                    <span v-on="on">{{ $t('player.' + $store.getters['player/slotStatus'](channel.id)) }}</span>
                   </template>
-                  <span>Replay status</span>
+                  <span>{{ $t('player.replaystatus') }}</span>
                 </v-tooltip>
               </span>
             </p>

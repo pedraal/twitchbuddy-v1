@@ -16,7 +16,7 @@ export const mutations = {
     state.referenceSlot = ''
     state.globalState = 'init'
     state.volume = 0.5
-    state.autoSync = false
+    state.autoSync = true
     state.canAutoSync = false
   },
   SOFT_RESET_PLAYER (state) {
