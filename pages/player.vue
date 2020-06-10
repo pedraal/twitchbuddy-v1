@@ -11,7 +11,6 @@
           <TwitchPlayer
             :slotData="slot"
             :ref="`slot-${slot.id}`"
-            :volume="$store.state.player.volume"
             @ready="setSlotReady"
             @play="setSlotPlaying"
             @pause="setSlotPaused"

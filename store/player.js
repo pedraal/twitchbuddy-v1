@@ -5,6 +5,7 @@ export const state = () => ({
   referenceSlot: '',
   globalState: 'init',
   volume: 0.5,
+  quality: '360p30',
   autoSync: false,
   canAutoSync: false
 })
@@ -36,6 +37,9 @@ export const mutations = {
   },
   SET_VOLUME (state, payload) {
     state.volume = payload
+  },
+  SET_QUALITY (state, payload) {
+    state.quality = payload
   },
   SET_VIDEO_TIMESTAMP (state, payload) {
     state.slots.find(slot => slot.id === payload.id).video.timestamp = payload.timestamp

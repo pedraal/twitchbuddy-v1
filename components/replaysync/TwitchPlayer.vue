@@ -13,10 +13,6 @@ export default {
     slotData: {
       type: Object,
       default: () => {}
-    },
-    volume: {
-      type: Number,
-      default: 0.5
     }
   },
   computed: {
@@ -28,6 +24,12 @@ export default {
     },
     globalState () {
       return this.$store.state.player.globalState
+    },
+    volume () {
+      return this.$store.state.player.volume
+    },
+    quality () {
+      return this.$store.state.player.quality
     },
     expected () {
       return this.$store.getters['player/calcExpected'](this.slotData.id)
@@ -90,12 +92,12 @@ export default {
     // },
     volume (newVolume) {
       players[this.slotData.id].setVolume(newVolume)
+    },
+    quality (newQuality) {
+      // if (timers[this.slotData.id].getQualities().includes(newQuality)) {
+      players[this.slotData.id].setQuality(newQuality)
+      // }
     }
-    // quality (newQuality) {
-    //   if (player.getQualities().includes(newQuality)) {
-    //     player.setQuality(newQuality)
-    //   }
-    // }
   },
   beforeMount () {
     this.$unloadScript('https://player.twitch.tv/js/embed/v1.js')
@@ -115,7 +117,7 @@ export default {
         players[this.slotData.id].addEventListener('offline', () => (this.$emit('offline')))
         players[this.slotData.id].addEventListener('online', () => (this.$emit('online')))
         players[this.slotData.id].addEventListener('ready', () => {
-          players[this.slotData.id].setQuality('480p30')
+          players[this.slotData.id].setQuality(this.quality)
           players[this.slotData.id].setVolume(this.volume)
           this.isReference ? this.unmute() : this.mute()
           this.$emit('ready', this.slotData.id)

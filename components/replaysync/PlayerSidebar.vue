@@ -33,6 +33,12 @@
           :label="`Autosync: ${autoSync ? 'on' : 'off'}`"
           class="my-0 ml-2"
         />
+        <v-select
+          :items="qualities"
+          v-model="quality"
+          label="Quality"
+          solo
+        />
       </div>
       <p class="text-center mt-4 mb-3 overline">
         Reference controls
@@ -90,7 +96,8 @@ export default {
   components: {},
   data () {
     return {
-      drawer: true
+      drawer: true,
+      qualities: ['360p30', '480p30', '720p30', '720p60', '1080p60']
     }
   },
   computed: {
@@ -118,6 +125,14 @@ export default {
       },
       set (value) {
         this.$store.commit('player/SET_VOLUME', value === 0 ? 0.01 : parseFloat(value / 100))
+      }
+    },
+    quality: {
+      get () {
+        return this.$store.state.player.quality
+      },
+      set (value) {
+        this.$store.commit('player/SET_QUALITY', value)
       }
     },
     autoSync: {
