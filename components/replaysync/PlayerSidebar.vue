@@ -30,7 +30,7 @@
         <v-slider v-model="volume" append-icon="mdi-volume-high" prepend-icon="mdi-volume-low" class="mt-4" />
         <v-switch
           v-model="autoSync"
-          :label="`Autosync: ${autoSync ? 'on' : 'off'}`"
+          label="Autosync"
           class="my-0 ml-2"
         />
         <v-select

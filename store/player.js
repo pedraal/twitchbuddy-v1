@@ -6,7 +6,7 @@ export const state = () => ({
   globalState: 'init',
   volume: 0.5,
   quality: '360p30',
-  autoSync: false,
+  autoSync: true,
   canAutoSync: false
 })
 
