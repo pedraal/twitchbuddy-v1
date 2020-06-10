@@ -7,7 +7,8 @@ if (process.env.NODE_ENV === 'development') {
 export default {
   mode: 'universal',
   generate: {
-    fallback: true
+    fallback: true,
+    routes: ['/', '/clips', '/replaysync', '/player', '/en', '/en/clips', '/en/replaysync', '/en/player']
   },
   head: {
     titleTemplate: '%s',
@@ -28,7 +29,8 @@ export default {
   ],
   plugins: [
     '~/plugins/load-script',
-    '~/plugins/replay-bus'
+    '~/plugins/replay-bus',
+    '~/plugins/i18n.js'
   ],
   buildModules: [
     '@nuxtjs/eslint-module',
@@ -36,6 +38,9 @@ export default {
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv'
   ],
+  router: {
+    middleware: 'i18n'
+  },
   modules: [
     '@nuxtjs/pwa',
     ['vue-handy-ga/nuxt', {

@@ -16,24 +16,24 @@
           </v-col>
           <v-col cols="2" class="text-right pa-0 d-none d-sm-block">
             <p class="caption mb-2">
-              {{ clip.view_count }} Views
+              {{ clip.view_count }} {{ $t('clips.item.views') }}
             </p>
             <p class="caption mb-2">
-              By {{ clip.creator_name }}
+              {{ $t('clips.item.by') }} {{ clip.creator_name }}
             </p>
           </v-col>
           <v-col cols="3" class="text-center text-sm-right pa-0 pr-4 d-none d-sm-block">
             <p class="caption mb-2">
-              Clipped on
+              {{ $t('clips.item.createdAt') }}
             </p>
             {{ format(clip.created_at) }}
           </v-col>
           <v-col cols="4" class="text-right pa-0 d-block d-sm-none caption">
             <p class="mb-0">
-              {{ clip.view_count }} views
+              {{ clip.view_count }} {{ $t('clips.item.views') }}
             </p>
             <p class="mb-0">
-              by {{ clip.creator_name }}
+              {{ $t('clips.item.by') }} {{ clip.creator_name }}
             </p>
             <p class="mb-0">
               {{ format(clip.created_at) }}
@@ -44,12 +44,12 @@
     </v-expansion-panel-header>
     <v-expansion-panel-content class="text-center">
       <v-btn :href="clip.downloadLink" small>
-        Download<v-icon class="ml-2">
+        {{ $t('clips.item.download') }}<v-icon class="ml-2">
           mdi-cloud-download
         </v-icon>
       </v-btn>
       <v-btn :href="'https://www.twitch.tv/videos/' + clip.video_id" target="_blank" small>
-        Go to replay<v-icon class="ml-2">
+        {{ $t('clips.item.replay') }}<v-icon class="ml-2">
           mdi-movie-outline
         </v-icon>
       </v-btn>
