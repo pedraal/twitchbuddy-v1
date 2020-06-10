@@ -108,10 +108,10 @@
     "idle": "Pas commencé",
     "ended": "Terminé",
     "running": "En cours",
-    "playercontrols": "Player controls",
-    "refcontrols": "Reference controls",
-    "syncstatus": "Sync status",
-    "replaystatus": "Replay status"
+    "playercontrols": "Lecteur",
+    "refcontrols": "Référence",
+    "syncstatus": "État de synchronisation",
+    "replaystatus": "État du replay"
   },
   "vuehandyga": {
     "notification": "Ce site utilise les cookies pour mesurer l'audience et l'activité des utilisateurs. En cliquant sur le boutton Accepter, vous nous donnez votre consentement pour déposer des cookies.",

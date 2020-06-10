@@ -5,7 +5,7 @@ export const state = () => ({
   referenceSlot: '',
   globalState: 'init',
   volume: 0.5,
-  quality: '360p30',
+  quality: '720p30',
   autoSync: true,
   canAutoSync: false
 })
