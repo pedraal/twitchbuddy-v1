@@ -1,7 +1,7 @@
 <template>
   <v-text-field
     v-model="value.keyword"
-    label="Keyword"
+    :label="$t('clips.keyword')"
     outlined
     dense
     rounded
