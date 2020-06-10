@@ -74,9 +74,8 @@
       "subtitle1": "Search replays",
       "steps1": {
         "1": "Add up to 4 channels.",
-        "2": "Find one replay from the lists you would like to watch.",
-        "3": "Click it to filter out non-simultaneous replays and set it as a sync reference.",
-        "4": "Press the \"Play\" button to get into the Sync Player."
+        "2": "Choose the replay you want to watch to filter ou non-simultaneous replays and set it as a sync reference.",
+        "3": "Press the \"Play\" button to get into the Sync Player."
       },
       "subtitle2": "Watch replays",
       "steps2": {

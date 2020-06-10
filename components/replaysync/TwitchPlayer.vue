@@ -7,7 +7,7 @@
           mdi-checkbox-blank-circle
         </v-icon>
         <transition name="trigger">
-          <span v-show="tooltip" class="blue--text text--lighten-2 font-weight-bold">&nbsp;Reference</span>
+          <span v-show="tooltip" class="blue--text text--lighten-2 font-weight-bold">&nbsp;{{ $t('player.reference') }}</span>
         </transition>
       </div>
       <div v-else-if="videoState === 'idle'">
@@ -15,7 +15,7 @@
           mdi-checkbox-blank-circle
         </v-icon>
         <transition name="trigger">
-          <span v-show="tooltip" class="red--text text--lighten-2 font-weight-bold">&nbsp;Not started</span>
+          <span v-show="tooltip" class="red--text text--lighten-2 font-weight-bold">&nbsp;{{ $t('player.not_started') }}</span>
         </transition>
       </div>
       <div v-else-if="videoState === 'ended'">
@@ -23,7 +23,7 @@
           mdi-checkbox-blank-circle
         </v-icon>
         <transition name="trigger">
-          <span v-show="tooltip" class="red--text text--lighten-2 font-weight-bold">&nbsp;Ended</span>
+          <span v-show="tooltip" class="red--text text--lighten-2 font-weight-bold">&nbsp;{{ $t('player.ended') }}</span>
         </transition>
       </div>
       <div v-else>
@@ -31,7 +31,7 @@
           mdi-checkbox-blank-circle
         </v-icon>
         <transition name="trigger">
-          <span v-show="tooltip" class="green--text text--lighten-2 font-weight-bold">&nbsp;Running</span>
+          <span v-show="tooltip" class="green--text text--lighten-2 font-weight-bold">&nbsp;{{ $t('player.running') }}</span>
         </transition>
       </div>
     </div>
