@@ -58,6 +58,7 @@ export const mutations = {
 export const actions = {
   buildSlots ({ commit }, collections) {
     collections.forEach((collection) => {
+      if (collection.videos.length === 0) return
       commit('ADD_SLOT', slotBuilder(collection))
     })
   },
