@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import TwitchPlayer from '@/components/replaysync/TwitchPlayer'
-import PlayerSidebar from '@/components/replaysync/PlayerSidebar'
+import TwitchPlayer from '@/components/player/TwitchPlayer'
+import PlayerSidebar from '@/components/player/PlayerSidebar'
 
 export default {
   name: 'AppPlayer',
@@ -54,7 +54,7 @@ export default {
     globalState () {
       return this.$store.state.player.globalState
     },
-    allPlayerPlaying () {
+    allPlayersPlaying () {
       return this.$store.getters['player/allPlayersPlaying']
     },
     gridTemplate () {
@@ -87,16 +87,10 @@ export default {
     }
   },
   watch: {
-    // globalState (newValue, oldValue) {
-    //   if (oldValue === 'init' && newValue === 'playing') {
 
-    //   }
-    // },
-    allPlayerPlaying (newValue, oldValue) {
+    allPlayersPlaying (newValue, oldValue) {
       if (newValue && this.init && !this.$store.state.autoSync) {
-        // setTimeout(() => {
         this.$store.dispatch('player/sync', 'playing')
-        // }, 2000)
         this.init = false
       }
     }

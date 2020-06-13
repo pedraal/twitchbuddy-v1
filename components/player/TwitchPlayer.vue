@@ -31,8 +31,8 @@ export default {
     quality () {
       return this.$store.state.player.quality
     },
-    expected () {
-      return this.$store.getters['player/calcExpected'](this.slotData.id)
+    expectedTimestamp () {
+      return this.$store.getters['player/calculateExpectedTimestamp'](this.slotData.id)
     },
     syncStatus () {
       return this.$store.getters['player/slotSyncStatus'](this.slotData.id)
@@ -58,45 +58,15 @@ export default {
         this.pause()
       } else if ((newState === 'sync') && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
         this.pause()
-        if (this.slotStatus !== 'reference') this.seek(this.expected)
+        if (this.slotStatus !== 'reference') this.seek(this.expectedTimestamp)
         if (this.slotStatus === 'reference') this.seek(this.slotData.video.timestamp)
       }
-
-      // if (oldState === 'init' && this.slotStatus !== 'reference') {
-      // setTimeout(() => {
-      //   this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'sync' })
-      // }, 2000)
-      // }
     },
-    // allPlaying (newValue, oldValue) {
-    //   if (newValue && this.$store.state.player.autoSync && this.$store.state.player.canAutoSync && this.syncStatus !== 'good') {
-    //     this.$store.dispatch('player/sync', 'playing')
-    //   }
-    // },
-    // '$store.state.player.autoSync' (newValue) {
-    //   if (newValue && this.syncStatus === 'ok' && this.$store.state.player.canAutoSync && this.$store.state.player.globalState === 'playing') {
-    //     this.$store.dispatch('player/sync', 'playing')
-    //   }
-    // },
-    // video (newVideo) {
-    //   player.setVideo(newVideo)
-    // },
-    // 'slotData.video.state' (newState, oldState) {
-    //   if (newState === 'sync') {
-    //     this.seek(this.expected)
-    //     setTimeout(() => {
-    //       this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'ready' })
-    //     // récupérer l'état global pré sync pour remettre play si il faut
-    //     }, 2000)
-    //   }
-    // },
     volume (newVolume) {
       players[this.slotData.id].setVolume(newVolume)
     },
     quality (newQuality) {
-      // if (timers[this.slotData.id].getQualities().includes(newQuality)) {
       players[this.slotData.id].setQuality(newQuality)
-      // }
     }
   },
   beforeMount () {
@@ -139,44 +109,35 @@ export default {
     clearInterval(timers[this.slotData.id])
   },
   methods: {
-    play () { // Begins playing the specified video.
+    play () {
       players[this.slotData.id].play()
     },
-    pause () { // Pauses the player.
+    pause () {
       players[this.slotData.id].pause()
     },
-    seek (timestamp) { // Seeks to the specified timestamp (in seconds) in the video and resumes playing if paused. Does not work for live streams.
+    seek (timestamp) {
       players[this.slotData.id].seek(timestamp)
     },
-    getCurrentTime () { // Returns the current video’s timestamp, in seconds. Works only for VODs, not live streams.
+    getCurrentTime () {
       return players[this.slotData.id].getCurrentTime()
     },
-    // getDuration () { // Returns the duration of the video, in seconds. Works only for VODs,not live streams.
-    //   return player.getDuration()
-    // },
-    // getPlaybackStats () { // Returns an object with statistics the embedded video player and the current live stream or VOD.
-    //   return player.getPlaybackStats()
-    // },
-    // getQuality () { // Returns the current quality of video playback.
-    //   return player.getQuality()
-    // },
-    isPaused () { // Returns true if the video is paused; otherwise, false. Buffering or seeking is considered playing.
-      return players[this.slotData.id].isPaused()
-    },
-    hasEnded () { // Returns true if the live stream or VOD has ended; otherwise, false.
-      return players[this.slotData.id].getEnded()
-    },
-    getVolume () { // Returns the volume level, a value between 0.0 and 1.0.
-      return players[this.slotData.id].getVolume()
-    },
-    isMuted () { // Returns true if the player is muted; otherwise, false.
-      return players[this.slotData.id].getMuted()
-    },
-    mute () { // Mutes the player.
+    mute () {
       players[this.slotData.id].setMuted(true)
     },
-    unmute () { // Unmutes the player.
+    unmute () {
       players[this.slotData.id].setMuted(false)
+    },
+    isPaused () {
+      return players[this.slotData.id].isPaused()
+    },
+    hasEnded () {
+      return players[this.slotData.id].getEnded()
+    },
+    getVolume () {
+      return players[this.slotData.id].getVolume()
+    },
+    isMuted () {
+      return players[this.slotData.id].getMuted()
     }
   }
 }

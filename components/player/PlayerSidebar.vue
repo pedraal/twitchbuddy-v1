@@ -97,7 +97,7 @@ export default {
   data () {
     return {
       drawer: true,
-      qualities: ['360p30', '480p30', '720p30', '720p60', '1080p60']
+      qualities: [{ text: 'Auto', value: 'auto' }, { text: '1080p60', value: 'chunked' }, '720p60', '720p30', '480p', '360p', '160p']
     }
   },
   computed: {

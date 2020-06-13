@@ -5,7 +5,7 @@ export const state = () => ({
   referenceSlot: '',
   globalState: 'init',
   volume: 0.5,
-  quality: '720p30',
+  quality: 'Auto',
   autoSync: true,
   canAutoSync: false
 })
@@ -112,15 +112,14 @@ export const getters = {
   allPlayersPlaying: (state) => {
     return state.slots.every(slot => slot.video.state === 'playing')
   },
-  calcExpected: state => (id) => {
+  calculateExpectedTimestamp: state => (id) => {
     const target = state.slots.find(slot => slot.id === id)
     const ref = state.slots.find(slot => slot.id === state.referenceSlot)
-    const offset = ref.video.timestamp - moment(target.video.createdAt).diff(moment(ref.video.createdAt), 'seconds', true)
-    return offset
+    return ref.video.timestamp - moment(target.video.createdAt).diff(moment(ref.video.createdAt), 'seconds', true)
   },
   slotSyncStatus: (state, getters) => (id) => {
     const target = state.slots.find(slot => slot.id === id)
-    const expected = getters.calcExpected(target.id)
+    const expected = getters.calculateExpectedTimestamp(target.id)
     const delta = (expected - target.video.timestamp) - 1
 
     if (delta < 2) {
