@@ -62,10 +62,10 @@ export const actions = {
       commit('ADD_SLOT', slotBuilder(collection))
     })
   },
-  sync ({ commit }, newValue) {
+  sync ({ commit }, playerStateBeforeSync) {
     commit('SET_GLOBAL_STATE', 'sync')
     setTimeout(() => {
-      commit('SET_GLOBAL_STATE', newValue)
+      commit('SET_GLOBAL_STATE', playerStateBeforeSync)
     }, 2000)
     setTimeout(() => {
       commit('SET_CAN_AUTO_SYNC', true)

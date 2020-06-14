@@ -39,7 +39,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      select: ['camak', 'woodspices']
+      select: []
     }
   },
   computed: {

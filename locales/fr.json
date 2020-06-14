@@ -108,8 +108,6 @@
     "idle": "Pas commencé",
     "ended": "Terminé",
     "running": "En cours",
-    "playercontrols": "Lecteur",
-    "refcontrols": "Référence",
     "syncstatus": "État de synchronisation",
     "replaystatus": "État du replay"
   },

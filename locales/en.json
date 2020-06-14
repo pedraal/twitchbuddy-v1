@@ -108,8 +108,6 @@
     "idle": "Not started",
     "ended": "Ended",
     "running": "Running",
-    "playercontrols": "Player controls",
-    "refcontrols": "Reference controls",
     "syncstatus": "Sync status",
     "replaystatus": "Replay status"
   },
