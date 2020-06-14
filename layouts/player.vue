@@ -1,23 +1,20 @@
 <template>
-  <v-app>
+  <div>
     <nuxt />
     <client-only>
       <VueHandyGa class="foreground" />
     </client-only>
-  </v-app>
+  </div>
 </template>
 
 <script>
 
 export default {
+  name: 'PlayerLayout'
 }
 </script>
 
 <style lang="scss" scoped>
-  .v-list-item .v-icon {
-    text-shadow: -2px 3px #536dfe;
-  }
-
   .foreground {
     position: fixed;
     z-index: 4;

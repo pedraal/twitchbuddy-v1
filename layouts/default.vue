@@ -1,6 +1,10 @@
 <template>
-  <v-app light>
-    <v-navigation-drawer v-model="drawer" clipped app>
+  <v-app>
+    <v-navigation-drawer
+      v-model="drawer"
+      clipped
+      app
+    >
       <v-list class="pt-4">
         <v-list-item v-for="(item, i) in items" :key="i" :to="$i18n.path(item.to)" router exact>
           <v-list-item-action>
@@ -70,6 +74,7 @@
 
 <script>
 export default {
+  name: 'DefaultLayout',
   data () {
     return {
       drawer: null,

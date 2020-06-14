@@ -23,9 +23,6 @@ export const mutations = {
   },
   setSelected (state, payload) {
     state.selectedVideo = payload
-  },
-  setSelectedVideoTimestamp (state, payload) {
-    state.selectedVideoTimestamp = payload
   }
 }
 export const actions = {
@@ -43,17 +40,11 @@ export const actions = {
   emptyCollections ({ commit }) {
     commit('emptyCollections')
   },
-  emptyChannels ({ commit }) {
-    commit('emptyChannels')
-  },
   emptyError ({ commit }) {
     commit('emptyError')
   },
   setSelected ({ commit }, payload) {
     commit('setSelected', payload)
-  },
-  setSelectedVideoTimestamp ({ commit }, payload) {
-    commit('setSelectedVideoTimestamp', payload)
   }
 }
 
@@ -89,12 +80,6 @@ export const getters = {
   },
   selectedVideo: (state) => {
     return state.selectedVideo
-  },
-  selectedVideoTimestamp: (state) => {
-    return state.selectedVideoTimestamp
-  },
-  hasSelection: (state) => {
-    return !!(state.selectedVideo)
   },
   error: (state) => {
     return state.error

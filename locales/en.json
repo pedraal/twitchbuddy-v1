@@ -80,18 +80,14 @@
       "subtitle2": "Watch replays",
       "steps2": {
         "1": {
-          "icon": "mdi-plus",
-          "text": "Once in the player, hover the {0} button to display the player controls."
+          "icon": "mdi-play",
+          "text": "Once in the player, press the {0} button to start watching all replays and perform an initial sync."
         },
         "2": {
-          "icon": "mdi-play",
-          "text": "Press the {0} button to start watching all replays and perform an initial sync."
-        },
-        "3": {
           "icon": "mdi-sync",
           "text": "Press the {0} button to re-sync if needed."
         },
-        "4": {
+        "3": {
           "icon": "",
           "text": "Select the reference player using the buttons below the playback controls."
         }
@@ -104,13 +100,18 @@
           "3": "Using default twitch player controls (except for volumes) can break the sync controller behing the scene. For a better experience, avoid using them."
         }
       }
-    }
+    },
+    "play": "Play"
   },
   "player": {
     "reference": "Reference",
-    "not_started": "Not started",
+    "idle": "Not started",
     "ended": "Ended",
-    "running": "Running"
+    "running": "Running",
+    "playercontrols": "Player controls",
+    "refcontrols": "Reference controls",
+    "syncstatus": "Sync status",
+    "replaystatus": "Replay status"
   },
   "vuehandyga": {
     "notification": "This website uses cookies for audience and users activity monitoring. By clicking the Accept button, you give your consent for cookies deposit.",
