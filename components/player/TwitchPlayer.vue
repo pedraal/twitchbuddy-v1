@@ -49,6 +49,9 @@ export default {
     slotStatus (newState, oldState) {
       if (oldState === 'idle' && newState === 'running') {
         this.play()
+      } else if (newState === 'ended' || newState === 'not-started') {
+        this.pause()
+        this.seek(0)
       }
     },
     globalState (newState, oldState) {

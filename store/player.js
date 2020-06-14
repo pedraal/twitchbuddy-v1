@@ -5,7 +5,7 @@ export const state = () => ({
   referenceSlot: '',
   globalState: 'init',
   volume: 0.5,
-  quality: 'Auto',
+  quality: 'auto',
   autoSync: true,
   canAutoSync: false
 })
@@ -101,7 +101,6 @@ export const getters = {
     const ref = state.slots.find(slot => slot.id === state.referenceSlot)
 
     const offset = ref.video.timestamp - moment(target.video.createdAt).diff(moment(ref.video.createdAt), 'seconds', true)
-
     if (offset < 0) return 'idle'
     else if (moment(target.video.createdAt).add(offset, 'seconds').isAfter(moment(target.video.endedAt))) return 'ended'
     else return 'running'
@@ -120,9 +119,8 @@ export const getters = {
   slotSyncStatus: (state, getters) => (id) => {
     const target = state.slots.find(slot => slot.id === id)
     const expected = getters.calculateExpectedTimestamp(target.id)
-    const delta = (expected - target.video.timestamp) - 1
-
-    if (delta < 2) {
+    const delta = (expected - target.video.timestamp)
+    if (delta > -2 && delta < 2) {
       return 'good'
     } else if (delta >= 2 && delta < 5) {
       return 'ok'

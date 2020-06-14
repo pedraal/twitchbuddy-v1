@@ -12,10 +12,10 @@
         </v-list-item>
         <v-divider />
       </v-list>
-      <p class="text-center mt-4 mb-3 overline">
+      <!-- <p class="text-center mt-4 mb-3 overline">
         {{ $t('player.playercontrols') }}
-      </p>
-      <div class="text-center">
+      </p> -->
+      <div class="text-center mt-6">
         <v-btn :disabled="!canPlay" @click="$store.commit('player/SET_GLOBAL_STATE', 'playing')" fab>
           <v-icon>mdi-play</v-icon>
         </v-btn>
@@ -40,9 +40,9 @@
           class="my-0 ml-2"
         />
       </div>
-      <p class="text-center mt-4 mb-3 overline">
+      <!-- <p class="text-center mt-4 mb-3 overline">
         {{ $t('player.refcontrols') }}
-      </p>
+      </p> -->
       <v-list dense nav class="px-4">
         <v-list-item
           v-for="channel in channels"
