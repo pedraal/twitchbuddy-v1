@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import webpack from 'webpack'
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config()
@@ -82,8 +83,9 @@ export default {
     name: 'layout'
   },
   build: {
-    extend (config, ctx) {
-
-    }
+    extractCSS: true,
+    plugins: [
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    ]
   }
 }
