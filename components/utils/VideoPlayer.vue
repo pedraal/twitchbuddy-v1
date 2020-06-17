@@ -3,7 +3,7 @@
     <div class="video-player mt-4">
       <iframe
         v-if="active"
-        :src="'https://clips.twitch.tv/embed?clip=' + slug + '&muted=false&autoplay=' + autoplay"
+        :src="'https://clips.twitch.tv/embed?clip=' + slug + '&muted=false&autoplay=' + autoplay + '&parent=twitchbuddy.app'"
         frameborder="0"
         scrolling="no"
         allowfullscreen="true"
