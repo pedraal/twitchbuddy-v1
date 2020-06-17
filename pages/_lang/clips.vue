@@ -24,16 +24,15 @@
           @loadOffset="loadOffset = $event"
           class="cliplist"
         />
-        <tool-helper v-if="clips.length === 0 && helpDisplay" />
+        <tool-helper v-if="clips.length === 0 && $store.getters.helpDisplay" />
       </v-container>
-
       <Loader />
     </section>
   </v-layout>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import ClipForm from '@/components/clips/ClipForm'
 import ClipFilter from '@/components/clips/ClipFilter'
@@ -60,7 +59,6 @@ export default {
   },
   computed: {
     ...mapGetters('clips', ['clips', 'cursor']),
-    ...mapGetters('global', ['loading', 'helpDisplay']),
     filteredClips () {
       if (this.filters.keyword.length < 2) {
         return this.clips
@@ -70,7 +68,7 @@ export default {
   },
   watch: {
     scrollValue (val) {
-      if (this.cursor && !this.loading && val > this.loadOffset) {
+      if (this.cursor && !this.$store.getters.loading && val > this.loadOffset) {
         this.loadClips()
       }
     },
@@ -78,13 +76,13 @@ export default {
       if (this.clips.length === 0) {
         return
       }
-      if (this.cursor && !this.loading && val.length < 10) {
+      if (this.cursor && !this.$store.getters.loading && val.length < 10) {
         this.loadClips()
       }
     }
   },
   created () {
-    this.setHelpDisplay(true)
+    this.$store.commit('SET_HELP_DISPLAY', true)
   },
   beforeMount () {
     window.addEventListener('scroll', this.handleScroll)
@@ -96,7 +94,6 @@ export default {
   },
   methods: {
     ...mapActions('clips', ['loadClips', 'emptyList', 'setCursor']),
-    ...mapMutations('global', ['setHelpDisplay']),
     handleScroll () {
       this.scrollValue = window.scrollY
     }

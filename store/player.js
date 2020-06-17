@@ -56,12 +56,6 @@ export const mutations = {
 }
 
 export const actions = {
-  buildSlots ({ commit }, collections) {
-    collections.forEach((collection) => {
-      if (collection.videos.length === 0) return
-      commit('ADD_SLOT', slotBuilder(collection))
-    })
-  },
   sync ({ commit }, playerStateBeforeSync) {
     commit('SET_GLOBAL_STATE', 'sync')
     setTimeout(() => {
@@ -108,8 +102,8 @@ export const getters = {
   allPlayersReady: (state) => {
     return state.slots.every(slot => slot.video.state === 'ready' || slot.video.state === 'paused' || slot.video.state === 'playing')
   },
-  allPlayersPlaying: (state) => {
-    return state.slots.every(slot => slot.video.state === 'playing')
+  allPlayersPlaying: (state, getters) => {
+    return state.slots.filter(s => getters.slotStatus(s.id) === 'running').every(s => s.video.state === 'playing')
   },
   calculateExpectedTimestamp: state => (id) => {
     const target = state.slots.find(slot => slot.id === id)
@@ -126,23 +120,6 @@ export const getters = {
       return 'ok'
     } else {
       return 'bad'
-    }
-  }
-}
-
-const slotBuilder = (collection) => {
-  const video = collection.videos[0]
-  return {
-    id: collection.id,
-    channelName: video.user_name,
-    channelPicture: collection.profile_image_url || '',
-    video: {
-      id: video.id,
-      createdAt: video.created_at,
-      duration: video.duration,
-      endedAt: video.ended_at,
-      state: 'init',
-      timestamp: '0'
     }
   }
 }

@@ -30,7 +30,7 @@ export const mutations = {
 
 export const actions = {
   async loadClips ({ commit, state }, payload) {
-    commit('global/setLoading', true, { root: true })
+    commit('SET_LOADING', true, { root: true })
     let query = ''
     if (state.cursor !== '') {
       query = state.previousQuery + '&cursor=' + state.cursor
@@ -51,10 +51,10 @@ export const actions = {
       for (const clip of res.data.clips) {
         commit('addClip', clip)
       }
-      commit('global/setLoading', false, { root: true })
+      commit('SET_LOADING', false, { root: true })
       commit('setCursor', res.data.cursor)
     } catch (error) {
-      commit('global/setLoading', false, { root: true })
+      commit('SET_LOADING', false, { root: true })
       commit('addError', true)
     }
   },
