@@ -95,7 +95,7 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
     if (this.$store.state.player.referenceSlot === '') {
       this.$router.replace('replaysync')
     }
