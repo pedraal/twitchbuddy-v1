@@ -3,7 +3,7 @@
     <div class="video-player mt-4">
       <iframe
         v-if="active"
-        :src="'https://clips.twitch.tv/embed?clip=' + slug + '&muted=false&autoplay=' + autoplay"
+        :src="'https://clips.twitch.tv/embed?clip=' + slug + '&muted=false&autoplay=' + autoplay + '&parent=' + parentUrl"
         frameborder="0"
         scrolling="no"
         allowfullscreen="true"
@@ -27,6 +27,14 @@ export default {
       type: Boolean,
       default: true
     }
+  },
+  data () {
+    return {
+      parentUrl: ''
+    }
+  },
+  mounted () {
+    this.parentUrl = window.location.host.includes('localhost') ? 'localhost' : window.location.host
   }
 }
 </script>
