@@ -48,6 +48,7 @@ export default {
   watch: {
     isReference (val) {
       val ? this.unmute() : this.mute()
+      if (this.isPaused) this.play()
     },
     slotStatus (newState, oldState) {
       if (oldState === 'idle' && newState === 'running') {
