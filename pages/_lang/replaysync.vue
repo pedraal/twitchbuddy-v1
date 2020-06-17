@@ -9,13 +9,38 @@
     </section>
     <section>
       <v-container>
-        <v-row v-if="collections.length > 0" justify="center">
-          <v-col v-for="collection in collections" :key="collection.id" :cols="12/collections.length">
-            <ReplayList :collection="collection" />
-          </v-col>
-        </v-row>
-        <ToolHelper v-else-if="helpDisplay" />
-        <div v-if="selectedVideo" class="text-center">
+        <div v-if="$store.state.videos.collections.length > 0">
+          <v-timeline align-top dense>
+            <v-timeline-item
+              v-for="day in $store.getters['videos/calendar']"
+              :key="day[0].toString()"
+              small
+            >
+              <h3>{{ day[0] }}</h3>
+              <v-container>
+                <v-row>
+                  <v-col
+                    v-for="video in day[2]"
+                    :key="video.id"
+                    cols="12"
+                    sm="6"
+                    md="6"
+                    lg="4"
+                    class="py-0"
+                  >
+                    <ReplayListItem :video="video" :picture="video.channelPicture" />
+                  </v-col>
+                </v-row>
+              </v-container>
+              <div />
+            </v-timeline-item>
+          </v-timeline>
+        </div>
+        <ToolHelper v-else-if="$store.state.helpDisplay" />
+        <div v-if="referenceVideo" class="text-center">
+          <v-btn @click="resetSelection" outlined>
+            {{ $t('replaysync.reset') }}
+          </v-btn>
           <v-btn @click="goToPlayer" outlined>
             {{ $t('replaysync.play') }}
           </v-btn>
@@ -27,46 +52,40 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
-
 import ReplayForm from '@/components/replaysync/ReplayForm'
-import ReplayList from '@/components/replaysync/ReplayList'
+import ReplayListItem from '@/components/replaysync/ReplayListItem'
 import Loader from '@/components/utils/Loader'
 import ToolHelper from '@/components/utils/ToolHelper'
 
 export default {
   components: {
     ReplayForm,
-    ReplayList,
+    ReplayListItem,
     ToolHelper,
     Loader
   },
   computed: {
-    ...mapGetters('videos', ['collections', 'selectedVideo']),
-    ...mapGetters('global', ['helpDisplay'])
+    referenceVideo () {
+      return this.$store.getters['videos/referenceVideo']
+    }
   },
   created () {
-    this.setHelpDisplay(true)
+    this.$store.commit('SET_HELP_DISPLAY', true)
   },
   methods: {
-    ...mapMutations('global', ['setHelpDisplay']),
     goToPlayer () {
       this.$store.commit('player/HARD_RESET_PLAYER')
       this.$store.commit('player/EMPTY_SLOTS')
-      const ref = this.collections.filter((c) => {
-        if (c.videos.length === 0) {
-          return false
-        } else {
-          return c.videos[0].id === this.selectedVideo.id
-        }
-      })[0]
-      if (ref.length === 0) return
-      this.$store.commit('player/SET_REFERENCE_SLOT', ref.id)
-      this.$store.dispatch('player/buildSlots', this.collections)
+      this.$store.commit('player/SET_REFERENCE_SLOT', this.$store.state.videos.selectedVideos[0].id)
+      this.$store.state.videos.selectedVideos.forEach((v) => {
+        this.$store.commit('player/ADD_SLOT', v)
+      })
       this.$router.push('player')
+    },
+    resetSelection () {
+      this.$store.commit('videos/RESET_SELECTED_VIDEOS')
     }
   }
-
 }
 </script>
 

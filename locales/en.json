@@ -101,7 +101,9 @@
         }
       }
     },
-    "play": "Play"
+    "play": "Play",
+    "reset": "Reset"
+
   },
   "player": {
     "reference": "Reference",

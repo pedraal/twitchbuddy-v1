@@ -53,7 +53,7 @@
         "1": "Renseigner un nom de chaine.",
         "2": "Choisir une période pour votre recherche.",
         "3": "Si aucune des périodes ne vous convient, créez-en une personnalisée.",
-        "4": "Cliquer sur le bouton \" Rechercher \" et naviguer dans la liste des clips.",
+        "4": "Cliquer sur le bouton \"Rechercher\" et naviguer dans la liste des clips.",
         "5": "Vous pouvez filtrer la liste (par titre, jeu et créateur) avec le champ mot-clé.",
         "6": "Cliquer sur un clip pour ouvrir le panel et le télécharger si vous le souhaitez.",
         "7": "Vous pouvez défiler dans la liste jusqu'à un maximum de 1 000 clips."
@@ -75,7 +75,7 @@
       "steps1": {
         "1": "Ajouter jusqu'à 4 chaînes.",
         "2": "Sélectionner un replay pour retirer des autres listes ceux dont la diffusion n'était pas simultanée.",
-        "3": "Appuyer sur le bouton \" Rechercher \" pour vous rendre dans le lecteur synchronisé."
+        "3": "Appuyer sur le bouton \"Rechercher\" pour vous rendre dans le lecteur synchronisé."
       },
       "subtitle2": "Regarder des replays",
       "steps2": {
@@ -101,7 +101,8 @@
         }
       }
     },
-    "play": "Play"
+    "play": "Play",
+    "reset": "Réinitialiser"
   },
   "player": {
     "reference": "Référence",
