@@ -39,6 +39,9 @@ export default {
     },
     allPlaying () {
       return this.$store.getters['player/allPlayersPlaying']
+    },
+    syncNeeded () {
+      return this.allPlaying && this.$store.state.player.autoSync && this.$store.state.player.canAutoSync && this.slotStatus === 'running' && this.syncStatus !== 'good'
     }
 
   },
@@ -103,9 +106,7 @@ export default {
       if (self.globalState === 'playing') {
         self.$store.commit('player/SET_VIDEO_TIMESTAMP', { id: self.slotData.id, timestamp: Math.trunc(self.getCurrentTime()) })
       }
-      if (this.allPlaying && this.$store.state.player.autoSync && this.$store.state.player.canAutoSync && this.syncStatus !== 'good') {
-        this.$store.dispatch('player/sync', 'playing')
-      }
+      if (this.syncNeeded) this.$store.dispatch('player/sync', 'playing')
     }, 1000)
   },
   beforeDestroy () {
