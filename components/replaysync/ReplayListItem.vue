@@ -32,11 +32,6 @@
         &nbsp;{{ video.duration }}
       </p>
     </div>
-    <div v-if="isSelected" @click.stop="remove" class="close">
-      <v-icon class="body-1">
-        mdi-close
-      </v-icon>
-    </div>
   </v-card>
 </template>
 
@@ -73,9 +68,7 @@ export default {
         this.$store.commit('videos/REMOVE_SELECTED_VIDEO', this.channelIsAlreadySelected.video.id)
         this.$store.commit('videos/ADD_SELECTED_VIDEO', this.video)
       } else if (!this.isSelected) this.$store.commit('videos/ADD_SELECTED_VIDEO', this.video)
-    },
-    remove () {
-      this.$store.commit('videos/REMOVE_SELECTED_VIDEO', this.video.id)
+      else this.$store.commit('videos/REMOVE_SELECTED_VIDEO', this.video.id)
     }
   }
 }
@@ -96,11 +89,6 @@ export default {
     }
     .avatar {
       border-radius: 50% !important;
-    }
-    .close {
-      position: absolute;
-      top: 0px;
-      right: 2px;
     }
   }
   .v-card--link:focus:before{

@@ -1,13 +1,9 @@
 import axios from 'axios'
 import moment from 'moment'
 
-moment.locale('fr', {
-  months: 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
-  monthsShort: 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
-  monthsParseExact: true,
-  weekdays: 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
-  weekdaysShort: 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
-  weekdaysMin: 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
+moment.defineLocale('fr', {
+  months: 'Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Août_Septembre_Octobre_Novembre_Décembre'.split('_'),
+  weekdays: 'Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi'.split('_'),
   weekdaysParseExact: true,
   longDateFormat: {
     LT: 'HH:mm',
@@ -18,47 +14,23 @@ moment.locale('fr', {
     LLLL: 'dddd D MMMM YYYY HH:mm'
   },
   calendar: {
-    sameDay: '[Aujourd’hui à] LT',
-    nextDay: '[Demain à] LT',
-    nextWeek: 'dddd [à] LT',
-    lastDay: '[Hier à] LT',
-    lastWeek: 'dddd [dernier à] LT',
-    sameElse: 'L'
-  },
-  relativeTime: {
-    future: 'dans %s',
-    past: 'il y a %s',
-    s: 'quelques secondes',
-    m: 'une minute',
-    mm: '%d minutes',
-    h: 'une heure',
-    hh: '%d heures',
-    d: 'un jour',
-    dd: '%d jours',
-    M: 'un mois',
-    MM: '%d mois',
-    y: 'un an',
-    yy: '%d ans'
-  },
-  dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
-  ordinal (number) {
-    return number + (number === 1 ? 'er' : 'e')
-  },
-  meridiemParse: /PD|MD/,
-  isPM (input) {
-    return input.charAt(0) === 'M'
-  },
-  // In case the meridiem units are not separated around 12, then implement
-  // this function (look at locale/id.js for an example).
-  // meridiemHour : function (hour, meridiem) {
-  //     return /* 0-23 hour, given meridiem token and hour 1-12 */ ;
-  // },
-  meridiem (hours, minutes, isLower) {
-    return hours < 12 ? 'PD' : 'MD'
-  },
-  week: {
-    dow: 1, // Monday is the first day of the week.
-    doy: 4 // Used to determine first week of the year.
+    sameDay: '[Aujourd’hui]',
+    nextDay: '[Demain]',
+    nextWeek: 'dddd',
+    lastDay: '[Hier]',
+    lastWeek: 'dddd [dernier]',
+    sameElse: 'LL'
+  }
+})
+
+moment.updateLocale('en', {
+  calendar: {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: '[Last] dddd',
+    sameElse: 'LL'
   }
 })
 
@@ -159,7 +131,7 @@ export const getters = {
         videos.push(filteredPack)
         channelsPictures.push(filteredPack.map(p => p.channelPicture))
       })
-      return [moment(date).locale(rootState.locale).format('LL'), [...new Set(channelsPictures.flat())], videos.flat()]
+      return [moment(date).locale(rootState.locale).calendar(), [...new Set(channelsPictures.flat())], videos.flat()]
     })
   },
   referenceVideo: (state) => {

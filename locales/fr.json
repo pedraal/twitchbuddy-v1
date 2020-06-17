@@ -17,7 +17,7 @@
     "subtitle": "Conçu pour améliorer votre expérience de créateur de contenu vidéo sur Twitch",
     "presentation": "Accélerez votre recherche de clips et regardez plusieurs replays de différentes chaines synchronisés.",
     "clips": "Recherchez les meilleurs clips d'une chaîne pour une période donnée, affinez vos recherches et téléchargez les clips de votre choix.",
-    "replaysync": "Dans la liste des chaînes que vous aurez sélectionné, choisissez la rediffusion d'un live qui vous intéresse. Parmi les autres chaînes, l'application va ensuite filtrer grâce à l'horodatage, toutes les VoD de lives qui ont été diffusées simultanément. Elles seront ensuite synchronisées sur votre première sélection qui fera référence.",
+    "replaysync": "Dans la liste des chaînes que vous aurez sélectionné, choisissez les rediffusions de lives qui vous intéresse. Celles qui n'ont pas été diffusées simultanément seront retirées de la liste. Elles seront ensuite synchronisées sur votre première sélection qui fera référence.",
     "action": "commencer"
   },
   "clips": {
@@ -74,7 +74,7 @@
       "subtitle1": "Chercher des replays",
       "steps1": {
         "1": "Ajouter jusqu'à 4 chaînes.",
-        "2": "Sélectionner un replay pour retirer des autres listes ceux dont la diffusion n'était pas simultanée.",
+        "2": "Faites votre sélection de replays, ceux dont la diffusion n'était pas simultannée sont retirés.",
         "3": "Appuyer sur le bouton \"Rechercher\" pour vous rendre dans le lecteur synchronisé."
       },
       "subtitle2": "Regarder des replays",
@@ -95,9 +95,8 @@
       "disclaimer": {
         "title": "Attention",
         "texts": {
-          "1": "Dans la liste des replays, ne sélectionner qu'un seul pour le définir comme référence. Dans le cas où une chaîne aurait plusieurs replays simultanés à la référence, le premier de la liste sera envoyé dans le lecteur. Si ce n'est pas le replay que vous souhaitez regarder, choisissez celui de votre choix parmi eux pour qu'il soit défini comme référence.",
-          "2": "Cet outil n'est pas en mesure de détecter le potentiel délai de diffusion. Ceci signifie que vous rencontrerez probablement de petits décalages même après synchronisation. Veuillez également noter que dans certains cas (notament des crash partiels du live), les  horodatages utilisés pour synchroniser les replays peuvent devenir invalides et ne pourront plus être synchronisés.",
-          "3": "Utiliser les contrôles des lecteurs vidéos de Twitch (à l'exception des contrôles de volume) peuvent rompre la synchronisation. Pour une meilleure expérience, évitez de les utiliser."
+          "1": "Cet outil n'est pas en mesure de détecter le potentiel délai de diffusion. Ceci signifie que vous rencontrerez probablement de petits décalages même après synchronisation. Veuillez également noter que dans certains cas (notament des crash partiels du live), les  horodatages utilisés pour synchroniser les replays peuvent devenir invalides et ne pourront plus être synchronisés.",
+          "2": "Utiliser les contrôles des lecteurs vidéos de Twitch (à l'exception des contrôles de volume) peuvent rompre la synchronisation. Pour une meilleure expérience, évitez de les utiliser."
         }
       }
     },
