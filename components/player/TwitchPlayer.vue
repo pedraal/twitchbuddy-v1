@@ -84,7 +84,8 @@ export default {
           width: '100%',
           height: '100%',
           video: this.slotData.video.id,
-          autoplay: false
+          autoplay: false,
+          parent: [window.location.host.includes('localhost') ? 'localhost' : window.location.host]
         }
 
         players[this.slotData.id] = new window.Twitch.Player(this.$refs.player, options)
