@@ -69,7 +69,8 @@ export default {
   pwa: {
     meta: {
       theme_color: '#424242',
-      name: 'TwitchBuddy'
+      name: 'TwitchBuddy',
+      twitterCard: '/icon.png'
     },
     manifest: {
       name: 'TwitchBuddy',
