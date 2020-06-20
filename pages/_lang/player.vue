@@ -96,7 +96,7 @@ export default {
   },
   mounted () {
     if (this.$store.state.player.referenceSlot === '') {
-      this.$router.replace('replaysync')
+      this.$router.replace('/replaysync')
     }
     this.$store.commit('player/SOFT_RESET_PLAYER')
   },
