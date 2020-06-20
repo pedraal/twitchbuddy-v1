@@ -87,7 +87,6 @@ export default {
     }
   },
   watch: {
-
     allPlayersPlaying (newValue, oldValue) {
       if (newValue && this.init && !this.$store.state.autoSync) {
         this.$store.dispatch('player/sync', 'playing')
@@ -95,9 +94,9 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
     if (this.$store.state.player.referenceSlot === '') {
-      this.$router.push('replaysync')
+      this.$router.replace(this.$store.state.locale === 'en' ? '/en/replaysync' : '/replaysync')
     }
     this.$store.commit('player/SOFT_RESET_PLAYER')
   },

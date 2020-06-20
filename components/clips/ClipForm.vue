@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 const now = moment()
 
@@ -130,7 +130,6 @@ export default {
   },
   computed: {
     ...mapGetters('clips', ['error', 'cursor']),
-    ...mapGetters('global', ['loading']),
     apitimerange () {
       let arr = [...this.periods[this.period]]
       arr = arr.sort()
@@ -150,13 +149,12 @@ export default {
   },
   methods: {
     ...mapActions('clips', ['loadClips', 'emptyList', 'setCursor', 'emptyError', 'emptyList']),
-    ...mapMutations('global', ['setHelpDisplay']),
     format (value) {
       return moment(value).format('DD/MM/YYYY hh:mm')
     },
     submit () {
       this.keyword = ''
-      this.setHelpDisplay(false)
+      this.$store.commit('SET_HELP_DISPLAY', false)
       this.setCursor('')
       this.emptyError()
       this.emptyList()

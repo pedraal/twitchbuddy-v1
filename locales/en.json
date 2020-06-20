@@ -17,7 +17,7 @@
     "subtitle": "Designed to bring your twitch videomaking to the next level.",
     "presentation": "Enjoy enhanced clip hunting and multi replay in sync experience using our tools.",
     "clips": "Search for the best clips from a channel in a chosen timerange, narrow your selection and download your favorite ones.",
-    "replaysync": "Choose a replay from your channel selection to only keep ones that were broadcasted at the same time to watch them in sync based on their broadcast timestamps.",
+    "replaysync": "Choose the replays from your channel selection to only keep ones that were broadcasted at the same time to watch them in sync based on their broadcast timestamps.",
     "action": "get started"
   },
   "clips": {
@@ -74,7 +74,7 @@
       "subtitle1": "Search replays",
       "steps1": {
         "1": "Add up to 4 channels.",
-        "2": "Choose the replay you want to watch to filter ou non-simultaneous replays and set it as a sync reference.",
+        "2": "Make your replay selection to filter out non-simultaneous ones.",
         "3": "Press the \"Play\" button to get into the Sync Player."
       },
       "subtitle2": "Watch replays",
@@ -95,13 +95,14 @@
       "disclaimer": {
         "title": "Disclaimer",
         "texts": {
-          "1": "In the replays list, select only one replay to set it as reference. In the case of another channel having several replays available on the timerange, the first one of the list will be sent to the Sync Player. If the first of the list is not the one you want to watch, you can select one of them as initial reference.",
-          "2": "This tool is not able yet to handle potential delay from a past broadcast. This means that you will probably experience a little delay between channels even after syncing. Also note that in some case (mainly broadcast partial crash), the timestamps used for syncing will be screwed-up and the sync controler won't be able to sync them back.",
-          "3": "Using default twitch player controls (except for volumes) can break the sync controller behing the scene. For a better experience, avoid using them."
+          "1": "This tool is not able yet to handle potential delay from a past broadcast. This means that you will probably experience a little delay between channels even after syncing. Also note that in some case (mainly broadcast partial crash), the timestamps used for syncing will be screwed-up and the sync controler won't be able to sync them back.",
+          "2": "Using default twitch player controls (except for volumes) can break the sync controller behing the scene. For a better experience, avoid using them."
         }
       }
     },
-    "play": "Play"
+    "play": "Play",
+    "reset": "Reset"
+
   },
   "player": {
     "reference": "Reference",

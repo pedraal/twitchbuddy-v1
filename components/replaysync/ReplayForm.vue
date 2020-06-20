@@ -6,12 +6,12 @@
           <v-col
             cols="12"
             md="8"
-            lg="5"
+            lg="6"
             class="py-0"
           >
             <v-combobox
               v-model="select"
-              :error="!!error"
+              :error="!!$store.state.videos.error"
               :label="$t('replaysync.form.label')"
               prepend-icon="mdi-account-group"
               append-icon=""
@@ -24,7 +24,7 @@
             />
           </v-col>
           <v-col class="py-0">
-            <v-btn @click="submit" :disabled="loading" class="mt-4">
+            <v-btn @click="submit" :disabled="$store.getters.loading" class="mt-4">
               {{ $t('replaysync.form.submit') }}
             </v-btn>
           </v-col>
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -43,9 +42,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('videos', ['error']),
-    ...mapGetters('global', ['loading'])
-
   },
   watch: {
     select (val) {
@@ -56,17 +52,14 @@ export default {
   },
   beforeDestroy () {
     this.select = []
-    this.emptyError()
+    this.$store.commit('videos/SET_ERROR', false)
   },
   methods: {
-    ...mapActions('videos', ['getCollections', 'emptyCollections', 'emptyError', 'setSelected']),
-    ...mapMutations('global', ['setHelpDisplay']),
     submit () {
-      this.setHelpDisplay(false)
-      this.emptyError()
-      this.emptyCollections()
-      this.setSelected(null)
-      this.getCollections(this.select.join(','))
+      this.$store.commit('SET_HELP_DISPLAY', false)
+      this.$store.commit('videos/SET_ERROR', false)
+      this.$store.commit('videos/EMPTY_COLLECTIONS')
+      this.$store.dispatch('videos/fetchCollections', this.select.join(','))
     }
   }
 }
