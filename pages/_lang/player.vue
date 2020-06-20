@@ -87,7 +87,6 @@ export default {
     }
   },
   watch: {
-
     allPlayersPlaying (newValue, oldValue) {
       if (newValue && this.init && !this.$store.state.autoSync) {
         this.$store.dispatch('player/sync', 'playing')
