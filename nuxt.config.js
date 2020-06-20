@@ -18,7 +18,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
-      { hid: 'og:image', name: 'og:image', property: 'og:image', content: '/icon.png' }
+      { hid: 'og:image', name: 'og:image', property: 'og:image', content: '/icon.png' },
+      { hid: 'twitter:image', name: 'twitter:image', property: 'twitter:image', content: '/icon.png' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -35,7 +36,6 @@ export default {
   ],
   buildModules: [
     '@nuxtjs/eslint-module',
-    // ['@nuxtjs/stylelint-module', { configFile: '.stylelintrc.js', fix: true }],
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv'
   ],
@@ -69,8 +69,7 @@ export default {
   pwa: {
     meta: {
       theme_color: '#424242',
-      name: 'TwitchBuddy',
-      twitterCard: '/icon.png'
+      name: 'TwitchBuddy'
     },
     manifest: {
       name: 'TwitchBuddy',
