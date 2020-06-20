@@ -1,7 +1,7 @@
 import axios from 'axios'
 import moment from 'moment'
 
-moment.defineLocale('fr', {
+moment.updateLocale('fr', {
   months: 'Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Août_Septembre_Octobre_Novembre_Décembre'.split('_'),
   weekdays: 'Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi'.split('_'),
   weekdaysParseExact: true,

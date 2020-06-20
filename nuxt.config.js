@@ -18,7 +18,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
-      { name: 'og:image', content: '/icon.png' }
+      { hid: 'og:image', name: 'og:image', property: 'og:image', content: 'https://twitchbuddy.app/icon.png' },
+      { hid: 'twitter:description', name: 'twitter:description', property: 'twitter:description', content: 'A Twitch.tv toolbox for clips and replays' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -35,7 +36,6 @@ export default {
   ],
   buildModules: [
     '@nuxtjs/eslint-module',
-    // ['@nuxtjs/stylelint-module', { configFile: '.stylelintrc.js', fix: true }],
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv'
   ],
@@ -78,7 +78,6 @@ export default {
       background_color: '#303030'
     }
   },
-
   layoutTransition: {
     name: 'layout'
   },
