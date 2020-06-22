@@ -31,7 +31,7 @@ export default {
     clips (val) {
       if (val.length > 0) {
         setTimeout(() => {
-          this.$emit('loadOffset', (this.$refs.wrapper.$el.scrollHeight - 800))
+          this.$emit('loadOffset', (this.$refs.wrapper.$el.scrollHeight - 800 - window.innerHeight))
         }, 10)
       }
     }
