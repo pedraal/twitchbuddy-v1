@@ -56,12 +56,14 @@ export const mutations = {
 }
 
 export const actions = {
-  sync ({ commit }, playerStateBeforeSync) {
+  sync ({ commit, state }) {
+    const playerStateBeforeSync = state.globalState
     commit('SET_GLOBAL_STATE', 'sync')
     setTimeout(() => {
       commit('SET_GLOBAL_STATE', playerStateBeforeSync)
     }, 2000)
     setTimeout(() => {
+      // makes player wait for initial sync before starting hunting down desyncs
       commit('SET_CAN_AUTO_SYNC', true)
     }, 2500)
   }

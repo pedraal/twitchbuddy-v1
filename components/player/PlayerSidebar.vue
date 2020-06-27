@@ -12,9 +12,6 @@
         </v-list-item>
         <v-divider />
       </v-list>
-      <!-- <p class="text-center mt-4 mb-3 overline">
-        {{ $t('player.playercontrols') }}
-      </p> -->
       <div class="text-center mt-6">
         <v-btn :disabled="!canPlay" @click="$store.commit('player/SET_GLOBAL_STATE', 'playing')" fab>
           <v-icon>mdi-play</v-icon>
@@ -22,7 +19,7 @@
         <v-btn :disabled="!canPause" @click="$store.commit('player/SET_GLOBAL_STATE', 'paused')" fab>
           <v-icon>mdi-pause</v-icon>
         </v-btn>
-        <v-btn :disabled="!canSync" @click="$store.dispatch('player/sync', canPlay ? 'paused' : 'playing')" fab>
+        <v-btn :disabled="!canSync" @click="$store.dispatch('player/sync')" fab>
           <v-icon>mdi-sync</v-icon>
         </v-btn>
       </div>
@@ -40,9 +37,6 @@
           class="my-0 ml-2"
         />
       </div>
-      <!-- <p class="text-center mt-4 mb-3 overline">
-        {{ $t('player.refcontrols') }}
-      </p> -->
       <v-list dense nav class="px-4">
         <v-list-item
           v-for="channel in channels"

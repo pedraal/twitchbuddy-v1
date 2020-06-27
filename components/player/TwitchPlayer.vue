@@ -65,6 +65,7 @@ export default {
         this.pause()
       } else if ((newState === 'sync') && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
         this.pause()
+        this.commitCurrentTime()
         if (this.slotStatus !== 'reference') this.seek(this.expectedTimestamp)
         if (this.slotStatus === 'reference') this.seek(this.slotData.video.timestamp)
       }
@@ -106,9 +107,9 @@ export default {
     const self = this
     timers[this.slotData.id] = setInterval(() => {
       if (self.globalState === 'playing') {
-        self.$store.commit('player/SET_VIDEO_TIMESTAMP', { id: self.slotData.id, timestamp: Math.trunc(self.getCurrentTime()) })
+        self.commitCurrentTime()
       }
-      if (this.syncNeeded) this.$store.dispatch('player/sync', 'playing')
+      if (this.syncNeeded) this.$store.dispatch('player/sync')
     }, 1000)
   },
   beforeDestroy () {
@@ -123,6 +124,9 @@ export default {
     },
     seek (timestamp) {
       players[this.slotData.id].seek(timestamp)
+    },
+    commitCurrentTime () {
+      this.$store.commit('player/SET_VIDEO_TIMESTAMP', { id: this.slotData.id, timestamp: Math.trunc(this.getCurrentTime()) })
     },
     getCurrentTime () {
       return players[this.slotData.id].getCurrentTime()
