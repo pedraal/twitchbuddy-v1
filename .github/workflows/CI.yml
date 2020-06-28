@@ -1,5 +1,7 @@
 name: CI
 on: push
+env:
+  GHR_TOKEN: ${{ secrets.GHR_TOKEN }}
 jobs:
   build:
     runs-on: ubuntu-latest
