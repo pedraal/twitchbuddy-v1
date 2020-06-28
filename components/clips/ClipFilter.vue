@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  name: 'ClipFilter',
   props: {
     value: {
       type: Object,
