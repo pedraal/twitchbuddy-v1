@@ -92,4 +92,3 @@ sw.*
 
 # Local Netlify folder
 .netlify
-netlify.toml
