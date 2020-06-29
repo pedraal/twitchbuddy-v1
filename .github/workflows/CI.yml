@@ -1,6 +1,7 @@
 name: CI
 on: push
-
+env:
+  GHR_TOKEN: ${{ secrets.GHR_TOKEN }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -8,7 +9,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install modules
       run: yarn
-      env:
-       GHR_TOKEN: ${{ secrets.GHR_TOKEN }}
     - name: Run Units tests
       run: yarn test:unit
