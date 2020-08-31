@@ -2,6 +2,7 @@
   <v-text-field
     v-model="value.keyword"
     :label="$t('clips.keyword')"
+    name="keyword"
     outlined
     dense
     rounded
