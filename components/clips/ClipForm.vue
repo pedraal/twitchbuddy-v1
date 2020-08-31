@@ -15,6 +15,7 @@
               @keydown.enter="submit"
               :label="$t('clips.form.channel.label')"
               prepend-icon="mdi-account"
+              name="channel"
               required
             />
           </v-col>
@@ -29,6 +30,7 @@
               :items="timeSelect"
               :error="error"
               :label="$t('clips.form.period.label')"
+              name="period"
               required
               prepend-icon="mdi-calendar"
             />
@@ -52,7 +54,8 @@
                 <v-text-field
                   v-model="readabletimerange"
                   v-on="on"
-                  label="Date range"
+                  :label="$t('clips.form.daterange')"
+                  name="daterange"
                   prepend-icon="mdi-calendar-clock"
                   readonly
                 />

@@ -2,6 +2,7 @@
   <v-text-field
     v-model="value.keyword"
     :label="$t('clips.keyword')"
+    name="keyword"
     outlined
     dense
     rounded
@@ -11,6 +12,7 @@
 
 <script>
 export default {
+  name: 'ClipFilter',
   props: {
     value: {
       type: Object,

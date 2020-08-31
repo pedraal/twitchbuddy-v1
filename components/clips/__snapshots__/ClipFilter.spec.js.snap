@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClipFilter renders correctly 1`] = `
+<div class="v-input v-input--hide-details v-input--dense theme--light v-text-field v-text-field--enclosed v-text-field--outlined v-text-field--rounded">
+  <div class="v-input__control">
+    <div class="v-input__slot">
+      <fieldset aria-hidden="true">
+        <legend style="width: 0px;"><span>​</span></legend>
+      </fieldset>
+      <div class="v-text-field__slot"><input name="keyword" id="input-7" type="text"></div>
+    </div>
+  </div>
+</div>
+`;
