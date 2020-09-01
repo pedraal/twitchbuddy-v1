@@ -36,7 +36,7 @@ exports.handler = async (event, context, callback) => {
 }
 
 const getVideos = async function (id, params) {
-  const videos = await twitch.get('/videos?first=100&type=all&user_id=' + id + parametize(params))
+  const videos = await twitch.get('/videos?first=100&type=archive&user_id=' + id + parametize(params))
   const buffer = videos.data.data.map((video) => {
     return {
       ...video,
