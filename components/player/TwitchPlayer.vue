@@ -65,8 +65,7 @@ export default {
         this.pause()
       } else if ((newState === 'sync') && (this.slotStatus === 'running' || this.slotStatus === 'reference')) {
         this.pause()
-        if (this.slotStatus !== 'reference') this.seek(this.expectedTimestamp)
-        if (this.slotStatus === 'reference') this.seek(this.slotData.video.timestamp)
+        this.seek(this.slotStatus !== 'reference' ? this.expectedTimestamp : this.slotData.video.timestamp)
       }
     },
     volume (newVolume) {
@@ -90,26 +89,30 @@ export default {
 
         players[this.slotData.id] = new window.Twitch.Player(this.$refs.player, options)
         players[this.slotData.id].addEventListener('ended', () => (this.$emit('ended')))
-        players[this.slotData.id].addEventListener('pause', () => (this.$emit('pause', this.slotData.id)))
-        players[this.slotData.id].addEventListener('play', () => { this.$emit('play', this.slotData.id) })
+        players[this.slotData.id].addEventListener('pause', () => (this.setSlotPaused()))
+        players[this.slotData.id].addEventListener('play', () => { this.setSlotPlaying() })
         players[this.slotData.id].addEventListener('offline', () => (this.$emit('offline')))
         players[this.slotData.id].addEventListener('online', () => (this.$emit('online')))
         players[this.slotData.id].addEventListener('ready', () => {
           players[this.slotData.id].setQuality(this.quality)
           players[this.slotData.id].setVolume(this.volume)
           this.isReference ? this.unmute() : this.mute()
-          this.$emit('ready', this.slotData.id)
+          this.$emit('ready', this.setSlotReady())
         })
       }).catch(e => (this.$emit('error', e)))
   },
   mounted () {
     const self = this
     timers[this.slotData.id] = setInterval(() => {
-      if (self.globalState === 'playing') {
+      if (self.globalState === 'playing' || self.globalState === 'sync') {
         self.$store.commit('player/SET_VIDEO_TIMESTAMP', { id: self.slotData.id, timestamp: Math.trunc(self.getCurrentTime()) })
       }
-      if (this.syncNeeded) this.$store.dispatch('player/sync', 'playing')
-    }, 1000)
+      if (this.syncNeeded && this.allPlaying) {
+        setTimeout(() => {
+          this.$store.dispatch('player/sync', 'playing')
+        }, 400)
+      }
+    }, 200)
   },
   beforeDestroy () {
     clearInterval(timers[this.slotData.id])
@@ -144,6 +147,15 @@ export default {
     },
     isMuted () {
       return players[this.slotData.id].getMuted()
+    },
+    setSlotReady () {
+      this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'ready' })
+    },
+    setSlotPlaying () {
+      this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'playing' })
+    },
+    setSlotPaused () {
+      this.$store.commit('player/SET_VIDEO_STATE', { id: this.slotData.id, state: 'paused' })
     }
   }
 }

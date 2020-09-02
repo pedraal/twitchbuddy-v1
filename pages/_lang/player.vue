@@ -11,9 +11,6 @@
           <TwitchPlayer
             :slotData="slot"
             :ref="`slot-${slot.id}`"
-            @ready="setSlotReady"
-            @play="setSlotPlaying"
-            @pause="setSlotPaused"
             class="grid-item"
           />
         </div>
@@ -99,17 +96,6 @@ export default {
       this.$router.replace(this.$store.state.locale === 'en' ? '/en/replaysync' : '/replaysync')
     }
     this.$store.commit('player/SOFT_RESET_PLAYER')
-  },
-  methods: {
-    setSlotReady (payload) {
-      this.$store.commit('player/SET_VIDEO_STATE', { id: payload, state: 'ready' })
-    },
-    setSlotPlaying (payload) {
-      this.$store.commit('player/SET_VIDEO_STATE', { id: payload, state: 'playing' })
-    },
-    setSlotPaused (payload) {
-      this.$store.commit('player/SET_VIDEO_STATE', { id: payload, state: 'paused' })
-    }
   }
 }
 </script>
