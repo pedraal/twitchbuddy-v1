@@ -5,7 +5,7 @@ export const state = () => ({
   referenceSlot: '',
   globalState: 'init',
   volume: 0.5,
-  quality: 'auto',
+  quality: '480p',
   autoSync: true,
   canAutoSync: false
 })
@@ -103,7 +103,7 @@ export const getters = {
     return state.slots.every(slot => slot.video.state === 'ready' || slot.video.state === 'paused' || slot.video.state === 'playing')
   },
   allPlayersPlaying: (state, getters) => {
-    return state.slots.filter(s => getters.slotStatus(s.id) === 'running').every(s => s.video.state === 'playing')
+    return state.slots.filter(s => getters.slotStatus(s.id) === 'running' || getters.slotStatus(s.id) === 'reference').every(s => s.video.state === 'playing')
   },
   calculateExpectedTimestamp: state => (id) => {
     const target = state.slots.find(slot => slot.id === id)

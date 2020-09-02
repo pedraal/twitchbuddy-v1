@@ -31,7 +31,6 @@ export default {
   ],
   plugins: [
     '~/plugins/load-script',
-    '~/plugins/replay-bus',
     '~/plugins/i18n.js'
   ],
   buildModules: [

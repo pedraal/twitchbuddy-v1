@@ -37,7 +37,6 @@ moment.updateLocale('en', {
 export const state = () => ({
   collections: [],
   referenceVideo: null,
-  selectedVideoTimestamp: 0,
   error: false,
   selectedVideos: []
 })
