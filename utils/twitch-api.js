@@ -1,4 +1,5 @@
 const axios = require('axios')
+const moment = require('moment')
 const { Sentry } = require('./sentry-service')
 
 const TwitchApi = class TwitchApi {
@@ -52,11 +53,16 @@ const TwitchApi = class TwitchApi {
     return { data, pagination }
   }
 
-  async getChannelId (channelName) {
+  async getChannelId (params) {
     try {
-      const { data: users } = await this.axios.get('/users?login=' + channelName)
-      if (users.data.length === 0) throw new Error('channel-not-found')
-      else return users.data[0].id
+      if (typeof params === 'string') {
+        const { data: users } = await this.axios.get('/users?login=' + params)
+        if (users.data.length === 0) throw new Error('channel-not-found')
+        else return users.data[0].id
+      } else if (typeof params === 'object') {
+        const { data: users } = await this.axios.get('/users?login=' + params.join('&login='))
+        return users.data
+      }
     } catch (error) {
       Sentry.captureException(error)
       return { error }
@@ -68,7 +74,25 @@ const TwitchApi = class TwitchApi {
       let url = '/clips?first=100'
       Object.keys(params).forEach(key => (url = url + `&${key}=${params[key]}`))
       const { data: clips } = await this.axios.get(url)
-      return clips
+      return { data: clips.data, pagination: clips.pagination.cursor }
+    } catch (error) {
+      Sentry.captureException(error)
+      return { error }
+    }
+  }
+
+  async getReplays (channelId) {
+    try {
+      const url = '/videos?type=archive&user_id=' + channelId
+      const { data: replays } = await this.axios.get(url)
+      return {
+        data: replays.data.map((replay) => {
+          return {
+            ...replay,
+            ended_at: moment(moment(replay.created_at).add(moment.duration(this.durationParser(replay.duration)))).toISOString()
+          }
+        })
+      }
     } catch (error) {
       Sentry.captureException(error)
       return { error }
@@ -86,6 +110,25 @@ const TwitchApi = class TwitchApi {
       Sentry.captureException(error)
       return { error }
     }
+  }
+
+  durationParser (val) {
+    const obj = {
+      hours: '',
+      minutes: '',
+      seconds: ''
+    }
+    for (let i = 0; i < val.length; i++) {
+      if (i < val.indexOf('h')) {
+        obj.hours = obj.hours + val[i]
+      } else if (i > val.indexOf('h') && i < val.indexOf('m')) {
+        obj.minutes = obj.minutes + val[i]
+      } else if (i > val.indexOf('m') && i < val.indexOf('s')) {
+        obj.seconds = obj.seconds + val[i]
+      } else {
+      }
+    }
+    return obj
   }
 }
 
