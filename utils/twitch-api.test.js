@@ -3,7 +3,7 @@ import { TwitchApi } from './twitch-api'
 describe('TwitchApi', () => {
   let api
   beforeEach(async () => {
-    api = new TwitchApi(process.env.TWITCH_TOKEN, process.env.TWITCH_SECRET)
+    api = new TwitchApi(process.env.TWITCH_TOKEN, process.env.TWITCH_SECRET, process.env.OAUTH_TOKEN)
     await api.setupAxios()
   })
 
@@ -13,10 +13,10 @@ describe('TwitchApi', () => {
     expect(api.axios.defaults.headers.common.Authorization).toBeDefined()
   })
 
-  test('Should get oauth bearer token', async () => {
-    const token = await api.getOauthToken()
-    expect(token.length).toBeGreaterThan(0)
-  })
+  // test('Should get oauth bearer token', async () => {
+  //   const token = await api.getOauthToken()
+  //   expect(token.length).toBeGreaterThan(0)
+  // })
 
   test('Should retrieve channel id', async () => {
     const id = await api.getChannelId('zerator')

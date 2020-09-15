@@ -3,13 +3,15 @@ const moment = require('moment')
 const { Sentry } = require('./sentry-service')
 
 const TwitchApi = class TwitchApi {
-  constructor (clientId, clientSecret) {
+  constructor (clientId, clientSecret, oauthToken = null) {
     this.clientId = clientId
     this.clientSecret = clientSecret
+    this.oauthToken = oauthToken
   }
 
-  async setupAxios () {
-    const token = await this.getOauthToken()
+  setupAxios () {
+    // const token = await this.getOauthToken()
+    const token = this.oauthToken
     this.axios = axios.create({
       baseURL: 'https://api.twitch.tv/helix/',
       headers: {
@@ -22,15 +24,15 @@ const TwitchApi = class TwitchApi {
     })
   }
 
-  async getOauthToken () {
-    try {
-      const { data } = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${this.clientId}&client_secret=${this.clientSecret}&grant_type=client_credentials`)
-      return 'Bearer ' + data.access_token
-    } catch (error) {
-      Sentry.captureException(error)
-      return { error }
-    }
-  }
+  // async getOauthToken () {
+  //   try {
+  //     const { data } = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${this.clientId}&client_secret=${this.clientSecret}&grant_type=client_credentials`)
+  //     return 'Bearer ' + data.access_token
+  //   } catch (error) {
+  //     Sentry.captureException(error)
+  //     return { error }
+  //   }
+  // }
 
   async getAndPrepareClips (params) {
     const channelId = await this.getChannelId(params.channel)

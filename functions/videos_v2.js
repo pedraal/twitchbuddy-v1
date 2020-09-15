@@ -2,7 +2,7 @@ const { TwitchApi } = require('../utils/twitch-api')
 
 exports.handler = async (event, context, callback) => {
   try {
-    const api = new TwitchApi(process.env.TWITCH_TOKEN, process.env.TWITCH_SECRET)
+    const api = new TwitchApi(process.env.TWITCH_TOKEN, process.env.TWITCH_SECRET, process.env.OAUTH_TOKEN)
     await api.setupAxios()
 
     const params = event.queryStringParameters
