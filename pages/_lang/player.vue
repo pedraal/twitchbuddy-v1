@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <PlayerSidebar />
-    <v-content>
+    <v-main>
       <div :style="gridTemplate" class="player-grid grey darken-4">
         <div
           v-for="(slot, id) in slots"
@@ -24,7 +24,7 @@
           />
         </div>
       </transition>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
