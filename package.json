@@ -54,7 +54,6 @@
     "jest": "^26.1.0",
     "jest-serializer-vue": "^2.0.2",
     "lint-staged": "^8.2.1",
-    "netlify-plugin-cypress": "^1.3.11",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "vue-jest": "^3.0.5"

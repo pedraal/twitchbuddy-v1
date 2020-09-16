@@ -82,6 +82,18 @@ export default {
   },
   build: {
     extractCSS: true,
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(scss|css|vue)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
     plugins: [
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ]
