@@ -34,8 +34,8 @@ export default {
     '~/plugins/i18n.js'
   ],
   buildModules: [
-    '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
+    '@nuxtjs/eslint-module',
     '@nuxtjs/dotenv'
   ],
   router: {

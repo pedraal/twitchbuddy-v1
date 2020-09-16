@@ -97,13 +97,7 @@ export default {
 
   .overline {
     font-size: 0.66rem !important;
-    margin: -7px 0;
-
-    &:first-of-type {
-      margin-top: -4px;
-    }
-    &:last-of-type {
-      margin-bottom: -4px;
-    }
+    line-height: 1rem;
+    margin: 0;
   }
 </style>

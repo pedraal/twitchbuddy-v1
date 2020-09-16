@@ -50,7 +50,7 @@
                 offset-y="10px"
               >
                 <template v-if="item.badge" v-slot:badge>
-                  <span class="px-1 overline">{{ item.badge }}</span>
+                  <span class="px-1 overline badge">{{ item.badge }}</span>
                 </template>
                 <v-btn
                   :to="item.link"
@@ -104,5 +104,9 @@ export default {
 
   .v-card .v-card__title .v-icon {
     text-shadow: -2px 3px #536dfe;
+  }
+
+  .badge {
+    line-height: 1rem;
   }
 </style>

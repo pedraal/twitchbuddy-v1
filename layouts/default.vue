@@ -61,7 +61,7 @@
         <v-toolbar-title v-if="item.paths.includes($route.name)" :key="item.to" v-html="$t(`title.${item.to !== '' ? item.to : 'home'}`)" />
       </template>
     </v-app-bar>
-    <v-main class="mt-4">
+    <v-main>
       <v-container>
         <nuxt />
       </v-container>
