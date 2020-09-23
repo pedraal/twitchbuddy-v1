@@ -1,6 +1,6 @@
 <template>
   <v-card
-    @click="add()"
+    @click="add"
     :class="{'selected-video': isSelected} "
     class="my-2 py-2 pl-2 pr-6 d-flex align-center"
     max-width="100%"
@@ -13,19 +13,19 @@
       <h5 class="caption">
         {{ video.title }}
       </h5>
-      <p class="overline my-0">
+      <p class="overline">
         <v-icon small>
           mdi-ray-start
         </v-icon>
         &nbsp;{{ humanTime(video.created_at) }}
       </p>
-      <p class="overline my-0">
+      <p class="overline">
         <v-icon small>
           mdi-ray-end
         </v-icon>
         &nbsp;{{ humanTime(video.ended_at) }}
       </p>
-      <p class="overline my-0">
+      <p class="overline">
         <v-icon small>
           mdi-clock
         </v-icon>
@@ -93,5 +93,11 @@ export default {
   }
   .v-card--link:focus:before{
     opacity: 0;
+  }
+
+  .overline {
+    font-size: 0.66rem !important;
+    line-height: 1rem;
+    margin: 0;
   }
 </style>

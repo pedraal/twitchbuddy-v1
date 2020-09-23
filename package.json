@@ -10,7 +10,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lintfix": "eslint --ext .js,.vue --fix --ignore-path .gitignore .",
+    "lint:fix": "eslint --ext .js,.vue --fix --ignore-path .gitignore .",
     "test:e2e": "cypress open",
     "test:unit:dev": "jest --watch --runInBand",
     "test:unit:ci": "jest"
@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "@pedraal/vue-plugin-load-script": "^1.2.0",
+    "@sentry/node": "^5.23.0",
+    "@sentry/tracing": "^5.23.0",
     "axios": "^0.19.0",
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
@@ -52,7 +54,6 @@
     "jest": "^26.1.0",
     "jest-serializer-vue": "^2.0.2",
     "lint-staged": "^8.2.1",
-    "netlify-plugin-cypress": "^1.3.11",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "vue-jest": "^3.0.5"

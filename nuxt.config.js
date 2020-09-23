@@ -34,8 +34,8 @@ export default {
     '~/plugins/i18n.js'
   ],
   buildModules: [
-    '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
+    '@nuxtjs/eslint-module',
     '@nuxtjs/dotenv'
   ],
   router: {
@@ -49,7 +49,6 @@ export default {
     }]
   ],
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: true,
       themes: {
@@ -81,7 +80,6 @@ export default {
     name: 'layout'
   },
   build: {
-    extractCSS: true,
     plugins: [
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ]

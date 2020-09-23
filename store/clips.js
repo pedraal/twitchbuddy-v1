@@ -47,12 +47,12 @@ export const actions = {
       commit('setQuery', query)
     }
     try {
-      const res = await axios.get('/.netlify/functions/clips?' + query, { responseType: 'json' })
-      for (const clip of res.data.clips) {
+      const res = await axios.get('/.netlify/functions/clips_v2?' + query, { responseType: 'json' })
+      for (const clip of res.data.data) {
         commit('addClip', clip)
       }
       commit('SET_LOADING', false, { root: true })
-      commit('setCursor', res.data.cursor)
+      commit('setCursor', res.data.pagination)
     } catch (error) {
       commit('SET_LOADING', false, { root: true })
       commit('addError', true)
