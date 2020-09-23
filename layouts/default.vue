@@ -61,11 +61,11 @@
         <v-toolbar-title v-if="item.paths.includes($route.name)" :key="item.to" v-html="$t(`title.${item.to !== '' ? item.to : 'home'}`)" />
       </template>
     </v-app-bar>
-    <v-main>
+    <v-content>
       <v-container>
         <nuxt />
       </v-container>
-    </v-main>
+    </v-content>
     <client-only>
       <VueHandyGa :locales="$t('vuehandyga')" class="foreground" />
     </client-only>
