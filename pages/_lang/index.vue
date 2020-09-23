@@ -50,7 +50,7 @@
                 offset-y="10px"
               >
                 <template v-if="item.badge" v-slot:badge>
-                  <span class="px-1 overline badge">{{ item.badge }}</span>
+                  <span class="px-1 badge">{{ item.badge }}</span>
                 </template>
                 <v-btn
                   :to="item.link"
@@ -107,6 +107,8 @@ export default {
   }
 
   .badge {
-    line-height: 1rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 2px;
   }
 </style>
