@@ -1,7 +1,7 @@
 <template>
   <v-form @submit.prevent="submit">
     <v-container>
-      <v-card class="pa-4">
+      <v-card class="pa-4 left-border-primary">
         <v-row class="mt-2 mx-2">
           <v-col
             cols="12"

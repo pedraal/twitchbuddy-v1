@@ -14,6 +14,7 @@
             <v-timeline-item
               v-for="day in $store.getters['videos/calendar']"
               :key="day[0].toString()"
+              color="#536dfe"
               small
             >
               <h3>{{ day[0] }}</h3>

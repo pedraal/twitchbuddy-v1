@@ -1,7 +1,7 @@
 <template>
   <v-form v-model="valid" @submit.prevent="submit">
     <v-container>
-      <v-card class="pa-4">
+      <v-card class="pa-4 left-border-primary">
         <v-row class="mt-2 mx-2">
           <v-col
             cols="12"
@@ -95,7 +95,7 @@ export default {
   data () {
     return {
       valid: false,
-      channel: '',
+      channel: 'zerator',
       period: 'weekly',
       periods: {
         daily: [moment(now).subtract(1, 'd').toISOString(), moment(now).toISOString()],

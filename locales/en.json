@@ -41,11 +41,18 @@
     },
     "keyword": "Keyword",
     "item": {
+      "labels": {
+        "category": "Category",
+        "title": "Title",
+        "views": "Views",
+        "by": "Clipped by"
+      },
       "views": "Views",
       "by": "By",
       "createdAt": "Clipped on",
       "download": "Download",
-      "replay": "Go to replay"
+      "replay": "Go to replay",
+      "favorite": "Favorite"
     },
     "help": {
       "title": "Help",

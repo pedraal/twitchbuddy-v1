@@ -62,7 +62,7 @@
       </template>
     </v-app-bar>
     <v-content>
-      <v-container>
+      <v-container class="app-container">
         <nuxt />
       </v-container>
     </v-content>
@@ -122,4 +122,11 @@ export default {
     filter: grayscale(0%);
   }
 }
+.app-container {
+  max-width: 1100px;
+}
+</style>
+
+<style lang="scss">
+
 </style>
