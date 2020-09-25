@@ -21,6 +21,9 @@
     "action": "get started"
   },
   "clips": {
+    "favorites" : {
+    "empty": "You don't have any favorites :("
+    },
     "menu": {
       "tabs": {
         "search": "Search",

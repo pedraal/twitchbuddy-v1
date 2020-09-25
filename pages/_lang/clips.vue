@@ -12,10 +12,11 @@
       <v-container>
         <v-row v-if="clips.length > 0 || tab !== 'search'">
           <v-col class="d-flex justify-start align-end">
-            <favorites-controls v-if="tab === 'favorites'" @download-all="downloadAll" />
+            <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" @download-all="downloadAll" />
           </v-col>
           <v-col cols="12" sm="6" md="4">
             <clip-filter
+              v-if="filteredClips.length > 1"
               :value="filters"
               @input="(newFilters) => {filters = newFilters}"
             />
@@ -27,6 +28,11 @@
           @loadOffset="loadOffset = $event"
           class="cliplist"
         />
+        <div v-if="tab === 'favorites' && filteredClips.length === 0">
+          <p class="overline text-center">
+            {{ $t('clips.favorites.empty') }}
+          </p>
+        </div>
         <tool-helper v-if="clips.length === 0 && tab === 'search' && $store.getters.helpDisplay" class="left-border-primary" />
       </v-container>
       <Loader />
@@ -121,5 +127,4 @@ export default {
   section {
     width: 100%;
   }
-
 </style>

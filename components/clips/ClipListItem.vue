@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-header hide-actions class="pa-0 px-sm-3">
+    <v-expansion-panel-header hide-actions class="pa-0 px-sm-3 text-right">
       <v-row v-if="!active" justify="center" align="center">
         <v-col :class="loading ? 'pl-4 pr-8': 'pr-2'" cols="3" class="pa-0">
           <transition name="fade" mode="out-in">
@@ -67,23 +67,6 @@
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              :href="'https://www.twitch.tv/videos/' + clip.video_id"
-              @click.stop
-              v-bind="attrs"
-              v-on="on"
-              target="_blank"
-              small
-            >
-              <v-icon>
-                mdi-movie-outline
-              </v-icon>
-            </v-btn>
-          </template>
-          <span>{{ $t('clips.item.replay') }}</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
               @click.stop="toggleFavorite"
               v-bind="attrs"
               v-on="on"
@@ -99,59 +82,78 @@
           </template>
           <span> {{ $t('clips.item.favorite') }}</span>
         </v-tooltip>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              :href="'https://www.twitch.tv/videos/' + clip.video_id"
+              @click.stop
+              v-bind="attrs"
+              v-on="on"
+              target="_blank"
+              small
+            >
+              <v-icon>
+                mdi-movie-outline
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>{{ $t('clips.item.replay') }}</span>
+        </v-tooltip>
       </div>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
       <div class="d-block d-md-flex justify-center align-center">
-        <video-player :active="active" :slug="clip.id" :autoplay="true" class="flex-grow-1 mr-md-4 mb-3 mb-md-0 clip-info-item" />
+        <video-player :active="active" :slug="clip.id" :autoplay="true" class="flex-grow-1 mr-md-4 mb-3 mb-md-0 clip-embed" />
         <div class="clip-info">
-          <v-card class="pa-2 pt-2 clip-info-item">
+          <v-card class="pa-2 mb-2 clip-info-item">
             <p class="caption mb-0">
               {{ $t('clips.item.labels.title') }}
             </p>
-            <p class="text-truncate overline my-2 text-center">
+            <p class="text-truncate overline my-0 my-mb-2 text-center">
               {{ clip.title }}
             </p>
           </v-card>
           <v-row>
             <v-col>
-              <v-card class="pa-2 pt-2 clip-info-item">
+              <v-card class="pa-2 ma-0 clip-info-item">
                 <p class="caption mb-0">
                   {{ $t('clips.item.labels.category') }}
                 </p>
-                <p class="text-truncate overline my-2 text-center">
+                <p class="text-truncate overline my-0 my-mb-2 text-center">
                   {{ clip.category }}
                 </p>
               </v-card>
             </v-col>
             <v-col>
-              <v-card class="pa-2 pt-2 clip-info-item">
+              <v-card class="pa-2 ma-0 clip-info-item">
                 <p class="caption mb-0">
                   {{ $t('clips.item.labels.views') }}
                 </p>
-                <p class="overline my-2 text-center">
-                  {{ clip.view_count }} <v-icon>mdi-eye</v-icon>
+                <p class="overline my-0 my-mb-2 text-center">
+                  {{ clip.view_count }} <v-icon size="medium">
+                    mdi-eye
+                  </v-icon>
                 </p>
               </v-card>
             </v-col>
           </v-row>
           <v-row>
             <v-col>
-              <v-card class="pa-2 pt-2 clip-info-item">
+              <v-card class="pa-2 ma-0 clip-info-item">
                 <p class="caption mb-0">
                   {{ $t('clips.item.createdAt') }}
                 </p>
-                <p class="overline my-2 text-center">
+                <p class="overline my-0 my-mb-2 text-center">
                   {{ createdAt }}
                 </p>
               </v-card>
             </v-col>
             <v-col>
-              <v-card class="pa-2 pt-2 clip-info-item">
+              <v-card class="pa-2 ma-0 clip-info-item">
                 <p class="caption mb-0">
                   {{ $t('clips.item.labels.by') }}
                 </p>
-                <p class="overline my-2 text-center">
+                <p class="overline my-0 my-mb-2 text-center">
                   {{ clip.creator_name }}
                 </p>
               </v-card>
@@ -261,9 +263,15 @@ export default {
     width: 40%;
   }
 
-  .clip-info-item {
+  .clip-info-item,
+  .clip-embed {
     border: 1px solid #424242 !important;
     border-radius: 8px;
+  }
+
+  .clip-embed {
+    max-width: 500px;
+    margin: 0 auto;
   }
 
   @media screen and (max-width: 960px){
