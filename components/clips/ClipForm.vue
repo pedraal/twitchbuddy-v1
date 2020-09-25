@@ -91,7 +91,7 @@ export default {
   data () {
     return {
       valid: false,
-      channel: 'zerator',
+      channel: '',
       period: 'weekly',
       periods: {
         daily: [moment(now).subtract(1, 'd').toISOString(), moment(now).toISOString()],
