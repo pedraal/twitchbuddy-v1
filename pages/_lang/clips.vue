@@ -5,7 +5,7 @@
     align-center
   >
     <section class="clip-form mb-4">
-      <clip-header :tab="tab" @tab="tab = $event" />
+      <clip-header :tab="tab" @tab="tab = $event" class="mb-8" />
       <clip-form v-if="tab === 'search'" />
     </section>
     <section class="clip-list">
