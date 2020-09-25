@@ -4,6 +4,7 @@
       @change="$emit('tab', $event)"
       :value="tab"
       borderless
+      mandatory
     >
       <v-btn value="search">
         <span>{{ $t('clips.menu.tabs.search') }}</span>
