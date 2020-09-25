@@ -35,7 +35,7 @@
               mdi-cards-heart
             </v-icon> by
             <a
-              href="https://twitter.com/pedraal_"
+              href="https://twitter.com/pedraaldev"
               target="_blank"
               class="font-weight-bold blue--text text--accent-2"
             >Pedraal</a>

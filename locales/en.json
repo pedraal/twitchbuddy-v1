@@ -21,6 +21,17 @@
     "action": "get started"
   },
   "clips": {
+    "menu": {
+      "tabs": {
+        "search": "Search",
+        "favorites": "Favorites"
+      },
+      "favorites": {
+        "body": "My favorites",
+        "download_all": "Download all",
+        "remove_all": "Empty favorites"
+      }
+    },
     "form": {
       "channel": {
         "label": "Channel name",

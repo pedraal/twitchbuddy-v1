@@ -21,6 +21,17 @@
     "action": "commencer"
   },
   "clips": {
+    "menu": {
+      "tabs": {
+        "search": "Recherche",
+        "favorites": "Favoris"
+      },
+      "favorites": {
+        "body": "Mes favoris",
+        "download_all": "Tout télécharger",
+        "remove_all": "Vider mes favoris"
+      }
+    },
     "form": {
       "channel": {
         "label": "Chaîne",

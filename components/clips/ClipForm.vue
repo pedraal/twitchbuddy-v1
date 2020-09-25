@@ -1,88 +1,84 @@
 <template>
   <v-form v-model="valid" @submit.prevent="submit">
-    <v-container>
-      <v-card class="pa-4 left-border-primary">
-        <v-row class="mt-2 mx-2">
-          <v-col
-            cols="12"
-            md="4"
-            class="py-0"
-          >
-            <v-text-field
-              v-model="channel"
-              :rules="nameRules"
-              :error="error"
-              @keydown.enter="submit"
-              :label="$t('clips.form.channel.label')"
-              prepend-icon="mdi-account"
-              name="channel"
-              required
-            />
-          </v-col>
+    <v-row class="mt-2 mx-2">
+      <v-col
+        cols="12"
+        md="4"
+        class="py-0"
+      >
+        <v-text-field
+          v-model="channel"
+          :rules="nameRules"
+          :error="error"
+          @keydown.enter="submit"
+          :label="$t('clips.form.channel.label')"
+          prepend-icon="mdi-account"
+          name="channel"
+          required
+        />
+      </v-col>
 
-          <v-col
-            cols="12"
-            md="4"
-            class="py-0"
-          >
-            <v-select
-              v-model="period"
-              :items="timeSelect"
-              :error="error"
-              :label="$t('clips.form.period.label')"
-              name="period"
-              required
-              prepend-icon="mdi-calendar"
+      <v-col
+        cols="12"
+        md="4"
+        class="py-0"
+      >
+        <v-select
+          v-model="period"
+          :items="timeSelect"
+          :error="error"
+          :label="$t('clips.form.period.label')"
+          name="period"
+          required
+          prepend-icon="mdi-calendar"
+        />
+      </v-col>
+      <v-col
+        v-if="period === 'custom'"
+        cols="12"
+        md="4"
+        class="py-0"
+      >
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="periods.custom"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              v-model="readabletimerange"
+              v-on="on"
+              :label="$t('clips.form.daterange')"
+              name="daterange"
+              prepend-icon="mdi-calendar-clock"
+              readonly
             />
-          </v-col>
-          <v-col
-            v-if="period === 'custom'"
-            cols="12"
-            md="4"
-            class="py-0"
-          >
-            <v-menu
-              ref="menu"
-              v-model="menu"
-              :close-on-content-click="false"
-              :return-value.sync="periods.custom"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  v-model="readabletimerange"
-                  v-on="on"
-                  :label="$t('clips.form.daterange')"
-                  name="daterange"
-                  prepend-icon="mdi-calendar-clock"
-                  readonly
-                />
-              </template>
-              <v-date-picker v-model="periods.custom" range no-title scrollable>
-                <v-spacer />
-                <v-btn @click="menu = false" text color="primary">
-                  Cancel
-                </v-btn>
-                <v-btn @click="$refs.menu.save(periods.custom)" text color="primary">
-                  OK
-                </v-btn>
-              </v-date-picker>
-            </v-menu>
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-            class="py-0"
-          >
-            <v-btn @click="submit" class="mt-4">
-              {{ $t('clips.form.submit') }}
+          </template>
+          <v-date-picker v-model="periods.custom" range no-title scrollable>
+            <v-spacer />
+            <v-btn @click="menu = false" text color="primary">
+              Cancel
             </v-btn>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-container>
+            <v-btn @click="$refs.menu.save(periods.custom)" text color="primary">
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
+      </v-col>
+      <v-col
+        cols="12"
+        md="4"
+        class="py-0"
+      >
+        <v-btn @click="submit" class="mt-4">
+          {{ $t('clips.form.submit') }}
+        </v-btn>
+      </v-col>
+    </v-row>
   </v-form>
 </template>
 

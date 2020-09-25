@@ -5,6 +5,7 @@
         v-for="(clip,i) in clips"
         :key="i"
         :ref="i"
+        :id="'clip-' + clip.id.toLowerCase()"
         :clip="clip"
         :active="panel === i"
       />
