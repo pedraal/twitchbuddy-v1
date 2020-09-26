@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-btn @click="$emit('download-all')" small class="mb-2 mb-md-0">
+    <v-btn @click="$emit('download-all')" small>
       {{ $t('clips.menu.favorites.download_all') }}
     </v-btn>
-    <v-btn @click="$store.dispatch('localStorage/emptyFavorites')" small class="">
+    <v-btn @click="$store.dispatch('localStorage/emptyFavorites')" small>
       {{ $t('clips.menu.favorites.remove_all') }}
     </v-btn>
   </div>

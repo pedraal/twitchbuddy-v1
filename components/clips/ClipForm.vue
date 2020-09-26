@@ -91,7 +91,7 @@ export default {
   data () {
     return {
       valid: false,
-      channel: '',
+      channel: 'zerator',
       period: 'weekly',
       periods: {
         daily: [moment(now).subtract(1, 'd').toISOString(), moment(now).toISOString()],
@@ -153,7 +153,6 @@ export default {
     },
     submit () {
       this.keyword = ''
-      this.$store.commit('SET_HELP_DISPLAY', false)
       this.setCursor('')
       this.emptyError()
       this.emptyList()

@@ -5,15 +5,18 @@
     align-center
   >
     <section class="clip-form mb-4">
-      <clip-header :tab="tab" @tab="tab = $event" class="mb-8" />
-      <clip-form v-if="tab === 'search'" />
+      <v-container>
+        <clip-header :tab="tab" @tab="tab = $event" class="mb-8" />
+        <clip-form v-if="tab === 'search'" />
+      </v-container>
     </section>
     <section class="clip-list">
       <v-container>
+        <div class="d-flex justify-center align-start">
+          <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" @download-all="downloadAll" />
+        </div>
         <v-row v-if="clips.length > 0 || tab !== 'search'">
-          <v-col class="d-flex justify-start align-end">
-            <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" @download-all="downloadAll" />
-          </v-col>
+          <v-spacer />
           <v-col cols="12" sm="6" md="4" class="d-flex justify-start align-end">
             <clip-filter
               v-if="filteredClips.length > 1"
@@ -33,10 +36,10 @@
             {{ $t('clips.favorites.empty') }}
           </p>
         </div>
-        <tool-helper v-if="clips.length === 0 && tab === 'search' && $store.getters.helpDisplay" class="left-border-primary" />
       </v-container>
       <Loader />
     </section>
+    <tool-helper />
   </v-layout>
 </template>
 
@@ -95,9 +98,6 @@ export default {
         this.loadClips()
       }
     }
-  },
-  created () {
-    this.$store.commit('SET_HELP_DISPLAY', true)
   },
   beforeMount () {
     window.addEventListener('scroll', this.handleScroll)

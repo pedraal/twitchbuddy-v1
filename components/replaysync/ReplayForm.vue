@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     submit () {
-      this.$store.commit('SET_HELP_DISPLAY', false)
       this.$store.commit('videos/SET_ERROR', false)
       this.$store.commit('videos/EMPTY_COLLECTIONS')
       this.$store.dispatch('videos/fetchCollections', this.select.join(','))

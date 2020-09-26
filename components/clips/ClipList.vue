@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-expansion-panels ref="wrapper" v-model="panel">
+    <v-expansion-panels ref="wrapper" v-model="panel" popout>
       <clip-list-item
         v-for="(clip,i) in clips"
         :key="i"

@@ -143,5 +143,7 @@
     "refuse": "Refuse",
     "mandatoryRefuse": "Leave the website",
     "more": "More infos"
-  }
+  },
+  "show_help": "Need help ?",
+  "close_help": "Understood !"
 }

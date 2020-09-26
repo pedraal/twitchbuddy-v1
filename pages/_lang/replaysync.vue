@@ -37,7 +37,7 @@
             </v-timeline-item>
           </v-timeline>
         </div>
-        <ToolHelper v-else-if="$store.state.helpDisplay" class="left-border-primary" />
+        <tool-helper />
         <div v-if="referenceVideo" class="text-center">
           <v-btn @click="resetSelection" outlined>
             {{ $t('replaysync.reset') }}
@@ -69,9 +69,6 @@ export default {
     referenceVideo () {
       return this.$store.getters['videos/referenceVideo']
     }
-  },
-  created () {
-    this.$store.commit('SET_HELP_DISPLAY', true)
   },
   methods: {
     goToPlayer () {
