@@ -15,7 +15,7 @@
   "home": {
     "pretitle": "Bienvenue sur",
     "subtitle": "Conçu pour améliorer votre expérience de créateur de contenu vidéo sur Twitch",
-    "presentation": "Accélerez votre recherche de clips et regardez plusieurs replays de différentes chaines synchronisés.",
+    "presentation": "Accélerez votre recherche de clips et dérushez plusieurs replays de différentes chaines synchronisés.",
     "clips": "Recherchez les meilleurs clips d'une chaîne pour une période donnée, affinez vos recherches et téléchargez les clips de votre choix.",
     "replaysync": "Dans la liste des chaînes que vous aurez sélectionné, choisissez les rediffusions de lives qui vous intéresse. Celles qui n'ont pas été diffusées simultanément seront retirées de la liste. Elles seront ensuite synchronisées sur votre première sélection qui fera référence.",
     "action": "commencer"
