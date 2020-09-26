@@ -62,7 +62,7 @@
       </template>
     </v-app-bar>
     <v-content>
-      <v-container class="app-container">
+      <v-container class="app-container pt-6">
         <nuxt />
       </v-container>
     </v-content>
