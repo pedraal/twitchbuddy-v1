@@ -14,7 +14,7 @@
           <v-col class="d-flex justify-start align-end">
             <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" @download-all="downloadAll" />
           </v-col>
-          <v-col cols="12" sm="6" md="4">
+          <v-col cols="12" sm="6" md="4" class="d-flex justify-start align-end">
             <clip-filter
               v-if="filteredClips.length > 1"
               :value="filters"
