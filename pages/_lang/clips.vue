@@ -5,14 +5,21 @@
     align-center
   >
     <section class="clip-form mb-4">
-      <clip-form />
+      <v-container>
+        <clip-header :tab="tab" @tab="tab = $event" class="mb-8" />
+        <clip-form v-if="tab === 'search'" />
+      </v-container>
     </section>
     <section class="clip-list">
       <v-container>
-        <v-row v-if="clips.length > 0">
+        <div class="d-flex justify-center align-start">
+          <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" @download-all="downloadAll" />
+        </div>
+        <v-row v-if="clips.length > 0 || tab !== 'search'">
           <v-spacer />
-          <v-col cols="12" sm="6" md="4">
+          <v-col cols="12" sm="6" md="4" class="d-flex justify-start align-end">
             <clip-filter
+              v-if="filteredClips.length > 1"
               :value="filters"
               @input="(newFilters) => {filters = newFilters}"
             />
@@ -24,16 +31,23 @@
           @loadOffset="loadOffset = $event"
           class="cliplist"
         />
-        <tool-helper v-if="clips.length === 0 && $store.getters.helpDisplay" />
+        <div v-if="tab === 'favorites' && filteredClips.length === 0">
+          <p class="overline text-center">
+            {{ $t('clips.favorites.empty') }}
+          </p>
+        </div>
       </v-container>
       <Loader />
     </section>
+    <tool-helper />
   </v-layout>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
+import ClipHeader from '@/components/clips/ClipHeader'
+import FavoritesControls from '@/components/clips/FavoritesControls'
 import ClipForm from '@/components/clips/ClipForm'
 import ClipFilter from '@/components/clips/ClipFilter'
 import ClipList from '@/components/clips/ClipList'
@@ -42,8 +56,10 @@ import ToolHelper from '@/components/utils/ToolHelper'
 
 export default {
   components: {
+    ClipHeader,
     ClipForm,
     ClipFilter,
+    FavoritesControls,
     ClipList,
     ToolHelper,
     Loader
@@ -54,26 +70,28 @@ export default {
       loadOffset: 0,
       filters: {
         keyword: ''
-      }
+      },
+      tab: 'search'
     }
   },
   computed: {
     ...mapGetters('clips', ['clips', 'cursor']),
     filteredClips () {
+      const clips = this.tab === 'search' ? this.clips : this.$store.getters['localStorage/favorites']
       if (this.filters.keyword.length < 2) {
-        return this.clips
+        return clips
       }
-      return this.clips.filter(item => item.category.toLowerCase().includes(this.filters.keyword.toLowerCase()) || item.title.toLowerCase().includes(this.filters.keyword.toLowerCase()) || item.creator_name.toLowerCase().includes(this.filters.keyword.toLowerCase()))
+      return clips.filter(item => item.category.toLowerCase().includes(this.filters.keyword.toLowerCase()) || item.title.toLowerCase().includes(this.filters.keyword.toLowerCase()) || item.creator_name.toLowerCase().includes(this.filters.keyword.toLowerCase()))
     }
   },
   watch: {
     scrollValue (val) {
-      if (this.cursor && !this.$store.getters.loading && val > this.loadOffset) {
+      if (this.tab === 'search' && this.cursor && !this.$store.getters.loading && val > this.loadOffset) {
         this.loadClips()
       }
     },
     filteredClips (val) {
-      if (this.clips.length === 0) {
+      if (this.clips.length === 0 || this.tab !== 'search') {
         return
       }
       if (this.cursor && !this.$store.getters.loading && val.length < 10) {
@@ -81,11 +99,9 @@ export default {
       }
     }
   },
-  created () {
-    this.$store.commit('SET_HELP_DISPLAY', true)
-  },
   beforeMount () {
     window.addEventListener('scroll', this.handleScroll)
+    this.$store.dispatch('localStorage/fetchLocalFavorites')
   },
   beforeDestroy () {
     window.removeEventListener('scroll', this.handleScroll)
@@ -96,6 +112,12 @@ export default {
     ...mapActions('clips', ['loadClips', 'emptyList', 'setCursor']),
     handleScroll () {
       this.scrollValue = window.scrollY
+    },
+    downloadAll () {
+      if (this.tab === 'search') return
+      for (let i = 0; i < this.$store.getters['localStorage/favorites'].length; i++) {
+        this.$refs.cliplist.$refs[i][0].download()
+      }
     }
   }
 }
@@ -105,5 +127,4 @@ export default {
   section {
     width: 100%;
   }
-
 </style>

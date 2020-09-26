@@ -6,7 +6,8 @@
       v-if="$store.getters.loading"
       class="ma-4"
       indeterminate
-      color="primary"
+      size="50"
+      color="indigo accent-3"
     />
   </div>
 </template>

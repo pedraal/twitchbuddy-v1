@@ -15,12 +15,26 @@
   "home": {
     "pretitle": "Bienvenue sur",
     "subtitle": "Conçu pour améliorer votre expérience de créateur de contenu vidéo sur Twitch",
-    "presentation": "Accélerez votre recherche de clips et regardez plusieurs replays de différentes chaines synchronisés.",
+    "presentation": "Accélerez votre recherche de clips et dérushez plusieurs replays de différentes chaines synchronisés.",
     "clips": "Recherchez les meilleurs clips d'une chaîne pour une période donnée, affinez vos recherches et téléchargez les clips de votre choix.",
     "replaysync": "Dans la liste des chaînes que vous aurez sélectionné, choisissez les rediffusions de lives qui vous intéresse. Celles qui n'ont pas été diffusées simultanément seront retirées de la liste. Elles seront ensuite synchronisées sur votre première sélection qui fera référence.",
     "action": "commencer"
   },
   "clips": {
+    "favorites" : {
+      "empty": "Vous n'avez aucuns favoris :("
+    },
+    "menu": {
+      "tabs": {
+        "search": "Recherche",
+        "favorites": "Favoris"
+      },
+      "favorites": {
+        "body": "Mes favoris",
+        "download_all": "Tout télécharger",
+        "remove_all": "Vider mes favoris"
+      }
+    },
     "form": {
       "channel": {
         "label": "Chaîne",
@@ -41,11 +55,18 @@
     },
     "keyword": "Mot-clé",
     "item": {
+      "labels": {
+        "category": "Catégorie",
+        "title": "Titre",
+        "views": "Vues",
+        "by": "Clippé par"
+      },
       "views": "Vues",
       "by": "Par",
       "createdAt": "Clippé le",
       "download": "Télécharger",
-      "replay": "Voir le replay"
+      "replay": "Voir le replay",
+      "favorite": "Favoris"
     },
     "help": {
       "title": "Aide",
@@ -96,7 +117,7 @@
         "title": "Attention",
         "texts": {
           "1": "Cet outil n'est pas en mesure de détecter le potentiel délai de diffusion. Ceci signifie que vous rencontrerez probablement de petits décalages même après synchronisation. Veuillez également noter que dans certains cas (notament des crash partiels du live), les  horodatages utilisés pour synchroniser les replays peuvent devenir invalides et ne pourront plus être synchronisés.",
-          "2": "Utiliser les contrôles des lecteurs vidéos de Twitch (à l'exception des contrôles de volume) peuvent rompre la synchronisation. Pour une meilleure expérience, évitez de les utiliser."
+          "2": "Utiliser les contrôles des lecteurs vidéos de Twitch (à l'exception des contrôles de volume) peut rompre la synchronisation. Pour une meilleure expérience, évitez de les utiliser."
         }
       }
     },
@@ -121,5 +142,7 @@
     "refuse": "Refuser",
     "mandatoryRefuse": "Quitter le site",
     "more": "Plus d'infos"
-  }
+  },
+  "show_help": "Besoin d'aide ?",
+  "close_help": "Compris !"
 }

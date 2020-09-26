@@ -21,6 +21,20 @@
     "action": "get started"
   },
   "clips": {
+    "favorites" : {
+    "empty": "You don't have any favorites :("
+    },
+    "menu": {
+      "tabs": {
+        "search": "Search",
+        "favorites": "Favorites"
+      },
+      "favorites": {
+        "body": "My favorites",
+        "download_all": "Download all",
+        "remove_all": "Empty favorites"
+      }
+    },
     "form": {
       "channel": {
         "label": "Channel name",
@@ -41,11 +55,18 @@
     },
     "keyword": "Keyword",
     "item": {
+      "labels": {
+        "category": "Category",
+        "title": "Title",
+        "views": "Views",
+        "by": "Clipped by"
+      },
       "views": "Views",
       "by": "By",
       "createdAt": "Clipped on",
       "download": "Download",
-      "replay": "Go to replay"
+      "replay": "Go to replay",
+      "favorite": "Favorite"
     },
     "help": {
       "title": "Help",
@@ -122,5 +143,7 @@
     "refuse": "Refuse",
     "mandatoryRefuse": "Leave the website",
     "more": "More infos"
-  }
+  },
+  "show_help": "Need help ?",
+  "close_help": "Understood !"
 }

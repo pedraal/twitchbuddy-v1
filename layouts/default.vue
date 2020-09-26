@@ -35,7 +35,7 @@
               mdi-cards-heart
             </v-icon> by
             <a
-              href="https://twitter.com/pedraal_"
+              href="https://twitter.com/pedraaldev"
               target="_blank"
               class="font-weight-bold blue--text text--accent-2"
             >Pedraal</a>
@@ -62,7 +62,7 @@
       </template>
     </v-app-bar>
     <v-content>
-      <v-container>
+      <v-container class="app-container pt-6">
         <nuxt />
       </v-container>
     </v-content>
@@ -122,4 +122,11 @@ export default {
     filter: grayscale(0%);
   }
 }
+.app-container {
+  max-width: 1100px;
+}
+</style>
+
+<style lang="scss">
+
 </style>

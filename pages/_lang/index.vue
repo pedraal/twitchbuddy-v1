@@ -25,13 +25,11 @@
       cols="12"
       sm="8"
       md="5"
-      lg="4"
-      xl="3"
     >
       <v-row justify="center">
         <v-col v-for="item in items" :key="item.title" cols="12" class="ma-4">
           <v-card class="px-4">
-            <v-card-title>
+            <v-card-title class="pb-0 pt-8">
               <h2 class="mx-auto headline">
                 <v-icon class="mb-2">
                   {{ item.icon }}
