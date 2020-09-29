@@ -36,7 +36,7 @@ export const actions = {
     commit('EMPTY_FAVORITES')
   },
   fetchLocalFavorites ({ commit }) {
-    commit('SET_FAVORITES', JSON.parse(localStorage.tb_favorites))
+    commit('SET_FAVORITES', localStorage.tb_favorites ? JSON.parse(localStorage.tb_favorites) : [])
   },
   writeLocalFavorites ({ state }) {
     localStorage.tb_favorites = JSON.stringify(state.favorites)

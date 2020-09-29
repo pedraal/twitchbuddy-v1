@@ -1,107 +1,110 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-header hide-actions class="pa-0 px-sm-3 text-right">
-      <v-row v-if="!active" justify="center" align="center">
-        <v-col :class="loading ? 'pl-4 pr-8': 'pr-2'" cols="3" class="pa-0">
+    <v-expansion-panel-header hide-actions class="text-right">
+      <template v-if="!active">
+        <div :class="loading ? 'ml-4 mr-8': 'mr-4'" class="flex-grow-0 d-none d-sm-block">
           <transition name="fade" mode="out-in">
-            <v-img v-if="!loading" :src="clip.thumbnail_url" height="65px" contain />
+            <v-img v-if="!loading" :src="clip.thumbnail_url" height="65px" width="115px" contain />
             <v-progress-linear v-else :value="downloadPercent" />
           </transition>
-        </v-col>
-        <v-col cols="5" sm="4" class="pa-0">
-          <p class="caption text-left mb-2 text-truncate">
+        </div>
+        <div class="text-truncate">
+          <p class="caption text-left mb-2 text-truncate ">
             {{ clip.category }}
           </p>
-          <p class="text-left mb-0 text-truncate">
+          <p class="text-left mb-0 text-truncate ">
             {{ clip.title }}
           </p>
-        </v-col>
-        <v-col cols="2" class="text-right pa-0 d-none d-sm-block">
+        </div>
+        <div class="text-right d-none d-sm-block mr-8 flex-grow-0" style="min-width: 100px;">
           <p class="caption mb-2">
             {{ clip.view_count }} {{ $t('clips.item.views') }}
           </p>
-          <p class="caption mb-0">
+          <p class="caption mb-0 text-truncate">
             {{ $t('clips.item.by') }} {{ clip.creator_name }}
           </p>
-        </v-col>
-        <v-col cols="3" class="text-center text-sm-right pa-0 pr-4 d-none d-sm-block">
+        </div>
+        <div class="text-center text-sm-right d-none d-sm-block flex-grow-0" style="min-width: 110px;">
           <p class="caption mb-2">
             {{ $t('clips.item.createdAt') }}
           </p>
           <p class="caption mb-0">
             {{ createdAt }}
           </p>
-        </v-col>
-        <v-col cols="3" class="text-right pa-0 d-block d-sm-none caption">
-          <p class="mb-0">
+        </div>
+        <div class="text-right d-block d-sm-none caption" style="min-width: 110px;">
+          <p class="mb-2">
             {{ clip.view_count }} {{ $t('clips.item.views') }}
           </p>
           <p class="mb-0">
             {{ createdAt }}
           </p>
-        </v-col>
-      </v-row>
-      <div v-else>
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              v-bind="attrs"
-              v-on="on"
-              @click.stop="download"
-              :class="{loading}"
-              class="download-btn"
-              small
-            >
-              <transition name="fade">
-                <div v-if="!loading">
-                  <v-icon>
-                    mdi-cloud-download
-                  </v-icon>
-                </div>
-                <v-progress-linear v-else :value="downloadPercent" />
-              </transition>
-            </v-btn>
-          </template>
-          <span>{{ $t('clips.item.download') }}</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              @click.stop="toggleFavorite"
-              v-bind="attrs"
-              v-on="on"
-              small
-            >
-              <v-icon v-if="!$store.getters['localStorage/isFavorite'](clip.id)">
-                mdi-star-outline
-              </v-icon>
-              <v-icon v-else>
-                mdi-star
-              </v-icon>
-            </v-btn>
-          </template>
-          <span> {{ $t('clips.item.favorite') }}</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              :href="'https://www.twitch.tv/videos/' + clip.video_id"
-              @click.stop
-              v-bind="attrs"
-              v-on="on"
-              target="_blank"
-              small
-            >
-              <v-icon>
-                mdi-movie-outline
-              </v-icon>
-            </v-btn>
-          </template>
-          <span>{{ $t('clips.item.replay') }}</span>
-        </v-tooltip>
-      </div>
+        </div>
+      </template>
+      <template v-else>
+        <v-spacer />
+        <div class="flex-grow-0">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                v-bind="attrs"
+                v-on="on"
+                @click.stop="download"
+                :class="{loading}"
+                class="download-btn"
+                small
+              >
+                <transition name="fade">
+                  <div v-if="!loading">
+                    <v-icon>
+                      mdi-cloud-download
+                    </v-icon>
+                  </div>
+                  <v-progress-linear v-else :value="downloadPercent" />
+                </transition>
+              </v-btn>
+            </template>
+            <span>{{ $t('clips.item.download') }}</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                @click.stop="toggleFavorite"
+                v-bind="attrs"
+                v-on="on"
+                small
+              >
+                <v-icon v-if="!$store.getters['localStorage/isFavorite'](clip.id)">
+                  mdi-star-outline
+                </v-icon>
+                <v-icon v-else>
+                  mdi-star
+                </v-icon>
+              </v-btn>
+            </template>
+            <span> {{ $t('clips.item.favorite') }}</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                :href="'https://www.twitch.tv/videos/' + clip.video_id"
+                @click.stop
+                v-bind="attrs"
+                v-on="on"
+                target="_blank"
+                small
+              >
+                <v-icon>
+                  mdi-movie-outline
+                </v-icon>
+              </v-btn>
+            </template>
+            <span>{{ $t('clips.item.replay') }}</span>
+          </v-tooltip>
+        </div>
+      </template>
     </v-expansion-panel-header>
-    <v-expansion-panel-content>
+    <v-expansion-panel-content class="px-sm-1">
       <div class="d-block d-md-flex justify-center align-center">
         <video-player :active="active" :slug="clip.id" :autoplay="true" class="flex-grow-1 mr-md-4 mb-3 mb-md-0 clip-embed" />
         <div class="clip-info">
@@ -114,7 +117,7 @@
             </p>
           </v-card>
           <v-row>
-            <v-col>
+            <v-col cols="12" sm="6" class="py-1 py-sm-2">
               <v-card class="pa-2 ma-0 clip-info-item">
                 <p class="caption mb-0">
                   {{ $t('clips.item.labels.category') }}
@@ -124,7 +127,7 @@
                 </p>
               </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" sm="6" class="py-1 py-sm-2">
               <v-card class="pa-2 ma-0 clip-info-item">
                 <p class="caption mb-0">
                   {{ $t('clips.item.labels.views') }}
@@ -138,7 +141,7 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col>
+            <v-col cols="12" sm="6" class="py-1 py-sm-2">
               <v-card class="pa-2 ma-0 clip-info-item">
                 <p class="caption mb-0">
                   {{ $t('clips.item.createdAt') }}
@@ -148,7 +151,7 @@
                 </p>
               </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" sm="6" class="py-1 py-sm-2">
               <v-card class="pa-2 ma-0 clip-info-item">
                 <p class="caption mb-0">
                   {{ $t('clips.item.labels.by') }}
@@ -260,7 +263,7 @@ export default {
   }
 
   .clip-info {
-    width: 40%;
+    width: 50%;
   }
 
   .clip-info-item,
