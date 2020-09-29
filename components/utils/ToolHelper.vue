@@ -11,7 +11,6 @@
         color="grey"
         outlined
         small
-        class="top-right"
       >
         {{ $t('show_help') }}
       </v-btn>
@@ -95,7 +94,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .small-btn {
   height: 1.5rem;
   width: 1.5rem;

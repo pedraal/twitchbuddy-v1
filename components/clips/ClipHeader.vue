@@ -6,13 +6,13 @@
       borderless
       mandatory
     >
-      <v-btn value="search" class="text-center tab-btn">
+      <v-btn small value="search" class="text-center tab-btn">
         <span>{{ $t('clips.menu.tabs.search') }}</span>
         <v-icon right>
           mdi-magnify
         </v-icon>
       </v-btn>
-      <v-btn value="favorites" class="text-center tab-btn">
+      <v-btn small value="favorites" class="text-center tab-btn">
         <span>{{ $t('clips.menu.tabs.favorites') }}</span>
         <v-icon right>
           mdi-star
