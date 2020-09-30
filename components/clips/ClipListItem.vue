@@ -5,8 +5,7 @@
       <template v-if="!active">
         <div class="flex-grow-0 d-none d-sm-block mr-4">
           <transition name="fade" mode="out-in">
-            <v-img v-if="!loading" :src="clip.thumbnail_url" height="65px" width="115px" contain />
-            <v-progress-linear v-else :value="downloadPercent" style="min-width: 115px;" />
+            <v-img :src="clip.thumbnail_url" height="65px" width="115px" contain />
           </transition>
         </div>
         <div class="text-truncate">
