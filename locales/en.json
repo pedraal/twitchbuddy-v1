@@ -32,7 +32,8 @@
       "favorites": {
         "body": "My favorites",
         "download_all": "Download all",
-        "remove_all": "Empty favorites"
+        "remove_all": "Empty favorites",
+        "remove_all_alert": "Are you sure you want to remove all your favorites ?"
       }
     },
     "form": {

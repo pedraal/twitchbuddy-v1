@@ -32,7 +32,8 @@
       "favorites": {
         "body": "Mes favoris",
         "download_all": "Tout télécharger",
-        "remove_all": "Vider mes favoris"
+        "remove_all": "Vider mes favoris",
+        "remove_all_alert": "Êtes-vous sûr de vouloir vider vos favoris ?"
       }
     },
     "form": {

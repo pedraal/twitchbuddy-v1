@@ -15,18 +15,20 @@
         <div class="d-flex justify-center align-start">
           <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" @download-all="downloadAll" />
         </div>
-        <v-row v-if="clips.length > 0 || tab !== 'search'">
-          <v-col class="d-flex justify-start align-end">
+        <v-row>
+          <v-col :class="clips.length > 0 || tab !== 'search' ? 'justify-start' : 'justify-center '" class="d-flex align-end">
             <tool-helper />
           </v-col>
-          <v-spacer />
-          <v-col cols="12" sm="6" md="4" class="d-flex justify-start align-end">
-            <clip-filter
-              v-if="filteredClips.length > 1"
-              :value="filters"
-              @input="(newFilters) => {filters = newFilters}"
-            />
-          </v-col>
+          <template v-if="clips.length > 0 || tab !== 'search'">
+            <v-spacer />
+            <v-col cols="12" sm="6" md="4" class="d-flex justify-start align-end">
+              <clip-filter
+                v-if="filteredClips.length > 1"
+                :value="filters"
+                @input="(newFilters) => {filters = newFilters}"
+              />
+            </v-col>
+          </template>
         </v-row>
         <clip-list
           ref="cliplist"

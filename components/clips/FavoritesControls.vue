@@ -3,7 +3,7 @@
     <v-btn @click="$emit('download-all')" small>
       {{ $t('clips.menu.favorites.download_all') }}
     </v-btn>
-    <v-btn @click="$store.dispatch('localStorage/emptyFavorites')" small>
+    <v-btn @click="removeAll" small>
       {{ $t('clips.menu.favorites.remove_all') }}
     </v-btn>
   </div>
@@ -11,7 +11,12 @@
 
 <script>
 export default {
-
+  methods: {
+    removeAll () {
+      const confirmResult = confirm(this.$t('clips.menu.favorites.remove_all_alert'))
+      if (confirmResult) this.$store.dispatch('localStorage/emptyFavorites')
+    }
+  }
 }
 </script>
 
