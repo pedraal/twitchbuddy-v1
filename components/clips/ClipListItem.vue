@@ -1,11 +1,11 @@
 <template>
   <v-expansion-panel>
     <v-expansion-panel-header hide-actions class="text-right">
+      <v-progress-linear v-if="loading" :value="downloadPercent" class="download-bar" />
       <template v-if="!active">
-        <div :class="loading ? 'ml-4 mr-8': 'mr-4'" class="flex-grow-0 d-none d-sm-block">
+        <div class="flex-grow-0 d-none d-sm-block mr-4">
           <transition name="fade" mode="out-in">
-            <v-img v-if="!loading" :src="clip.thumbnail_url" height="65px" width="115px" contain />
-            <v-progress-linear v-else :value="downloadPercent" />
+            <v-img :src="clip.thumbnail_url" height="65px" width="115px" contain />
           </transition>
         </div>
         <div class="text-truncate">
@@ -49,19 +49,15 @@
               <v-btn
                 v-bind="attrs"
                 v-on="on"
+                v-if="!loading"
                 @click.stop="download"
                 :class="{loading}"
                 class="download-btn"
                 small
               >
-                <transition name="fade">
-                  <div v-if="!loading">
-                    <v-icon>
-                      mdi-cloud-download
-                    </v-icon>
-                  </div>
-                  <v-progress-linear v-else :value="downloadPercent" />
-                </transition>
+                <v-icon>
+                  mdi-cloud-download
+                </v-icon>
               </v-btn>
             </template>
             <span>{{ $t('clips.item.download') }}</span>
@@ -251,7 +247,10 @@ export default {
 
 <style lang="scss" scoped>
   .v-expansion-panel-header {
+    width: 100%;
     min-height: 90px;
+    position: relative;
+    overflow: hidden;
   }
 
   .download-btn {
@@ -260,6 +259,13 @@ export default {
     &.loading {
     width: 155px !important;
     }
+  }
+
+  .download-bar {
+    position: absolute;
+    width: 100%;
+    top: 1px;
+    left: 0;
   }
 
   .clip-info {
