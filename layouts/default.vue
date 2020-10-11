@@ -2,9 +2,18 @@
   <v-app>
     <v-navigation-drawer
       v-model="drawer"
-      clipped
+
       app
     >
+      <div v-if="$store.state.api.user" class="pa-4 pb-2">
+        <v-avatar>
+          <v-img :src="$store.state.api.user.avatarUrl" />
+        </v-avatar>
+        <p class="mb-0">
+          {{ $store.state.api.user.displayName }}
+        </p>
+      </div>
+      <v-divider />
       <v-list class="pt-4">
         <v-list-item v-for="(item, i) in items" :key="i" :to="$i18n.path(item.to)" router exact>
           <v-list-item-action>
@@ -55,11 +64,15 @@
         </div>
       </template>
     </v-navigation-drawer>
-    <v-app-bar clipped-left app>
+    <v-app-bar app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <template v-for="item in items">
-        <v-toolbar-title v-if="item.paths.includes($route.name)" :key="item.to" v-html="$t(`title.${item.to !== '' ? item.to : 'home'}`)" />
+        <v-toolbar-title v-if="item.paths.includes($route.name)" :key="item.to" v-html="$t(`title.${item.to !== '' ? item.to : 'home'}`)" class="page-title" />
       </template>
+      <v-spacer />
+      <v-btn v-if="$store.state.api.user === null" :href="apiLoginUrl" target="_top" color="indigo accent-3">
+        {{ $t('user.login') }}
+      </v-btn>
     </v-app-bar>
     <v-content>
       <v-container class="app-container pt-6">
@@ -73,10 +86,13 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+
 export default {
   name: 'DefaultLayout',
   data () {
     return {
+      apiLoginUrl: process.env.API_URL + '/auth/twitch',
       drawer: null,
       items: [
         {
@@ -95,6 +111,16 @@ export default {
           to: 'replaysync'
         }
       ]
+    }
+  },
+  async created () {
+    if (Cookies.get('tbtoken')) {
+      try {
+        const { data } = await this.$api.get('/me')
+        this.$store.dispatch('api/setUser', data)
+      } catch (error) {
+        Cookies.remove('tbtoken')
+      }
     }
   }
 }
@@ -128,5 +154,9 @@ export default {
 </style>
 
 <style lang="scss">
-
+.page-title {
+  span:last-of-type {
+   font-weight: 300;
+  }
+}
 </style>

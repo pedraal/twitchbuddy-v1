@@ -8,9 +8,9 @@
     "support": "soutenir sur"
   },
   "title": {
-    "home": "<span class='indigo--text text--accent-2 '>Twitch</span><span class='grey--text text--lighten-2 font-weight-thin'>Buddy</span>",
-    "clips": "<span class='indigo--text text--accent-2 '>C</span><span class='grey--text text--lighten-2 font-weight-thin'>lips</span>",
-    "replaysync": "<span class='indigo--text text--accent-2 '>R</span><span class='grey--text text--lighten-2 font-weight-thin'>eplaySync</span>"
+    "home": "<span class='indigo--text text--accent-2 '>Twitch</span><span class='grey--text text--lighten-1'>Buddy</span>",
+    "clips": "<span class='indigo--text text--accent-2 '>C</span><span class='grey--text text--lighten-1'>lips</span>",
+    "replaysync": "<span class='indigo--text text--accent-2 '>R</span><span class='grey--text text--lighten-1'>eplaySync</span>"
   },
   "home": {
     "pretitle": "Bienvenue sur",
