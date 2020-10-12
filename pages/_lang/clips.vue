@@ -16,7 +16,7 @@
           <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" @download-all="downloadAll" />
         </div>
         <v-row>
-          <v-col :class="clips.length > 0 || tab !== 'search' ? 'justify-start' : 'justify-center '" class="d-flex align-end">
+          <v-col v-if="tab !== 'favorites'" :class="clips.length > 0 || tab !== 'search' ? 'justify-start' : 'justify-center '" class="d-flex align-end">
             <tool-helper />
           </v-col>
           <template v-if="clips.length > 0 || tab !== 'search'">

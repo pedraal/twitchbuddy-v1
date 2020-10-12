@@ -37,7 +37,9 @@
             </v-timeline-item>
           </v-timeline>
         </div>
-        <tool-helper />
+        <div class="text-center">
+          <tool-helper />
+        </div>
         <div v-if="referenceVideo" class="text-center">
           <v-btn @click="resetSelection" outlined>
             {{ $t('replaysync.reset') }}

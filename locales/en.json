@@ -145,6 +145,11 @@
     "mandatoryRefuse": "Leave the website",
     "more": "More infos"
   },
+  "user": {
+    "login": "Login",
+    "logout": "Logout",
+    "dashboard": "Dashboard"
+  },
   "show_help": "Need help ?",
   "close_help": "Understood !"
 }

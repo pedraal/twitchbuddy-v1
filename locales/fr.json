@@ -144,6 +144,11 @@
     "mandatoryRefuse": "Quitter le site",
     "more": "Plus d'infos"
   },
+  "user": {
+    "login": "Connection",
+    "logout": "Déconnection",
+    "dashboard": "Dashboard"
+  },
   "show_help": "Besoin d'aide ?",
   "close_help": "Compris !"
 }

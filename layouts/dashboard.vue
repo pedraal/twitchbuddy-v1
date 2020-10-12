@@ -1,39 +1,38 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      v-model="drawer"
-      clipped
+      value
+      mini-variant
+      permanent
       app
     >
-      <v-list class="pt-4">
+      <v-list>
         <v-list-item v-for="(item, i) in items" :key="i" :to="$i18n.path(item.to)" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>{{ $t(`links.${item.to !== '' ? item.to : 'home'}`) }}</v-list-item-title>
+            <v-list-item-title />
           </v-list-item-content>
         </v-list-item>
       </v-list>
 
       <template v-slot:append>
-        <NavDrawerFooter />
+        <v-list>
+          <v-list-item v-for="(item, i) in footerItems" :key="i" :to="$i18n.path(item.to)" router exact>
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </template>
     </v-navigation-drawer>
-    <v-app-bar app clipped-left>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <template v-for="item in items">
-        <v-toolbar-title v-if="item.paths.includes($route.name)" :key="item.to" v-html="$t(`title.${item.to !== '' ? item.to : 'home'}`)" class="page-title" />
-      </template>
+    <v-app-bar flat app>
       <v-spacer />
-      <v-btn :href="apiLoginUrl" v-if="$store.state.api.user === null" small target="_top" color="indigo accent-3">
-        <v-icon class="mr-2">
-          mdi-twitch
-        </v-icon>
-        {{ $t('user.login') }}
-      </v-btn>
-
-      <UserMenu v-else />
+      <UserMenu v-if="$store.state.api.user" />
     </v-app-bar>
     <v-content>
       <v-container class="app-container pt-6">
@@ -48,14 +47,12 @@
 
 <script>
 import Cookies from 'js-cookie'
-import NavDrawerFooter from '~/components/utils/NavDrawerFooter'
 import UserMenu from '~/components/utils/UserMenu'
 
 export default {
   name: 'DefaultLayout',
   components: {
-    UserMenu,
-    NavDrawerFooter
+    UserMenu
   },
   data () {
     return {
@@ -63,19 +60,26 @@ export default {
       drawer: null,
       items: [
         {
+          icon: 'mdi-view-dashboard',
+          to: 'dashboard'
+        },
+        {
+          icon: 'mdi-account-group',
+          to: 'dashboard/groups'
+        },
+        {
+          icon: 'mdi-view-list',
+          to: 'dashboard/lists'
+        }
+      ],
+      footerItems: [
+        {
+          icon: 'mdi-cog-outline',
+          to: 'dashboard/settings'
+        },
+        {
           icon: 'mdi-home',
-          paths: ['index', 'lang'],
           to: ''
-        },
-        {
-          icon: 'mdi-movie-open-outline',
-          paths: ['clips', 'lang-clips'],
-          to: 'clips'
-        },
-        {
-          icon: 'mdi-filmstrip',
-          paths: ['replaysync', 'lang-replaysync'],
-          to: 'replaysync'
         }
       ]
     }
@@ -89,6 +93,11 @@ export default {
         Cookies.remove('tbtoken')
       }
     }
+  },
+  mounted () {
+    if (!Cookies.get('tbtoken')) {
+      this.$router.replace(this.$store.state.locale === 'en' ? '/en/' : '/')
+    }
   }
 }
 </script>
@@ -101,6 +110,15 @@ export default {
 
 .route-name {
   text-transform: capitalize;
+}
+
+.filtered {
+  filter: grayscale(100%);
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    filter: grayscale(0%);
+  }
 }
 .app-container {
   max-width: 1100px;
