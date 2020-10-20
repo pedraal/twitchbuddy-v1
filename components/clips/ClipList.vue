@@ -7,6 +7,7 @@
         :ref="i"
         :id="'clip-' + clip.id.toLowerCase()"
         :clip="clip"
+        :deletable="deletable"
         :active="panel === i"
       />
     </v-expansion-panels>
@@ -21,7 +22,8 @@ export default {
     ClipListItem
   },
   props: {
-    clips: { type: Array, default: () => [] }
+    clips: { type: Array, default: () => [] },
+    deletable: { type: Boolean, default: false }
   },
   data () {
     return {

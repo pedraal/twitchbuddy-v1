@@ -22,27 +22,43 @@
             {{ $t('clips.lists.shared') }}
           </v-btn>
         </div>
-        <v-divider />
-        <div>
-          <v-list>
-            <v-list-item :input-value="selectedListId === list._id" v-for="list in selectedLists" :key="list._id" @click="selectedListId = list._id" link>
+      </v-col>
+      <v-divider vertical />
+      <v-col>
+        <v-virtual-scroll
+          :items="selectedLists"
+          height="150"
+          item-height="50"
+        >
+          <template v-slot:default="{ item: list }">
+            <v-list-item :input-value="selectedListId === list._id" :key="list._id" @click="selectedListId = list._id" link>
               <span class="text-truncate text-capitalize">
                 {{ list.name }}
               </span>
             </v-list-item>
-          </v-list>
-        </div>
-      </v-col>
-      <v-divider vertical />
-      <v-col>
-        <template v-if="selectedListId">
-          <h3>{{ selectedList.name }}</h3>
-          <clip-list
-            :clips="selectedList.clips"
-          />
-        </template>
+          </template>
+        </v-virtual-scroll>
+        <div />
       </v-col>
     </v-row>
+    <template v-if="selectedListId">
+      <div class="mb-2 d-flex">
+        <h3>
+          {{ selectedList.name }}
+        </h3>
+        <v-spacer />
+        <v-btn @click="deleteList" small class="mr-2">
+          {{ $t('clips.lists.deleteList') }}
+        </v-btn>
+        <v-btn small>
+          Download all
+        </v-btn>
+      </div>
+      <clip-list
+        :clips="selectedList.clips"
+        :deletable="true"
+      />
+    </template>
   </v-container>
 </template>
 
@@ -80,25 +96,18 @@ export default {
         this.$store.dispatch('lists/createList', listName)
       }
     },
-    deleteList () {
-
-    },
     downloadList () {
 
+    },
+    deleteList () {
+      this.$store.dispatch('lists/deleteList', this.selectedListId)
+      this.selectedListId = null
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.row {
-  min-height: 70vh;
-
-  .col {
-    height: 100%;
-  }
-}
-
 .lists-nav {
   .v-btn {
     width: 100%;

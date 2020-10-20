@@ -179,7 +179,8 @@ export default {
   },
   props: {
     clip: { type: Object, default: () => {} },
-    active: { type: Boolean, default: false }
+    active: { type: Boolean, default: false },
+    deletable: { type: Boolean, default: false }
   },
   data () {
     return {

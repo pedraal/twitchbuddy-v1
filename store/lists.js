@@ -18,6 +18,10 @@ export const mutations = {
     const listIndex = findIndex(state.ownedLists, el => el._id === payload._id)
     state.ownedLists[listIndex] = payload
   },
+  DELETE_OWNED_LIST (state, payload) {
+    const listIndex = findIndex(state.ownedLists, el => el._id === payload)
+    state.ownedLists.splice(listIndex, 1)
+  },
   SET_SHARED_LISTS (state, payload) {
     state.sharedLists = payload
   }
@@ -57,7 +61,8 @@ export const actions = {
 
   },
   async deleteList ({ commit }, payload) {
-
+    await this.$api.delete(`/lists/${payload}`)
+    commit('DELETE_OWNED_LIST', payload)
   },
   async patchList (ctx, payload) {
 

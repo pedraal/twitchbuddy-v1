@@ -6,7 +6,7 @@
   >
     <section class="clip-form mb-4">
       <v-container>
-        <clip-header :tab="tab" @tab="tab = $event" class="mb-8" />
+        <clip-tabs :tab="tab" @tab="tab = $event" class="mb-8" />
         <clip-form v-if="tab === 'search'" />
       </v-container>
     </section>
@@ -53,7 +53,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
-import ClipHeader from '@/components/clips/ClipHeader'
+import ClipTabs from '@/components/clips/ClipTabs'
 import FavoritesControls from '@/components/clips/FavoritesControls'
 import ClipForm from '@/components/clips/ClipForm'
 import ClipFilter from '@/components/clips/ClipFilter'
@@ -64,7 +64,7 @@ import Lists from '@/components/clips/Lists'
 
 export default {
   components: {
-    ClipHeader,
+    ClipTabs,
     ClipForm,
     ClipFilter,
     FavoritesControls,
