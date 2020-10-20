@@ -17,11 +17,11 @@
       </v-btn>
     </template>
     <v-list flat>
-      <v-list-item :to="$i18n.path('dashboard')" dense>
+      <!-- <v-list-item :to="$i18n.path('dashboard')" dense>
         <v-list-item-title>
           {{ $t('user.dashboard') }}
         </v-list-item-title>
-      </v-list-item>
+      </v-list-item> -->
       <v-list-item @click="logout" dense>
         <v-list-item-title>{{ $t('user.logout') }}</v-list-item-title>
       </v-list-item>

@@ -80,6 +80,7 @@
             </template>
             <span> {{ $t('clips.item.favorite') }}</span>
           </v-tooltip>
+          <ListsModal :clip="clip" v-if="$store.state.api.user" class="d-inline-block" />
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -169,10 +170,12 @@ import moment from 'moment'
 import axios from 'axios'
 
 import VideoPlayer from '../utils/VideoPlayer'
+import ListsModal from './ListsModal'
 
 export default {
   components: {
-    VideoPlayer
+    VideoPlayer,
+    ListsModal
   },
   props: {
     clip: { type: Object, default: () => {} },
@@ -182,7 +185,8 @@ export default {
     return {
       loading: false,
       total: 0,
-      loaded: 0
+      loaded: 0,
+      dialog: false
     }
   },
   computed: {

@@ -26,8 +26,8 @@
         <v-toolbar-title v-if="item.paths.includes($route.name)" :key="item.to" v-html="$t(`title.${item.to !== '' ? item.to : 'home'}`)" class="page-title" />
       </template>
       <v-spacer />
-      <v-btn :href="apiLoginUrl" v-if="$store.state.api.user === null" small target="_top" color="indigo accent-3">
-        <v-icon class="mr-2">
+      <v-btn :href="apiLoginUrl" v-if="$store.state.api.user === null" small target="_top" color="#5f33af">
+        <v-icon class="mr-2" small>
           mdi-twitch
         </v-icon>
         {{ $t('user.login') }}
@@ -36,9 +36,7 @@
       <UserMenu v-else />
     </v-app-bar>
     <v-content>
-      <v-container class="app-container pt-6">
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
     <client-only>
       <VueHandyGa :locales="$t('vuehandyga')" class="foreground" />
@@ -102,9 +100,6 @@ export default {
 .route-name {
   text-transform: capitalize;
 }
-.app-container {
-  max-width: 1100px;
-}
 
 .menu-item:before {
   opacity: 0 !important;
@@ -115,6 +110,11 @@ export default {
 .page-title {
   span:last-of-type {
    font-weight: 300;
+  }
+}
+@media (min-width: 1904px) {
+  .container {
+    max-width: 1185px;
   }
 }
 </style>

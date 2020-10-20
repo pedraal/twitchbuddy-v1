@@ -10,13 +10,16 @@
         <clip-form v-if="tab === 'search'" />
       </v-container>
     </section>
-    <section class="clip-list">
+    <section v-if="tab === 'lists'">
+      <Lists />
+    </section>
+    <section v-else class="clip-list">
       <v-container>
         <div class="d-flex justify-center align-start">
           <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" @download-all="downloadAll" />
         </div>
         <v-row>
-          <v-col v-if="tab !== 'favorites'" :class="clips.length > 0 || tab !== 'search' ? 'justify-start' : 'justify-center '" class="d-flex align-end">
+          <v-col v-if="tab === 'search'" :class="clips.length > 0 || tab !== 'search' ? 'justify-start' : 'justify-center '" class="d-flex align-end">
             <tool-helper />
           </v-col>
           <template v-if="clips.length > 0 || tab !== 'search'">
@@ -57,6 +60,7 @@ import ClipFilter from '@/components/clips/ClipFilter'
 import ClipList from '@/components/clips/ClipList'
 import Loader from '@/components/utils/Loader'
 import ToolHelper from '@/components/utils/ToolHelper'
+import Lists from '@/components/clips/Lists'
 
 export default {
   components: {
@@ -65,6 +69,7 @@ export default {
     ClipFilter,
     FavoritesControls,
     ClipList,
+    Lists,
     ToolHelper,
     Loader
   },

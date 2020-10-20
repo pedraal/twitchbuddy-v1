@@ -27,7 +27,8 @@
     "menu": {
       "tabs": {
         "search": "Search",
-        "favorites": "Favorites"
+        "favorites": "Favorites",
+        "lists": "Lists"
       },
       "favorites": {
         "body": "My favorites",
@@ -35,6 +36,15 @@
         "remove_all": "Empty favorites",
         "remove_all_alert": "Are you sure you want to remove all your favorites ?"
       }
+    },
+    "lists": {
+      "title": "Save to a list",
+      "newList": "New list",
+      "create": "Create",
+      "createPrompt": "Which name should we give it?",
+      "add": "Add",
+      "owned": "Mes listes",
+      "shared": "Listes partagés"
     },
     "form": {
       "channel": {
