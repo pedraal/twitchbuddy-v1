@@ -189,24 +189,7 @@ export default {
     createdAt () {
       return moment(this.clip.created_at).format('DD/MM/YYYY hh:mm')
     },
-    slug () {
-      let str = this.clip.title
-      str = str.replace(/^\s+|\s+$/g, '') // trim
-      str = str.toLowerCase()
-      const from = 'åàáãäâèéëêìíïîòóöôùúüûñç·/_,:;'
-      const to = 'aaaaaaeeeeiiiioooouuuunc______'
-      for (let i = 0, l = from.length; i < l; i++) {
-        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
-      }
-      str = str
-        .replace(/[^a-z0-9 -]/g, '')
-        .replace(/\s+/g, '_')
-        .replace(/-+/g, '_')
-        .replace(/^-+/, '')
-        .replace(/-+$/, '')
 
-      return str
-    },
     downloadPercent () {
       return (this.loaded / this.total) * 100
     }
@@ -225,7 +208,8 @@ export default {
       const a = document.createElement('a')
       const link = window.URL.createObjectURL(data)
       a.href = link
-      a.download = this.slug + '.mp4'
+      const filename = this.slug(this.clip.title).length > 0 ? this.slug(this.clip.title) : this.slug(this.clip.broadcaster_name + ' ' + this.clip.category)
+      a.download = filename + '.mp4'
       a.click()
     },
     async download () {
@@ -236,6 +220,24 @@ export default {
         this.total = event.total
       })
       this.loading = false
+    },
+    slug (value) {
+      let str = value
+      str = str.replace(/^\s+|\s+$/g, '') // trim
+      str = str.toLowerCase()
+      const from = 'åàáãäâèéëêìíïîòóöôùúüûñç·/_,:;'
+      const to = 'aaaaaaeeeeiiiioooouuuunc______'
+      for (let i = 0, l = from.length; i < l; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
+      }
+      str = str
+        .replace(/[^a-z0-9 -]/g, '')
+        .replace(/\s+/g, '_')
+        .replace(/-+/g, '_')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '')
+
+      return str
     },
     toggleFavorite () {
       if (this.$store.getters['localStorage/isFavorite'](this.clip.id)) this.$store.dispatch('localStorage/removeFavorite', this.clip)
