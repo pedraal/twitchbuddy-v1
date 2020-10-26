@@ -4,9 +4,7 @@
       <v-progress-linear v-if="loading" :value="downloadPercent" class="download-bar" />
       <template v-if="!active">
         <div class="flex-grow-0 d-none d-sm-block mr-4">
-          <transition name="fade" mode="out-in">
-            <v-img :src="clip.thumbnail_url" height="65px" width="115px" contain />
-          </transition>
+          <v-img :src="clip.thumbnail_url" height="65px" width="115px" contain />
         </div>
         <div class="text-truncate">
           <p class="caption text-left mb-2 text-truncate ">
@@ -167,7 +165,7 @@
 
 <script>
 import moment from 'moment'
-import axios from 'axios'
+import clipDownloader from '@/utils/clip-downloader'
 
 import VideoPlayer from '../utils/VideoPlayer'
 import ListsModal from './ListsModal'
@@ -199,50 +197,21 @@ export default {
       return (this.loaded / this.total) * 100
     }
   },
+  created () {
+    this.$nuxt.$on('downloadAll', this.download)
+  },
+  beforeDestroy () {
+    this.$nuxt.$off('downloadAll', this.download)
+  },
   methods: {
-    async downloadAndRename (url, name, progressCallback) {
-      const { data } = await axios.get('https://cors-anywhere.herokuapp.com/' + url, {
-        headers: {
-          'Content-Type': 'application/octet-stream'
-        },
-        responseType: 'blob',
-        onDownloadProgress (progressEvent) {
-          progressCallback(progressEvent)
-        }
-      })
-      const a = document.createElement('a')
-      const link = window.URL.createObjectURL(data)
-      a.href = link
-      const filename = this.slug(this.clip.title).length > 0 ? this.slug(this.clip.title) : this.slug(this.clip.broadcaster_name + ' ' + this.clip.category)
-      a.download = filename + '.mp4'
-      a.click()
-    },
     async download () {
       if (this.loading) return
       this.loading = true
-      await this.downloadAndRename(this.clip.downloadLink, this.clip.title, (event) => {
+      await clipDownloader(this.clip, (event) => {
         this.loaded = event.loaded
         this.total = event.total
       })
       this.loading = false
-    },
-    slug (value) {
-      let str = value
-      str = str.replace(/^\s+|\s+$/g, '') // trim
-      str = str.toLowerCase()
-      const from = 'åàáãäâèéëêìíïîòóöôùúüûñç·/_,:;'
-      const to = 'aaaaaaeeeeiiiioooouuuunc______'
-      for (let i = 0, l = from.length; i < l; i++) {
-        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
-      }
-      str = str
-        .replace(/[^a-z0-9 -]/g, '')
-        .replace(/\s+/g, '_')
-        .replace(/-+/g, '_')
-        .replace(/^-+/, '')
-        .replace(/-+$/, '')
-
-      return str
     },
     toggleFavorite () {
       if (this.$store.getters['localStorage/isFavorite'](this.clip.id)) this.$store.dispatch('localStorage/removeFavorite', this.clip)

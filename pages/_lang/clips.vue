@@ -16,7 +16,7 @@
     <section v-else class="clip-list">
       <v-container>
         <div class="d-flex justify-center align-start">
-          <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" @download-all="downloadAll" />
+          <favorites-controls v-if="tab === 'favorites' && filteredClips.length > 0" />
         </div>
         <v-row>
           <v-col v-if="tab === 'search'" :class="clips.length > 0 || tab !== 'search' ? 'justify-start' : 'justify-center '" class="d-flex align-end">
@@ -121,12 +121,6 @@ export default {
     ...mapActions('clips', ['loadClips', 'emptyList', 'setCursor']),
     handleScroll () {
       this.scrollValue = window.scrollY
-    },
-    downloadAll () {
-      if (this.tab === 'search') return
-      for (let i = 0; i < this.$store.getters['localStorage/favorites'].length; i++) {
-        this.$refs.cliplist.$refs[i][0].download()
-      }
     }
   }
 }

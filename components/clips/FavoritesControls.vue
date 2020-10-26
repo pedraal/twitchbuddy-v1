@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="$emit('download-all')" small>
+    <v-btn @click="$nuxt.$emit('downloadAll')" small>
       {{ $t('clips.menu.favorites.download_all') }}
     </v-btn>
     <v-btn @click="removeAll" small>
