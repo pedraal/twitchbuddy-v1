@@ -1,10 +1,14 @@
-import sortBy from 'lodash/sortBy'
-import reverse from 'lodash/reverse'
+// import sortBy from 'lodash/sortBy'
+// import reverse from 'lodash/reverse'
 import findIndex from 'lodash/findIndex'
+
+import Vue from 'vue'
 
 export const state = () => ({
   ownedLists: [],
-  sharedLists: []
+  sharedLists: [],
+  folder: 'ownedLists',
+  selectedListId: null
 })
 
 export const mutations = {
@@ -16,7 +20,7 @@ export const mutations = {
   },
   UPDATE_OWNED_LIST (state, payload) {
     const listIndex = findIndex(state.ownedLists, el => el._id === payload._id)
-    state.ownedLists[listIndex] = payload
+    Vue.set(state.ownedLists, listIndex, payload)
   },
   DELETE_OWNED_LIST (state, payload) {
     const listIndex = findIndex(state.ownedLists, el => el._id === payload)
@@ -24,6 +28,12 @@ export const mutations = {
   },
   SET_SHARED_LISTS (state, payload) {
     state.sharedLists = payload
+  },
+  SET_FOLDER (state, payload) {
+    state.folder = payload
+  },
+  SET_SELECTED_LIST_ID (state, payload) {
+    state.selectedListId = payload
   }
 }
 
@@ -57,23 +67,47 @@ export const actions = {
     })
     commit('UPDATE_OWNED_LIST', response.data)
   },
-  async removeClip ({ commit }, payload) {
-
+  async removeClip ({ commit, state, getters }, payload) {
+    const clips = [...getters.selectedList.clips]
+    clips.splice(payload, 1)
+    const response = await this.$api.patch(`/lists/${state.selectedListId}`, {
+      clips
+    })
+    commit('UPDATE_OWNED_LIST', response.data)
   },
-  async deleteList ({ commit }, payload) {
-    await this.$api.delete(`/lists/${payload}`)
-    commit('DELETE_OWNED_LIST', payload)
+  async emptyList ({ commit, state }, payload) {
+    const response = await this.$api.patch(`/lists/${state.selectedListId}`, {
+      clips: []
+    })
+    commit('UPDATE_OWNED_LIST', response.data)
   },
-  async patchList (ctx, payload) {
-
+  async deleteList ({ commit, state }) {
+    await this.$api.delete(`/lists/${state.selectedListId}`)
+    commit('DELETE_OWNED_LIST', state.selectedListId)
+    commit('SET_SELECTED_LIST_ID', null)
+  },
+  setFolder ({ commit }, payload) {
+    commit('SET_FOLDER', payload)
+    commit('SET_SELECTED_LIST_ID', null)
+  },
+  setSelectedListId ({ commit }, payload) {
+    commit('SET_SELECTED_LIST_ID', payload)
   }
 }
 
 export const getters = {
   ownedLists (state) {
-    return reverse(sortBy(state.ownedLists, ['updatedAt']))
+    // return reverse(sortBy(state.ownedLists, ['updatedAt']))
+    return state.ownedLists
   },
   sharedLists (state) {
-    return reverse(sortBy(state.sharedLists, ['updatedAt']))
+    // return reverse(sortBy(state.sharedLists, ['updatedAt']))
+    return state.sharedLists
+  },
+  folderLists (state, getters) {
+    return getters[state.folder]
+  },
+  selectedList (state, getters) {
+    return getters.folderLists.find(el => el._id === state.selectedListId)
   }
 }
