@@ -5,7 +5,7 @@
       clipped
       app
     >
-      <v-list class="pt-4">
+      <v-list class="pt-0">
         <v-list-item v-for="(item, i) in items" :key="i" :to="$i18n.path(item.to)" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>

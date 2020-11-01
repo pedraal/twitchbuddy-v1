@@ -10,7 +10,7 @@
         <div />
       </v-col>
     </v-row>
-    <template v-if="$store.state.lists.selectedListId">
+    <div v-if="$store.state.lists.selectedListId" class="px-2 pt-2">
       <div class="mb-2 d-flex">
         <h3 class="d-none d-md-block">
           {{ $store.getters['lists/selectedList'].name }}
@@ -25,7 +25,7 @@
         :clips="$store.getters['lists/selectedList'].clips"
         :deletable="$store.state.lists.folder === 'ownedLists'"
       />
-    </template>
+    </div>
   </v-container>
 </template>
 
