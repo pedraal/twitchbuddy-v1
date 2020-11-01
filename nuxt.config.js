@@ -29,10 +29,6 @@ export default {
   css: [
     '~/assets/main.scss'
   ],
-  plugins: [
-    '~/plugins/load-script',
-    '~/plugins/i18n.js'
-  ],
   buildModules: [
     '@nuxtjs/vuetify',
     '@nuxtjs/eslint-module',
@@ -41,12 +37,21 @@ export default {
   router: {
     middleware: 'i18n'
   },
+  env: {
+    API_URL: process.env.API_URL
+  },
   modules: [
     '@nuxtjs/pwa',
+    '@nuxtjs/axios',
     ['vue-handy-ga/nuxt', {
       gaID: process.env.GA_ID,
       mandatory: true
     }]
+  ],
+  plugins: [
+    '~/plugins/load-script',
+    '~/plugins/i18n',
+    '~/plugins/axios'
   ],
   vuetify: {
     treeShake: true,

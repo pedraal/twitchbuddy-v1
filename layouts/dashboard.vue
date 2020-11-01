@@ -1,42 +1,43 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      v-model="drawer"
-      clipped
+      value
+      mini-variant
+      permanent
       app
     >
-      <v-list class="pt-0">
+      <v-list>
         <v-list-item v-for="(item, i) in items" :key="i" :to="$i18n.path(item.to)" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>{{ $t(`links.${item.to !== '' ? item.to : 'home'}`) }}</v-list-item-title>
+            <v-list-item-title />
           </v-list-item-content>
         </v-list-item>
       </v-list>
 
       <template v-slot:append>
-        <NavDrawerFooter />
+        <v-list>
+          <v-list-item v-for="(item, i) in footerItems" :key="i" :to="$i18n.path(item.to)" router exact>
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </template>
     </v-navigation-drawer>
-    <v-app-bar app clipped-left>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <template v-for="item in items">
-        <v-toolbar-title v-if="item.paths.includes($route.name)" :key="item.to" v-html="$t(`title.${item.to !== '' ? item.to : 'home'}`)" class="page-title d-none d-md-block" />
-      </template>
+    <v-app-bar flat app>
       <v-spacer />
-      <v-btn :href="apiLoginUrl" v-if="$store.state.api.user === null" small target="_top" color="#5f33af">
-        <v-icon class="mr-2" small>
-          mdi-twitch
-        </v-icon>
-        {{ $t('user.login') }}
-      </v-btn>
-
-      <UserMenu v-else />
+      <UserMenu v-if="$store.state.api.user" />
     </v-app-bar>
     <v-content>
-      <nuxt />
+      <v-container class="app-container pt-6">
+        <nuxt />
+      </v-container>
     </v-content>
     <client-only>
       <VueHandyGa :locales="$t('vuehandyga')" class="foreground" />
@@ -46,14 +47,12 @@
 
 <script>
 import Cookies from 'js-cookie'
-import NavDrawerFooter from '~/components/utils/NavDrawerFooter'
 import UserMenu from '~/components/utils/UserMenu'
 
 export default {
   name: 'DefaultLayout',
   components: {
-    UserMenu,
-    NavDrawerFooter
+    UserMenu
   },
   data () {
     return {
@@ -61,26 +60,28 @@ export default {
       drawer: null,
       items: [
         {
+          icon: 'mdi-view-dashboard',
+          to: 'dashboard'
+        },
+        {
+          icon: 'mdi-account-group',
+          to: 'dashboard/groups'
+        },
+        {
+          icon: 'mdi-view-list',
+          to: 'dashboard/lists'
+        }
+      ],
+      footerItems: [
+        {
+          icon: 'mdi-cog-outline',
+          to: 'dashboard/settings'
+        },
+        {
           icon: 'mdi-home',
-          paths: ['index', 'lang'],
           to: ''
-        },
-        {
-          icon: 'mdi-movie-open-outline',
-          paths: ['clips', 'lang-clips', 'clips-favorites', 'lang-clips-favorites', 'clips-lists', 'lang-clips-lists'],
-          to: 'clips'
-        },
-        {
-          icon: 'mdi-filmstrip',
-          paths: ['replaysync', 'lang-replaysync'],
-          to: 'replaysync'
         }
       ]
-    }
-  },
-  computed: {
-    hasToken () {
-      return Cookies.get('tbtoken')
     }
   },
   async created () {
@@ -88,10 +89,14 @@ export default {
       try {
         const { data } = await this.$api.get('/me')
         this.$store.dispatch('api/setUser', data)
-        this.$store.commit('favorites/SET_FAVORITES', data.favorites)
       } catch (error) {
         Cookies.remove('tbtoken')
       }
+    }
+  },
+  mounted () {
+    if (!Cookies.get('tbtoken')) {
+      this.$router.replace(this.$store.state.locale === 'en' ? '/en/' : '/')
     }
   }
 }
@@ -107,6 +112,18 @@ export default {
   text-transform: capitalize;
 }
 
+.filtered {
+  filter: grayscale(100%);
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    filter: grayscale(0%);
+  }
+}
+.app-container {
+  max-width: 1100px;
+}
+
 .menu-item:before {
   opacity: 0 !important;
 }
@@ -116,11 +133,6 @@ export default {
 .page-title {
   span:last-of-type {
    font-weight: 300;
-  }
-}
-@media (min-width: 1904px) {
-  .container {
-    max-width: 1185px;
   }
 }
 </style>

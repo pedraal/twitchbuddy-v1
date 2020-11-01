@@ -8,9 +8,9 @@
     "support": "support me on"
   },
   "title": {
-    "home": "<span class='indigo--text text--accent-2 '>Twitch</span><span class='grey--text text--lighten-2 font-weight-thin'>Buddy</span>",
-    "clips": "<span class='indigo--text text--accent-2 '>C</span><span class='grey--text text--lighten-2 font-weight-thin'>lips</span>",
-    "replaysync": "<span class='indigo--text text--accent-2 '>R</span><span class='grey--text text--lighten-2 font-weight-thin'>eplaySync</span>"
+    "home": "<span class='indigo--text text--accent-2 '>Twitch</span><span class='grey--text text--lighten-1'>Buddy</span>",
+    "clips": "<span class='indigo--text text--accent-2 '>C</span><span class='grey--text text--lighten-1'>lips</span>",
+    "replaysync": "<span class='indigo--text text--accent-2 '>R</span><span class='grey--text text--lighten-1'>eplaySync</span>"
   },
   "home": {
     "pretitle": "Welcome on",
@@ -22,12 +22,13 @@
   },
   "clips": {
     "favorites" : {
-    "empty": "You don't have any favorites :("
+      "empty": "You don't have any favorites :("
     },
     "menu": {
       "tabs": {
         "search": "Search",
-        "favorites": "Favorites"
+        "favorites": "Favorites",
+        "lists": "Lists"
       },
       "favorites": {
         "body": "My favorites",
@@ -35,6 +36,33 @@
         "remove_all": "Empty favorites",
         "remove_all_alert": "Are you sure you want to remove all your favorites ?"
       }
+    },
+    "lists": {
+      "title": "Save to a list",
+      "newList": "New list",
+      "create": "Create",
+      "createPrompt": "Which name should we give it?",
+      "add": "Add",
+      "clipAdded": "Clip added to list",
+      "owned": "My lists",
+      "shared": "Shared lists",
+      "menu": "List menu",
+      "showId": "See list ID",
+      "showIdDialogTitle": "Share your list",
+      "showIdDialog": "Give this list ID to who you want to share your list.",
+      "showIdDialogDone": "Done",
+      "deleteList": "Delete list",
+      "downloadAll": "Download all",
+      "emptyList": "Empty list",
+      "emptyListConfirm": "Are you sure to empty this list ?",
+      "deleteListConfirm": "Are you sure to remove this list ?",
+      "rename": "Rename",
+      "renamePrompt": "Which name should we give it?",
+      "joinList": "Join a list",
+      "joinListPrompt": "Please enter the list ID you wan't to join",
+      "leaveList": "Leave list",
+      "leaveListConfirm": "Are you sure to leave this list ?"
+
     },
     "form": {
       "channel": {
@@ -67,7 +95,8 @@
       "createdAt": "Clipped on",
       "download": "Download",
       "replay": "Go to replay",
-      "favorite": "Favorite"
+      "favorite": "Favorite",
+      "removeList": "Remove from list"
     },
     "help": {
       "title": "Help",
@@ -144,6 +173,11 @@
     "refuse": "Refuse",
     "mandatoryRefuse": "Leave the website",
     "more": "More infos"
+  },
+  "user": {
+    "login": "Login",
+    "logout": "Logout",
+    "dashboard": "Dashboard"
   },
   "show_help": "Need help ?",
   "close_help": "Understood !"
