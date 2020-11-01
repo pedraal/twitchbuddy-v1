@@ -87,7 +87,7 @@
                 v-on="on"
                 small
               >
-                <v-icon v-if="!$store.getters['localStorage/isFavorite'](clip.id)">
+                <v-icon v-if="isFavorite">
                   mdi-star-outline
                 </v-icon>
                 <v-icon v-else>
@@ -149,6 +149,13 @@ export default {
     },
     downloadPercent () {
       return (this.loaded / this.total) * 100
+    },
+    isFavorite () {
+      if (this.$store.state.api.user) {
+        return !this.$store.getters['favorites/isFavorite'](this.clip.id)
+      } else {
+        return !this.$store.getters['localStorage/isFavorite'](this.clip.id)
+      }
     }
   },
   mounted () {
@@ -168,7 +175,10 @@ export default {
       this.loading = false
     },
     toggleFavorite () {
-      if (this.$store.getters['localStorage/isFavorite'](this.clip.id)) this.$store.dispatch('localStorage/removeFavorite', this.clip)
+      if (this.$store.state.api.user) {
+        if (this.$store.getters['favorites/isFavorite'](this.clip.id)) this.$store.dispatch('favorites/removeFavorite', this.clip)
+        else this.$store.dispatch('favorites/addFavorite', this.clip)
+      } else if (this.$store.getters['localStorage/isFavorite'](this.clip.id)) this.$store.dispatch('localStorage/removeFavorite', this.clip)
       else this.$store.dispatch('localStorage/addFavorite', this.clip)
     }
   }

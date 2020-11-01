@@ -89,7 +89,7 @@ export default {
           icon: 'mdi-filmstrip',
           content: this.$t('home.replaysync'),
           link: this.$i18n.path('replaysync'),
-          badge: 'beta'
+          badge: false
         }
       ]
     }

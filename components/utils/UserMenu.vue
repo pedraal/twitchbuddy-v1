@@ -17,11 +17,6 @@
       </v-btn>
     </template>
     <v-list flat>
-      <!-- <v-list-item :to="$i18n.path('dashboard')" dense>
-        <v-list-item-title>
-          {{ $t('user.dashboard') }}
-        </v-list-item-title>
-      </v-list-item> -->
       <v-list-item @click="logout" dense>
         <v-list-item-title>{{ $t('user.logout') }}</v-list-item-title>
       </v-list-item>
@@ -45,5 +40,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-menu__content {
+  margin-top: -4px;
 
+  .v-list-item {
+    min-height: 25px !important;
+  }
+}
 </style>

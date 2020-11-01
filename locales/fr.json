@@ -41,10 +41,27 @@
       "title": "Ajouter à une liste",
       "newList": "Nouvelle liste",
       "create": "Créer",
-      "createPrompt": "Comment doit-on l'appeler?",
+      "createPrompt": "Comment doit-on l'appeler ?",
       "add": "Ajouter",
+      "clipAdded": "Clip ajouté à la liste",
       "owned": "Mes listes",
-      "shared": "Listes partagés"
+      "shared": "Listes partagés",
+      "menu": "Menu liste",
+      "showId": "Partager la liste",
+      "showIdDialogTitle": "Partager la liste",
+      "showIdDialog": "Donner ce code de liste à quiconque pour lui partager votre liste.",
+      "showIdDialogDone": "Fermer",
+      "deleteList": "Supprimer la liste",
+      "downloadAll": "Tout télécharger",
+      "emptyList": "Vider la liste",
+      "emptyListConfirm": "Êtes-vous sûr de vouloir vider cette liste ?",
+      "deleteListConfirm": "Êtes-vous sûr de vouloir supprimer cette liste ?",
+      "rename": "Renommer",
+      "renamePrompt": "Comment doit-on l'appeler ?",
+      "joinList": "Rejoindre une liste",
+      "joinListPrompt": "Merci de renseigner l'ID de liste que vous souhaitez rejoindre",
+      "leaveList": "Quitter la liste",
+      "leaveListConfirm": "Êtes vous sur de vouloir quitter cette liste ?"
     },
     "form": {
       "channel": {
@@ -77,7 +94,8 @@
       "createdAt": "Clippé le",
       "download": "Télécharger",
       "replay": "Voir le replay",
-      "favorite": "Favoris"
+      "favorite": "Favoris",
+      "removeList": "Supprimer de la liste"
     },
     "help": {
       "title": "Aide",

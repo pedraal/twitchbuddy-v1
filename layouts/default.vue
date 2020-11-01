@@ -23,7 +23,7 @@
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <template v-for="item in items">
-        <v-toolbar-title v-if="item.paths.includes($route.name)" :key="item.to" v-html="$t(`title.${item.to !== '' ? item.to : 'home'}`)" class="page-title" />
+        <v-toolbar-title v-if="item.paths.includes($route.name)" :key="item.to" v-html="$t(`title.${item.to !== '' ? item.to : 'home'}`)" class="page-title d-none d-md-block" />
       </template>
       <v-spacer />
       <v-btn :href="apiLoginUrl" v-if="$store.state.api.user === null" small target="_top" color="#5f33af">
@@ -67,7 +67,7 @@ export default {
         },
         {
           icon: 'mdi-movie-open-outline',
-          paths: ['clips', 'lang-clips'],
+          paths: ['clips', 'lang-clips', 'clips-favorites', 'lang-clips-favorites', 'clips-lists', 'lang-clips-lists'],
           to: 'clips'
         },
         {
@@ -78,11 +78,17 @@ export default {
       ]
     }
   },
+  computed: {
+    hasToken () {
+      return Cookies.get('tbtoken')
+    }
+  },
   async created () {
     if (Cookies.get('tbtoken')) {
       try {
         const { data } = await this.$api.get('/me')
         this.$store.dispatch('api/setUser', data)
+        this.$store.commit('favorites/SET_FAVORITES', data.favorites)
       } catch (error) {
         Cookies.remove('tbtoken')
       }

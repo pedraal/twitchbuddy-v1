@@ -40,12 +40,12 @@ export const mutations = {
 export const actions = {
   async fetchLists ({ commit }, payload) {
     let response
-    if (payload === 'owned' || !payload) {
+    if (payload === 'ownedLists' || !payload) {
       response = await this.$api.get('/lists', {
         name: payload
       })
       commit('SET_OWNED_LISTS', response.data)
-    } else if (payload === 'shared' || !payload) {
+    } else if (payload === 'sharedLists' || !payload) {
       response = await this.$api.get('/lists/shared', {
         name: payload
       })
@@ -86,22 +86,37 @@ export const actions = {
     commit('DELETE_OWNED_LIST', state.selectedListId)
     commit('SET_SELECTED_LIST_ID', null)
   },
-  setFolder ({ commit }, payload) {
+  setFolder ({ commit, dispatch }, payload) {
     commit('SET_FOLDER', payload)
     commit('SET_SELECTED_LIST_ID', null)
+    dispatch('fetchLists', payload)
   },
   setSelectedListId ({ commit }, payload) {
     commit('SET_SELECTED_LIST_ID', payload)
+  },
+  async renameList ({ commit, state }, payload) {
+    const response = await this.$api.patch(`/lists/${state.selectedListId}`, {
+      name: payload
+    })
+    commit('UPDATE_OWNED_LIST', response.data)
+  },
+  async joinList ({ dispatch }, payload) {
+    await this.$api.patch(`/lists/${payload}/join`)
+    dispatch('fetchLists', 'sharedLists')
+  },
+  async leaveList ({ commit, dispatch, state }) {
+    const id = `${state.selectedListId}`
+    commit('SET_SELECTED_LIST_ID', null)
+    await this.$api.patch(`/lists/${id}/leave`)
+    dispatch('fetchLists', 'sharedLists')
   }
 }
 
 export const getters = {
   ownedLists (state) {
-    // return reverse(sortBy(state.ownedLists, ['updatedAt']))
     return state.ownedLists
   },
   sharedLists (state) {
-    // return reverse(sortBy(state.sharedLists, ['updatedAt']))
     return state.sharedLists
   },
   folderLists (state, getters) {

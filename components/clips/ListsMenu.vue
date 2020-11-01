@@ -12,6 +12,13 @@
       </v-icon>
       {{ $t('clips.lists.owned') }}
     </v-btn>
+    <v-divider class="my-2" />
+    <v-btn @click="joinList" text class="d-block justify-start mb-2">
+      <v-icon class="mr-3">
+        mdi-account-multiple-plus
+      </v-icon>
+      {{ $t('clips.lists.joinList') }}
+    </v-btn>
     <v-btn @click="$store.dispatch('lists/setFolder', 'sharedLists')" :class="{active: $store.state.lists.folder === 'sharedLists'}" text class="d-block justify-start mb-2">
       <v-icon class="mr-3">
         mdi-account-group
@@ -28,6 +35,12 @@ export default {
       const listName = prompt(this.$t('clips.lists.createPrompt'))
       if (listName) {
         this.$store.dispatch('lists/createList', listName)
+      }
+    },
+    joinList () {
+      const listId = prompt(this.$t('clips.lists.joinListPrompt'))
+      if (listId) {
+        this.$store.dispatch('lists/joinList', listId)
       }
     }
   }

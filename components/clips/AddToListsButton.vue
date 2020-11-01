@@ -38,7 +38,7 @@
             {{ $t('clips.lists.create') }}
           </v-btn>
         </v-card-actions>
-        <v-divider />
+        <v-divider v-if="$store.getters['lists/ownedLists'].length " />
         <v-card-actions v-for="list in $store.getters['lists/ownedLists']" :key="list._id" class="px-3">
           <p class="mb-0 text-capitalize text-truncate">
             {{ list.name }}
@@ -57,7 +57,6 @@
     <v-snackbar
       v-model="snackbar"
       :timeout="3000"
-
       top
       right
     >
@@ -66,11 +65,11 @@
       <template v-slot:action="{ attrs }">
         <v-btn
           v-bind="attrs"
-          @click="snackbar = false"
-          color="success"
+          @click.stop="snackbar = false"
+          color="indigo accent-3"
           text
         >
-          {{ $t('utils.close') }}
+          <v-icon>mdi-close</v-icon>
         </v-btn>
       </template>
     </v-snackbar>
@@ -96,8 +95,12 @@ export default {
     }
   },
   methods: {
-    newList () {
-      this.dialog = false
+    async newList () {
+      const listName = prompt(this.$t('clips.lists.createPrompt'))
+      if (listName) {
+        await this.$store.dispatch('lists/createList', listName)
+      }
+      await this.addClip(this.$store.getters['lists/ownedLists'].find(list => list.name === listName)._id)
     },
     async addClip (listId) {
       await this.$store.dispatch('lists/addClip', { listId, clip: this.clip })

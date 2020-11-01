@@ -22,7 +22,7 @@
   },
   "clips": {
     "favorites" : {
-    "empty": "You don't have any favorites :("
+      "empty": "You don't have any favorites :("
     },
     "menu": {
       "tabs": {
@@ -43,8 +43,26 @@
       "create": "Create",
       "createPrompt": "Which name should we give it?",
       "add": "Add",
-      "owned": "Mes listes",
-      "shared": "Listes partagés"
+      "clipAdded": "Clip added to list",
+      "owned": "My lists",
+      "shared": "Shared lists",
+      "menu": "List menu",
+      "showId": "See list ID",
+      "showIdDialogTitle": "Share your list",
+      "showIdDialog": "Give this list ID to who you want to share your list.",
+      "showIdDialogDone": "Done",
+      "deleteList": "Delete list",
+      "downloadAll": "Download all",
+      "emptyList": "Empty list",
+      "emptyListConfirm": "Are you sure to empty this list ?",
+      "deleteListConfirm": "Are you sure to remove this list ?",
+      "rename": "Rename",
+      "renamePrompt": "Which name should we give it?",
+      "joinList": "Join a list",
+      "joinListPrompt": "Please enter the list ID you wan't to join",
+      "leaveList": "Leave list",
+      "leaveListConfirm": "Are you sure to leave this list ?"
+
     },
     "form": {
       "channel": {
@@ -77,7 +95,8 @@
       "createdAt": "Clipped on",
       "download": "Download",
       "replay": "Go to replay",
-      "favorite": "Favorite"
+      "favorite": "Favorite",
+      "removeList": "Remove from list"
     },
     "help": {
       "title": "Help",

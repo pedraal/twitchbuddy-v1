@@ -1,6 +1,6 @@
 <template>
   <v-form v-model="valid" @submit.prevent="submit">
-    <v-row class="mt-2 mx-2">
+    <v-row class="mx-2">
       <v-col
         cols="12"
         md="4"
@@ -74,7 +74,7 @@
         md="4"
         class="py-0"
       >
-        <v-btn @click="submit" class="mt-4">
+        <v-btn @click="submit" class="mb-6 mb-md-0 mt-md-4">
           {{ $t('clips.form.submit') }}
         </v-btn>
       </v-col>
