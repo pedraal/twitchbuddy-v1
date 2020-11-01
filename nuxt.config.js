@@ -37,6 +37,9 @@ export default {
   router: {
     middleware: 'i18n'
   },
+  env: {
+    API_URL: process.env.API_URL
+  },
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
