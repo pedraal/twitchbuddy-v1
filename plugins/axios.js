@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 export default function ({ $axios, store }, inject) {
   // Create a custom axios instance
   const api = $axios.create({
+    withCredentials: true,
     headers: {
       common: {
         Accept: 'application/json',
