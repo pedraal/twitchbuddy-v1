@@ -63,7 +63,7 @@ export default {
   },
   watch: {
     scrollValue (val) {
-      if (this.tab === 'search' && this.cursor && !this.$store.getters.loading && val > this.loadOffset) {
+      if (this.cursor && !this.$store.getters.loading && val > this.loadOffset) {
         this.loadClips()
       }
     },
