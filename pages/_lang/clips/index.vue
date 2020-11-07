@@ -9,7 +9,7 @@
         <v-spacer />
         <v-col cols="12" sm="6" md="4" class="d-flex justify-start align-end">
           <clip-filter
-            v-if="filteredClips.length > 1"
+            v-if="clips.length > 1"
             :value="filters"
             @input="(newFilters) => {filters = newFilters}"
           />
@@ -68,7 +68,7 @@ export default {
       }
     },
     filteredClips (val) {
-      if (this.clips.length === 0 || this.tab !== 'search') {
+      if (this.clips.length === 0) {
         return
       }
       if (this.cursor && !this.$store.getters.loading && val.length < 10) {
