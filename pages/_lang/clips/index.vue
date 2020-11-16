@@ -16,6 +16,7 @@
         </v-col>
       </template>
     </v-row>
+    <ClipDownloadQueue :clips="filteredClips" />
     <clip-list
       ref="cliplist"
       :clips="filteredClips"
@@ -32,6 +33,7 @@ import { mapGetters, mapActions } from 'vuex'
 import ClipForm from '@/components/clips/ClipForm'
 import ClipFilter from '@/components/clips/ClipFilter'
 import ClipList from '@/components/clips/ClipList'
+import ClipDownloadQueue from '@/components/clips/ClipDownloadQueue'
 import Loader from '@/components/utils/Loader'
 import ToolHelper from '@/components/utils/ToolHelper'
 
@@ -40,6 +42,7 @@ export default {
     ClipForm,
     ClipFilter,
     ClipList,
+    ClipDownloadQueue,
     ToolHelper,
     Loader
   },
