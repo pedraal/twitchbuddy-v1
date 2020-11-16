@@ -3,11 +3,14 @@
     <clip-form />
     <v-row>
       <v-col :class="clips.length > 0 ? 'justify-start' : 'justify-center '" class="d-flex align-end">
+        <ClipDownloadQueue v-if="filteredClips.length > 0" :clips="filteredClips" class="mr-2" />
         <tool-helper />
       </v-col>
+
       <template v-if="clips.length > 0">
         <v-spacer />
-        <v-col cols="12" sm="6" md="4" class="d-flex justify-start align-end">
+
+        <v-col cols="12" sm="6" md="4">
           <clip-filter
             v-if="clips.length > 1"
             :value="filters"
@@ -16,7 +19,6 @@
         </v-col>
       </template>
     </v-row>
-    <ClipDownloadQueue :clips="filteredClips" />
     <clip-list
       ref="cliplist"
       :clips="filteredClips"

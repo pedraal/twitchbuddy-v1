@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-btn @click="queueDownloads" small outlined>
-      {{ $t('clips.download_queue.action') }}
+    <v-btn @click="queueDownloads" small outlined color="grey">
+      {{ $t('clips.download_queue') }}
     </v-btn>
   </div>
 </template>
@@ -38,6 +38,8 @@ export default {
   },
   methods: {
     queueDownloads () {
+      const consent = confirm(this.$t('clips.download_queue_confirm'))
+      if (!consent) return
       this.downloadQueue = this.clips.map(clip => clip.id)
 
       const initialBatch = this.downloadQueue.splice(0, this.batchSize)

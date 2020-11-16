@@ -83,6 +83,8 @@
       "submit": "Search"
     },
     "keyword": "Keyword",
+    "download_queue": "Download all",
+    "download_queue_confirm": "Are you sure to trigger download for every clip on this page ?",
     "item": {
       "labels": {
         "category": "Category",
