@@ -176,7 +176,7 @@
   },
   "user": {
     "login": "Connexion",
-    "logout": "Déconnection",
+    "logout": "Déconnexion",
     "dashboard": "Dashboard"
   },
   "show_help": "Besoin d'aide ?",
