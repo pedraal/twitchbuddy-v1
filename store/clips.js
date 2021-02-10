@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export const state = () => ({
   clips: [],
   error: false,
@@ -47,7 +45,7 @@ export const actions = {
       commit('setQuery', query)
     }
     try {
-      const res = await axios.get('/.netlify/functions/clips_v2?' + query, { responseType: 'json' })
+      const res = await this.$api.get('/clips?' + query, { responseType: 'json' })
       for (const clip of res.data.data) {
         commit('addClip', clip)
       }

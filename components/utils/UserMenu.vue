@@ -30,10 +30,8 @@ import Cookies from 'js-cookie'
 export default {
   methods: {
     logout () {
-      this.$api.get('/logout').then(() => {
-        Cookies.remove('tbtoken')
-        window.location = '/'
-      })
+      Cookies.remove('tbtoken')
+      window.location = '/'
     }
   }
 }
