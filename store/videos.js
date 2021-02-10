@@ -1,4 +1,3 @@
-import axios from 'axios'
 import moment from 'moment'
 
 moment.updateLocale('fr', {
@@ -66,7 +65,7 @@ export const actions = {
   async fetchCollections ({ commit }, payload) {
     commit('SET_LOADING', true, { root: true })
     try {
-      const res = await axios.get('/.netlify/functions/videos_v2?channels=' + payload, { responseType: 'json' })
+      const res = await this.$api.get('/replays?channels=' + payload, { responseType: 'json' })
       res.data.forEach(collection => commit('ADD_COLLECTION', collection))
       commit('SET_LOADING', false, { root: true })
     } catch (error) {

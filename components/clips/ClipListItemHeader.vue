@@ -158,8 +158,19 @@ export default {
       }
     }
   },
+  watch: {
+    loading (newValue, oldValue) {
+      if (!newValue && oldValue) {
+        this.$nuxt.$emit('clipDownloadEnded', this.clip.id)
+      }
+    }
+  },
   mounted () {
     this.$nuxt.$on('downloadAll', this.download)
+    this.$nuxt.$on('downloadClip', async (clip) => {
+      if (clip !== this.clip.id) return
+      await this.download()
+    })
   },
   beforeDestroy () {
     this.$nuxt.$off('downloadAll', this.download)

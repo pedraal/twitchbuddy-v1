@@ -82,6 +82,8 @@
       "submit": "Rechercher"
     },
     "keyword": "Mot-clé",
+    "download_queue": "Tout télécharger",
+    "download_queue_confirm": "Êtes-vous sur de vouloir télécharger tous les clips de cette page ?",
     "item": {
       "labels": {
         "category": "Catégorie",
@@ -174,7 +176,7 @@
   },
   "user": {
     "login": "Connexion",
-    "logout": "Déconnection",
+    "logout": "Déconnexion",
     "dashboard": "Dashboard"
   },
   "show_help": "Besoin d'aide ?",

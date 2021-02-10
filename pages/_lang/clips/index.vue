@@ -3,13 +3,16 @@
     <clip-form />
     <v-row>
       <v-col :class="clips.length > 0 ? 'justify-start' : 'justify-center '" class="d-flex align-end">
+        <ClipDownloadQueue v-if="filteredClips.length > 0" :clips="filteredClips" class="mr-2" />
         <tool-helper />
       </v-col>
+
       <template v-if="clips.length > 0">
         <v-spacer />
-        <v-col cols="12" sm="6" md="4" class="d-flex justify-start align-end">
+
+        <v-col cols="12" sm="6" md="4">
           <clip-filter
-            v-if="filteredClips.length > 1"
+            v-if="clips.length > 1"
             :value="filters"
             @input="(newFilters) => {filters = newFilters}"
           />
@@ -32,6 +35,7 @@ import { mapGetters, mapActions } from 'vuex'
 import ClipForm from '@/components/clips/ClipForm'
 import ClipFilter from '@/components/clips/ClipFilter'
 import ClipList from '@/components/clips/ClipList'
+import ClipDownloadQueue from '@/components/clips/ClipDownloadQueue'
 import Loader from '@/components/utils/Loader'
 import ToolHelper from '@/components/utils/ToolHelper'
 
@@ -40,6 +44,7 @@ export default {
     ClipForm,
     ClipFilter,
     ClipList,
+    ClipDownloadQueue,
     ToolHelper,
     Loader
   },
@@ -63,12 +68,12 @@ export default {
   },
   watch: {
     scrollValue (val) {
-      if (this.tab === 'search' && this.cursor && !this.$store.getters.loading && val > this.loadOffset) {
+      if (this.cursor && !this.$store.getters.loading && val > this.loadOffset) {
         this.loadClips()
       }
     },
     filteredClips (val) {
-      if (this.clips.length === 0 || this.tab !== 'search') {
+      if (this.clips.length === 0) {
         return
       }
       if (this.cursor && !this.$store.getters.loading && val.length < 10) {

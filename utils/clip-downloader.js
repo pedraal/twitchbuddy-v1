@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default async (clip, progressCallback) => {
-  const { data } = await axios.get('https://cors-anywhere.herokuapp.com/' + clip.downloadLink, {
+  const { data } = await axios.get('https://proxy.twitchbuddy.app/' + clip.downloadLink, {
     headers: {
       'Content-Type': 'application/octet-stream'
     },
